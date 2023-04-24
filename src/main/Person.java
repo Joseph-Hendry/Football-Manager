@@ -9,13 +9,23 @@ public class Person {
 	private String rarity;
 	private int value;
 	
+	public Person(String theName, String theRarity, int theValue) {
+		/**
+		 * Constructor for the Person object.
+		 * 
+		 * @param theName	The name of the Person.
+		 * @param theRarity	The rarity of the Person.
+		 * @param theValue	The value of the Person.
+		 */
+	}
+	
 	public String getName() {
 		/**
 		 * Returns the name of the Person.
 		 * 
 		 * @return The name of the Person.
 		 */
-		return name;
+		return this.name;
 	}
 	
 	public void setName(String theName) {
@@ -24,7 +34,7 @@ public class Person {
 		 * 
 		 * @param theName the name being given to the Person.
 		 */
-		name = theName;
+		this.name = theName;
 	}
 	
 	public String getRarity() {
@@ -33,7 +43,7 @@ public class Person {
 		 * 
 		 * @return the rarity of the Person.
 		 */
-		return rarity;
+		return this.rarity;
 	}
 	
 	public void setRarity(String theRarity) {
@@ -42,7 +52,7 @@ public class Person {
 		 * 
 		 * @param theRarity the rarity given to the Person.
 		 */
-		rarity = theRarity;
+		this.rarity = theRarity;
 	}
 	
 	public int getValue() {
@@ -51,7 +61,7 @@ public class Person {
 		 * 
 		 * @return the name of the Person.
 		 */
-		return value;
+		return this.value;
 	}
 	
 	public void setValue(int theValue) {
@@ -60,6 +70,6 @@ public class Person {
 		 * 
 		 * @param theValue the value of the person in dollars.
 		 */
-		value = theValue;
+		this.value = theValue;
 	}
 }
