@@ -67,7 +67,7 @@ class Team {
     	 * 
     	 * @param playerList The ArrayList of players that the Team will be given.
     	 */
-    	this.onTeam = playerlist;
+    	this.onTeam = playerList;
     }
 
     public ArrayList<Player> getBench() {
@@ -85,6 +85,7 @@ class Team {
     	 * 
     	 * @param newBench The ArrayList of players being benched.
     	 */
+    	this.onBench = newBench;
     }
     
     public ArrayList<Item> getItems() {
