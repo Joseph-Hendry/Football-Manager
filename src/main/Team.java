@@ -11,11 +11,11 @@ class Team {
     private String name;
     private ArrayList<Player> onTeam;
     private ArrayList<Player> onBench;
-    private ArrayList<Item> 
+    private ArrayList<Item> items;
     private Coach coach;
     private int rank;
 
-    public Team(String name, ArrayList<Player> onTeam, ArrayList<Player> onBench, Coach coach, int rank) {
+    public Team(String name, ArrayList<Player> onTeam, ArrayList<Player> onBench, ArrayList<Item> items, Coach coach, int rank) {
     	/**
     	 * Constructor for the Team object.
     	 * 
@@ -23,11 +23,13 @@ class Team {
     	 * @param onTeam	The list of players of type Player in the Team.
     	 * @param onBench	The list of players of type Player on the bench.
     	 * @param coach		The coach of type Coach of the team.
+    	 * @param items		The ArrayList of items that the team has.
     	 * @param rank		The rank of the team in the rankings.
     	 */
         this.name = name;
         this.onTeam = onTeam;
         this.onBench = onBench;
+        this.items = items;
         this.coach = coach;
         this.rank = rank;
     }
@@ -83,5 +85,59 @@ class Team {
     	 * 
     	 * @param newBench The ArrayList of players being benched.
     	 */
+    }
+    
+    public ArrayList<Item> getItems() {
+    	/**
+    	 * Returns the ArrayList of items that the Team has.
+    	 * 
+    	 * @return The ArrayList of items that the Team has.
+    	 */
+    	return this.items;
+    }
+    
+    public void setItems(ArrayList<Item> items) {
+    	/**
+    	 * Sets the items that the Team has.
+    	 * 
+    	 * @param The ArrayList of items to give the Team.
+    	 */
+    	this.items = items;
+    }
+    
+    public Coach getCoach() {
+    	/**
+    	 * Returns the Coach of the Team.
+    	 * 
+    	 * @return The Coach of the Team.
+    	 */
+    	return this.coach;
+    }
+    
+    public void setCoach(Coach coach) {
+    	/**
+    	 * Sets the Coach of the Team.
+    	 * 
+    	 * @param coach The Coach to be set to the Team.
+    	 */
+    	this.coach = coach;
+    }
+    
+    public int getRank() {
+    	/**
+    	 * Returns the rank of the Team.
+    	 * 
+    	 * @return The rank of the Team.
+    	 */
+    	return this.rank;
+    }
+    
+    public void setRank(int rank) {
+    	/**
+    	 * Sets the rank of the Team.
+    	 * 
+    	 * @param rank The new rank of the Team.
+    	 */
+    	this.rank = rank;
     }
 }
