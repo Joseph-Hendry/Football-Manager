@@ -69,7 +69,11 @@ public class Player extends Person {
 		 * 
 		 * @param stats The statistics of the Player.
 		 */
-		this.stats = stats;
+		if (stats.length == 3) {
+			this.stats = stats;
+		} else {
+			System.out.println("Stats must be lenght 3");
+		}
 	}
 	
 	public AvailablePositions getPosition() {
