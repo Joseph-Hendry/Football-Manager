@@ -1,5 +1,7 @@
 package main;
 
+import java.util.ArrayList;
+
 class Team {
     static ArrayList<Team> teamList;
     String name;
@@ -19,5 +21,13 @@ class Team {
 
     public string getName() {
         return this.name;
+    }
+
+    public ArrayList<Player> getTeam() {
+        return this.onTeam;
+    }
+
+    public ArrayList<Player> getBench() {
+        return this.onBench;
     }
 }
