@@ -19,7 +19,6 @@ public class Person {
 		this.name = name;
 		this.rarity = rarity;
 		this.value = value;
-		
 	}
 	
 	/**
