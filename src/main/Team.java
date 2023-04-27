@@ -6,7 +6,6 @@ import java.util.ArrayList;
  * This class is used to create a team object. 
  * It contains the team name, the players on the team, the players on the bench, the coach, and the rank of the team.
  */
-
 class Team {
 
     private static ArrayList<Team> teamList = new ArrayList<Team>();
@@ -25,7 +24,6 @@ class Team {
      * @param coach The coach of the team.
      * @param rank The rank of the team.
      */
-
     public Team(String name, ArrayList<Player> onTeam, ArrayList<Player> onBench, ArrayList<Item> items, Coach coach, int rank) {
 
         this.name = name;
@@ -40,7 +38,6 @@ class Team {
     /**
      * This method is used to generate a random team.
      */
-
      public static void createRandomTeam() {
 
         // Creates a random team name.
@@ -51,7 +48,7 @@ class Team {
 
         for (int i = 0; i < 11; i++) {
             Player player = Player.createRandomPlayer();
-            this.onTeam.add(player);
+            onTeam.add(player);
         }
 
         // Creates a onBench of random players.
@@ -59,7 +56,7 @@ class Team {
 
         for (int i = 0; i < 6; i++) {
             Player player = Player.createRandomPlayer();
-            this.onTeam.add(player);
+            onTeam.add(player);
         }
 
         // Creates a random coach.

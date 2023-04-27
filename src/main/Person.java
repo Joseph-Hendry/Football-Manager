@@ -8,72 +8,65 @@ public class Person {
 	private String name;
 	private String rarity;
 	private int value;
-	
+
+	/**
+	 * Constructor for the Person object.
+	 * @param theName	The name of the Person.
+	 * @param theRarity	The rarity of the Person.
+	 * @param theValue	The value of the Person.
+	 */
 	public Person(String name, String rarity, int value) {
-		/**
-		 * Constructor for the Person object.
-		 * 
-		 * @param theName	The name of the Person.
-		 * @param theRarity	The rarity of the Person.
-		 * @param theValue	The value of the Person.
-		 */
 		this.name = name;
 		this.rarity = rarity;
 		this.value = value;
 		
 	}
 	
+	/**
+	 * Returns the name of the Person.
+	 * @return The name of the Person.
+	 */
 	public String getName() {
-		/**
-		 * Returns the name of the Person.
-		 * 
-		 * @return The name of the Person.
-		 */
 		return this.name;
 	}
 	
+	/**
+	 * Sets the name of the person.
+	 * @param name The name being given to the Person.
+	 */
 	public void setName(String name) {
-		/**
-		 * Sets the name of the person.
-		 * 
-		 * @param name The name being given to the Person.
-		 */
 		this.name = name;
 	}
 	
+	/**
+	 * Returns the rarity of the Person.
+	 * @return the rarity of the Person.
+	 */
 	public String getRarity() {
-		/**
-		 * Returns the rarity of the Person.
-		 * 
-		 * @return the rarity of the Person.
-		 */
 		return this.rarity;
 	}
 	
+	/**
+	 * Sets the rarity of the person.
+	 * @param rarity The rarity given to the Person.
+	 */
 	public void setRarity(String rarity) {
-		/**
-		 * Sets the rarity of the person.
-		 * 
-		 * @param rarity The rarity given to the Person.
-		 */
 		this.rarity = rarity;
 	}
 	
+	/**
+	 * Returns the name of the Person.
+	 * @return the name of the Person.
+	 */
 	public int getValue() {
-		/**
-		 * Returns the name of the Person.
-		 * 
-		 * @return the name of the Person.
-		 */
 		return this.value;
 	}
 	
+	/**
+	 * Sets the value of the Person in dollars.
+	 * @param value The value of the person in dollars.
+	 */
 	public void setValue(int value) {
-		/**
-		 * Sets the value of the Person in dollars.
-		 * 
-		 * @param value The value of the person in dollars.
-		 */
 		this.value = value;
 	}
 }
