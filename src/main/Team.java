@@ -135,7 +135,7 @@ class Team {
      * @return The teams items.
      */
     public ArrayList<Item> getItems() {
-        return this.item;
+        return this.items;
     }
 
     /**
