@@ -41,7 +41,7 @@ class Team {
      * This method is used to generate a random team.
      */
 
-     public static createRandomTeam() {
+     public static void createRandomTeam() {
 
         // Creates a random team name.
         String name = "Team " + (int) (Math.random() * 1000);
@@ -77,7 +77,6 @@ class Team {
      * This method is used to get the name of the team.
      * @return The name of the team.
      */
-
     public String getName() {
         return this.name;
     }
@@ -94,7 +93,6 @@ class Team {
      * This method is used to get the players on the team.
      * @return The players on the team.
      */
-
     public ArrayList<Player> getTeam() {
         return this.onTeam;
     }
@@ -103,7 +101,6 @@ class Team {
      * This method is used to set the players on the team.
      * @param onTeam The players on the team.
      */
-
      public void setTeam(ArrayList<Player> onTeam) {
         this.onTeam = onTeam;
     }
@@ -112,7 +109,6 @@ class Team {
      * This method is used to get the players on the bench.
      * @return The players on the bench.
      */
-
     public ArrayList<Player> getBench() {
         return this.onBench;
     }
@@ -121,7 +117,6 @@ class Team {
      * This method is used to set the players on the bench.
      * @param onBench The players on the bench.
      */
-
     public void setBench(ArrayList<Player> onBench) {
         this.onBench = onBench;
     }
@@ -131,7 +126,6 @@ class Team {
      * @param playerOnTeam This is the player on the team going onto bench.
      * @param playerOnBench This is the player on the bench going onto the team.
      */
-
     public void subPlayerSwap(Player playerOnTeam, Player playerOnBench) {
         this.onTeam.remove(playerOnTeam);
         this.onBench.remove(playerOnBench);
@@ -143,7 +137,6 @@ class Team {
      * This method is used to get the teams items.
      * @return The teams items.
      */
-
     public ArrayList<Item> getItems() {
         return this.item;
     }
@@ -152,7 +145,6 @@ class Team {
      * This method is used to add an item to the team.
      * @param item The added item.
      */
-
     public void addItem(Item item) {
         this.items.add(item);
     }
@@ -161,7 +153,6 @@ class Team {
      * This method is used to remove an item from the team.
      * @param item The removed item.
      */
-
     public void removeItem(Item item) {
         this.items.remove(item);
     }
@@ -170,7 +161,6 @@ class Team {
      * This method is used to get the coach of the team.
      * @return The coach of the team.
      */
-
     public Coach getCoach() {
         return this.coach;
     }
@@ -179,7 +169,6 @@ class Team {
      * This method is used to set the coach of the team.
      * @param coach The coach of the team.
      */
-
     public void setCoach(Coach coach) {
         this.coach = coach;
     }
@@ -188,7 +177,6 @@ class Team {
      * This method is used to get the rank of the team.
      * @return The rank of the team.
      */
-
     public int getRank() {
         return this.rank;
     }
@@ -197,7 +185,6 @@ class Team {
      * This method is used to set the rank of the team.
      * @param rank The rank of the team.
      */
-
     public void setRank(int rank) {
         this.rank = rank;
     }
