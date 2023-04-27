@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * This class is used to create a team object. 
@@ -36,12 +37,13 @@ class Team {
     }
 
     /**
-     * This method is used to generate a random team.
+     * This method is used to generate a random teams based on difficulty.
      */
-     public static void createRandomTeam() {
+     public static void createRandomTeam(int difficulty) {
+        Random random = new Random();
 
-        // Creates a random team name.
-        String name = "Team " + (int) (Math.random() * 1000);
+        // Creates a random team name (Team + random numbers).
+        String name = "Team " + (int) (random.nextDouble() * 1000);
 
         // Creates a onTeam of random players.
         ArrayList<Player> onTeam = new ArrayList<Player>();
@@ -59,15 +61,17 @@ class Team {
             onTeam.add(player);
         }
 
+        // Creates an empty items list.
+        ArrayList<Item> items = new ArrayList<Item>();
+
         // Creates a random coach.
         Coach coach = Coach.createRandomCoach();
 
-
         // Creates a random team rank (1-3).
-        int rank = (int) (Math.random() * 3) + 1;
+        int rank = 0; // To be continued...
         
         // Creates a new team.
-        Team team = new Team(name, onTeam, onBench, coach, rank);
+        Team team = new Team(name, onTeam, onBench, items, coach, rank);
     }
 
     /**

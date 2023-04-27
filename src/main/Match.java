@@ -30,8 +30,8 @@ public class Match {
         return 0;
     }
 
-    private void finTeamStats() {
+    private void findTeamStats() {
         // To be continued
+
     }
-    
 }
