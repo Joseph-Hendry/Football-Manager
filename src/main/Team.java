@@ -39,7 +39,7 @@ class Team {
     /**
      * This method is used to generate a random teams based on difficulty.
      */
-     public static void createRandomTeam(int difficulty) {
+     public static Team createRandomTeam(String rarity) {
         Random random = new Random();
 
         // Creates a random team name (Team + random numbers).
@@ -49,7 +49,7 @@ class Team {
         ArrayList<Player> onTeam = new ArrayList<Player>();
 
         for (int i = 0; i < 11; i++) {
-            Player player = Player.createRandomPlayer();
+            Player player = Player.createRandomPlayer(rarity);
             onTeam.add(player);
         }
 
@@ -57,7 +57,7 @@ class Team {
         ArrayList<Player> onBench = new ArrayList<Player>();
 
         for (int i = 0; i < 6; i++) {
-            Player player = Player.createRandomPlayer();
+            Player player = Player.createRandomPlayer(rarity);
             onTeam.add(player);
         }
 
@@ -72,6 +72,7 @@ class Team {
         
         // Creates a new team.
         Team team = new Team(name, onTeam, onBench, items, coach, rank);
+        return team;
     }
 
     /**
