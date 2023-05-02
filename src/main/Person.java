@@ -5,9 +5,9 @@ package main;
  * The Person class is used in the Player and Coach classes.
  */
 public class Person {
-	private String name;
-	private String rarity;
-	private int value;
+	protected String name;
+	protected String rarity;
+	protected int value;
 
 	/**
 	 * Constructor for the Person object.
