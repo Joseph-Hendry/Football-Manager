@@ -65,7 +65,7 @@ class Team {
         ArrayList<Item> items = new ArrayList<Item>();
 
         // Creates a random coach.
-        Coach coach = Coach.createRandomCoach();
+        Coach coach = Coach.createRandomCoach(rarity);
 
         // Creates a random team rank (1-3).
         int rank = 0; // To be continued...
