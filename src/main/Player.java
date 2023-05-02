@@ -1,5 +1,7 @@
 package main;
 
+import java.util.Random;
+
 enum AvailablePositions {
 	/**
 	 * An enumeration of the positions that a Player can play in.
@@ -12,10 +14,7 @@ enum AvailablePositions {
  *  It inherits from the Person class.
  */
 public class Player extends Person {
-	private String name;
 	private String nickname;
-	private String rarity;
-	private int value;
 	private int[] stats;
 	private AvailablePositions position;
 
@@ -33,6 +32,97 @@ public class Player extends Person {
 		this.nickname = nickname;
 		this.stats = stats;
 		this.position = position;
+	}
+
+	/**
+	 * Creates and returns a random Player with the given rarity.
+	 * @param rarity The rarity of the Player.
+	 * @return The random Player with the given rarity.
+	 */
+	public static Player createRandomPlayer(String rarity) {
+
+		Random random = new Random();
+
+		// Generate the name and nickname of the player (Player + random number)
+		String name = "Player" + random.nextInt(1000);
+		String nickname = name;
+
+		// Generate the value and stats of the player based on the rarity
+		int value = 6;
+		int[] stats = new int[3];
+
+		if (rarity == "Bronze") {
+			// If the rarity is bronze the rating is between 40 - 60 and the value is between 400 - 600
+			value = random.nextInt(200) + 400;
+			stats[0] = random.nextInt(20) + 40;
+			stats[1] = random.nextInt(20) + 40;
+			stats[2] = random.nextInt(20) + 40;
+
+		} else if (rarity == "Silver") {
+			// If the rarity is silver the rating is between 60 - 80 and the value is between 600 - 800
+			value = random.nextInt(200) + 600;
+			stats[0] = random.nextInt(20) + 60;
+			stats[1] = random.nextInt(20) + 60;
+			stats[2] = random.nextInt(20) + 60;
+
+		} else if (rarity == "Gold") {
+			// If the rarity is gold the rating is between 80 - 90 and the value is between 800 - 900
+			value = random.nextInt(100) + 800;
+			stats[0] = random.nextInt(10) + 80;
+			stats[1] = random.nextInt(10) + 80;
+			stats[2] = random.nextInt(10) + 80;
+
+		} else {
+			// If the rarity is platinum the rating is between 90 - 100 and the value is between 900 - 1000
+			value = random.nextInt(100) + 900;
+			stats[0] = random.nextInt(10) + 90;
+			stats[1] = random.nextInt(10) + 90;
+			stats[2] = random.nextInt(10) + 90;
+		}
+
+		// Generate the position of the player
+		int position_int = random.nextInt(9);
+		AvailablePositions position = AvailablePositions.LEFT_DEFENCE;
+		switch (position_int) {
+			case 0:
+				position = AvailablePositions.LEFT_DEFENCE;
+				break;
+			case 1:
+				position = AvailablePositions.CENTER_DEFENCE;
+				break;
+			case 2:
+				position = AvailablePositions.RIGHT_DEFENCE;
+				break;
+			case 3:
+				position = AvailablePositions.LEFT_MIDFIELD;
+				break;
+			case 4:
+				position = AvailablePositions.CENTER_MIDFIELD;
+				break;
+			case 5:
+				position = AvailablePositions.RIGHT_MIDFIELD;
+				break;
+			case 6:
+				position = AvailablePositions.LEFT_WING;
+				break;
+			case 7:
+				position = AvailablePositions.STRIKER;
+				break;
+			case 8:
+				position = AvailablePositions.RIGHT_WING;
+				break;
+		}
+
+		// Return the new player
+		return new Player(name, rarity, value, nickname, stats, position);
+	}
+
+	/**
+	 * Returns values of the Player in a String format.
+	 * @return Player values in string format.
+	 */
+	public String toString() {
+		return "Player [name=" +super.name+ ", nickname=" +this.nickname+ ", rarity=" +super.rarity+ ", value=" +super.value+ ", stats=[" +stats[0]+ ", " +stats[1]+ ", " +stats[2]+ "], position=" +this.position+ "]";
 	}
 	
 	/**
@@ -52,16 +142,16 @@ public class Player extends Person {
 	}
 	
 	/**
-	 * Returns the statistics of the Player.
-	 * @return The statistics of the Player.
+	 * Returns the stats of the Player.
+	 * @return The stats of the Player.
 	 */
 	public int[] getStats() {
 		return this.stats;
 	}
-	
+
 	/**
-	 * Sets the statistics of the Player.
-	 * @param stats The statistics of the Player.
+	 * Sets the stats of the Player.
+	 * @param stats The stats of the Player.
 	 */
 	public void setStats(int[] stats) {
 		if (stats.length == 3) {
@@ -85,5 +175,5 @@ public class Player extends Person {
 	 */
 	public void setPosition(AvailablePositions position) {
 		this.position = position;
-	}	
+	}
 }
