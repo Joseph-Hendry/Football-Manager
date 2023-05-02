@@ -37,7 +37,9 @@ class Team {
     }
 
     /**
-     * This method is used to generate a random teams based on difficulty.
+     * This method is used to generate a random team based on difficulty.
+     * @param rarity The difficulty of the team.
+     * @return A random team.
      */
      public static Team createRandomTeam(String rarity) {
         Random random = new Random();
