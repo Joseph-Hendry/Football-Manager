@@ -3,15 +3,22 @@ import main.UI.*;
 
 
 public class GameManager {
-	
-	private final GameManagerUI ui;
-	
+
+	protected final GameManagerUI UI;
+	protected int difficulty;
+
+
 	public GameManager(GameManagerUI ui) {
-		this.ui = ui;
+		this.UI = ui;
 	}
-	
+
 	public void start() {
-		this.ui.setup();
+		UI.setup(this);
+
 	}
-	
+
+	public void onSetupFinish(int difficulty) {
+		this.difficulty = difficulty;
+	}
+
 }

@@ -6,30 +6,30 @@ public interface GameManagerUI {
 	/**
 	 * Initializes the UI and allows the user to set up their team.
 	 */
-	public void setup();
+	public void setup(GameManager manager);
 	
 	/**
 	 * Shows the main menu screen.
 	 */
-	public void mainMenu();
+	public void mainMenu(GameManager manager);
 	
 	/**
 	 * Shows the club page to manage their team.
 	 */
-	public void clubMenu();
+	public void clubMenu(GameManager manager);
 	
 	/**
 	 * Shows the stadium menu which allows them to play a match.
 	 */
-	public void stadiumMenu();
+	public void stadiumMenu(GameManager manager);
 	
 	/**
 	 * Shows the events of playing a match.
 	 */
-	public void playMatch();
+	public void playMatch(GameManager manager);
 	
 	/**
 	 * Shows the market where the player can buy and sell players, coaches and items.
 	 */
-	public void marketMenu();
+	public void storeMenu(GameManager manager);
 }
