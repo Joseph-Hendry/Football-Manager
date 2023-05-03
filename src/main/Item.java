@@ -28,7 +28,7 @@ public class Item {
 	 * @param rarity The rarity of the Item.
 	 * @return The random Item with the given rarity.
 	 */
-	public static Item createRandomCoach(String rarity) {
+	public static Item createRandomItem(String rarity) {
 
 		Random random = new Random();
 
