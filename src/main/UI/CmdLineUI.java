@@ -11,12 +11,17 @@ public class CmdLineUI implements GameManagerUI {
 
 	@Override
 	public void setup(GameManager manager) {
+		String teamName = setTeamName();
 		int difficulty = setDifficulty();
+		int seasonLength = setSeasonLength();
 
-		manager.onSetupFinish(difficulty);
-
+		manager.onSetupFinish(teamName, difficulty, seasonLength);
 	}
 
+	/**
+	 * This function gets input from the user about what they would like the team name to be.
+	 * @return The team name.
+	 */
 	public String setTeamName() {
 		Scanner scanner = new Scanner(System.in);
 
@@ -73,6 +78,10 @@ public class CmdLineUI implements GameManagerUI {
 		return chosenDiff;
 	}
 
+	/**
+	 * This function gets input from the user about the length of the season.
+	 * @return The length of the season.
+	 */
 	public int setSeasonLength() {
 		Scanner scanner = new Scanner(System.in);
 
