@@ -11,6 +11,7 @@ public class GameManager {
 	protected Team playersTeam;
 	protected String teamName;
 	protected int money;
+	protected int currentWeek;
 
 
 	public GameManager(GameManagerUI ui) {
@@ -18,11 +19,13 @@ public class GameManager {
 	}
 
 	public void start() {
-		UI.setup(this);
+		Scanner scanner = new Scanner(System.in);
+		UI.setup(this, scanner);
 
 	}
 
 	public void onSetupFinish(String teamName, int difficulty, int seasonLength) {
+		this.currentWeek = 0;
 		this.difficulty = difficulty;
 		this.seasonLength = seasonLength;
 		this.money = 75000 - this.difficulty * 25000;
@@ -40,10 +43,19 @@ public class GameManager {
 			}
 		}
 		this.playersTeam = team;
-
-		Scanner scanner = new Scanner(System.in);
-		UI.mainMenu(this, scanner);
-		scanner.close();
+		UI.mainMenu(this);
+	}
+	
+	public int getMoney() {
+		return this.money;
+	}
+	
+	public int getCurrentWeek() {
+		return this.currentWeek;
+	}
+	
+	public int getSeasonLength() {
+		return this.seasonLength;
 	}
 
 	public static void main(String[] args) {

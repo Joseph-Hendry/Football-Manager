@@ -5,23 +5,25 @@ import java.util.Scanner;
 import main.GameManager;
 
 public class CmdLineUI implements GameManagerUI {
+	
+	Scanner scanner;
 
 	public CmdLineUI() {
 	}
+	
 
 	@Override
-	public void setup(GameManager manager) {
-		Scanner scanner = new Scanner(System.in);
-		String teamName = setTeamName(scanner);
-		int difficulty = setDifficulty(scanner);
-		int seasonLength = setSeasonLength(scanner);
-		scanner.close();
+	public void setup(GameManager manager, Scanner scanner) {
+		this.scanner = scanner;
+		String teamName = setTeamName();
+		int difficulty = setDifficulty();
+		int seasonLength = setSeasonLength();
 
 		manager.onSetupFinish(teamName, difficulty, seasonLength);
 
 	}
 
-	private String setTeamName(Scanner scanner) {
+	private String setTeamName() {
 
 		// Prompt user to enter a team name
 		System.out.println("Choose the team name: (3 - 15 characters)");
@@ -52,7 +54,7 @@ public class CmdLineUI implements GameManagerUI {
 	 * to play the game at.
 	 * @return chosenDiff	The chosen difficulty
 	 */
-	private int setDifficulty(Scanner scanner) {
+	private int setDifficulty() {
 		String invalidInputMessage = "Enter either 0 or 1 to choose your difficulty.";
 		System.out.println("Choose your difficulty: EASY (0), HARD (1)");
 		int number = -1;
@@ -73,7 +75,7 @@ public class CmdLineUI implements GameManagerUI {
 		return chosenDiff;
 	}
 
-	private int setSeasonLength(Scanner scanner) {
+	private int setSeasonLength() {
 
 		// Set the season length
 		System.out.println("Choose the season length: (5 - 15) weeks");
@@ -104,37 +106,49 @@ public class CmdLineUI implements GameManagerUI {
 	}
 
 	@Override
-	public void mainMenu(GameManager manager, Scanner scanner) {
+	public void mainMenu(GameManager manager) {
 		// Be able to go into club, stadium, store
 
 		System.out.println("Main Menu:");
+		System.out.println("\nMoney: " + manager.getMoney() + " Week: " + manager.getCurrentWeek()
+		+ " Weeks remaining: " + (manager.getSeasonLength() - manager.getCurrentWeek()) + "\n");
 		System.out.println("(0) Club");
 		System.out.println("(1) Stadium");
 		System.out.println("(2) Store");
 
-		String input = "";
+		String input_string = "";
+		int input = -1;
+		boolean validInput = false;
 
-		while (true) {
-			input = scanner.nextLine();
+		while (!validInput) { // Gets an int from 0 - 2 as the players' choice.
+			input_string = scanner.nextLine();
+			try {
+				input = Integer.parseInt(input_string);
 
-			if (input == "0") {
-				scanner.close();
-				clubMenu(manager);
-				break;
-
-			} else if (input == "1") {
-				scanner.close();
-				stadiumMenu(manager);
-				break;
-
-			} else if (input == "2"){
-				scanner.close();
-				storeMenu(manager);
-				break;
-
-			} else {
-				System.out.println("Please enter a number between 0 & 2");
+				// If it's an int return it
+				if (input >= 0 && input <= 2) {
+					validInput = true;
+				} 
+				// Else prompt use to enter and in range int
+				else {
+					System.out.println("Please enter a number between 0 and 2");
+				}
 			}
+			// If input can't be converted to a string then prompt use for a int
+			catch (Exception e) {
+				System.out.println("Please enter a number between 0 and 2 not a string");
+			}
+		}
+		switch(input) { // Selects what to do based on user input.
+		case 0:
+			clubMenu(manager);
+			break;
+		case 1:
+			stadiumMenu(manager);
+			break;
+		case 2:
+			storeMenu(manager);
+			break;
 		}
 	}
 

@@ -8,12 +8,12 @@ public interface GameManagerUI {
 	/**
 	 * Initializes the UI and allows the user to set up their team.
 	 */
-	public void setup(GameManager manager);
+	public void setup(GameManager manager, Scanner scanner);
 	
 	/**
 	 * Shows the main menu screen.
 	 */
-	public void mainMenu(GameManager manager, Scanner scanner);
+	public void mainMenu(GameManager manager);
 	
 	/**
 	 * Shows the club page to manage their team.
