@@ -8,6 +8,7 @@ public class GameManager {
 	protected int seasonLength;
 	protected Team playersTeam;
 	protected int money;
+	protected int currentWeek;
 
 
 	public GameManager(GameManagerUI ui) {
@@ -15,11 +16,13 @@ public class GameManager {
 	}
 
 	public void start() {
-		UI.setup(this);
+		Scanner scanner = new Scanner(System.in);
+		UI.setup(this, scanner);
 
 	}
 
 	public void onSetupFinish(String teamName, int difficulty, int seasonLength) {
+		this.currentWeek = 0;
 		this.difficulty = difficulty;
 		this.seasonLength = seasonLength;
 		this.money = 75000 - this.difficulty * 25000;
