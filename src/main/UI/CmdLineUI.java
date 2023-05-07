@@ -6,22 +6,22 @@ import main.GameManager;
 
 public class CmdLineUI implements GameManagerUI {
 
+	private final Scanner scanner;
+
 	public CmdLineUI() {
+		this.scanner = new Scanner(System.in);
 	}
 
 	@Override
 	public void setup(GameManager manager) {
-		Scanner scanner = new Scanner(System.in);
-		String teamName = setTeamName(scanner);
-		int difficulty = setDifficulty(scanner);
-		int seasonLength = setSeasonLength(scanner);
-		scanner.close();
+		String teamName = setTeamName();
+		int difficulty = setDifficulty();
+		int seasonLength = setSeasonLength();
 
 		manager.onSetupFinish(teamName, difficulty, seasonLength);
-
 	}
 
-	private String setTeamName(Scanner scanner) {
+	private String setTeamName() {
 
 		// Prompt user to enter a team name
 		System.out.println("Choose the team name: (3 - 15 characters)");
@@ -52,7 +52,7 @@ public class CmdLineUI implements GameManagerUI {
 	 * to play the game at.
 	 * @return chosenDiff	The chosen difficulty
 	 */
-	private int setDifficulty(Scanner scanner) {
+	private int setDifficulty() {
 		String invalidInputMessage = "Enter either 0 or 1 to choose your difficulty.";
 		System.out.println("Choose your difficulty: EASY (0), HARD (1)");
 		int number = -1;
@@ -73,7 +73,7 @@ public class CmdLineUI implements GameManagerUI {
 		return chosenDiff;
 	}
 
-	private int setSeasonLength(Scanner scanner) {
+	private int setSeasonLength() {
 
 		// Set the season length
 		System.out.println("Choose the season length: (5 - 15) weeks");
@@ -104,7 +104,7 @@ public class CmdLineUI implements GameManagerUI {
 	}
 
 	@Override
-	public void mainMenu(GameManager manager, Scanner scanner) {
+	public void mainMenu(GameManager manager) {
 		// Be able to go into club, stadium, store
 
 		System.out.println("Main Menu:");
@@ -112,28 +112,16 @@ public class CmdLineUI implements GameManagerUI {
 		System.out.println("(1) Stadium");
 		System.out.println("(2) Store");
 
-		String input = "";
-
 		while (true) {
-			input = scanner.nextLine();
-
-			if (input == "0") {
-				scanner.close();
-				clubMenu(manager);
-				break;
-
-			} else if (input == "1") {
-				scanner.close();
-				stadiumMenu(manager);
-				break;
-
-			} else if (input == "2"){
-				scanner.close();
-				storeMenu(manager);
-				break;
-
-			} else {
-				System.out.println("Please enter a number between 0 & 2");
+			try {
+				int redirect = Integer.parseInt(scanner.nextLine());
+				if (redirect >= 0 && redirect <= 2) {
+					manager.onMainMenuFinish(redirect);
+					return;
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+				System.out.println("Please enter a number: 0, 1, 2");
 			}
 		}
 	}
@@ -141,7 +129,24 @@ public class CmdLineUI implements GameManagerUI {
 	@Override
 	public void clubMenu(GameManager manager) {
 		// TODO: View current team properties, player properties
-		System.out.println("Club Menu:");
+		System.out.println("\n\n########## Club Menu ##########");
+		System.out.println("Team Name: " + manager.getPlayerTeam().getName());
+		System.out.println("Coach: " + manager.getPlayerTeam().getCoach().getName());
+
+		System.out.println("\nPlayers On Team: \nNum  Name           [ATK,  MID,  DEF]     Position");
+
+		for (int i = 0; i < manager.getPlayerTeam().getTeam().size(); i++) {
+			System.out.println(manager.getPlayerTeam().getTeam().get(i).toString(i));
+		}
+
+		System.out.println("\n\nPlayers On Bench: \nNum  Name           [ATK,  MID,  DEF]     Position");
+
+		for (int i = 0; i < manager.getPlayerTeam().getBench().size(); i++) {
+			System.out.println(manager.getPlayerTeam().getBench().get(i).toString(i));
+		}
+
+
+
 	}
 
 	@Override
@@ -158,8 +163,8 @@ public class CmdLineUI implements GameManagerUI {
 
 	@Override
 	public void storeMenu(GameManager manager) {
-		// TODO Auto-generated method stub
+		// TODO Show players coach and items for sale
+		System.out.println("Store Menu:");
 
 	}
-
 }

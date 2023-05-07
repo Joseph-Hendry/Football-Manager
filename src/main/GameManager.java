@@ -1,15 +1,12 @@
 package main;
 import main.UI.*;
 
-import java.util.Scanner;
-
 public class GameManager {
 
 	protected final GameManagerUI UI;
 	protected int difficulty;
 	protected int seasonLength;
 	protected Team playersTeam;
-	protected String teamName;
 	protected int money;
 
 
@@ -39,15 +36,23 @@ public class GameManager {
 				Team.createRandomTeam("Bronze");
 			}
 		}
+		team.setName(teamName);
 		this.playersTeam = team;
 
-		Scanner scanner = new Scanner(System.in);
-		UI.mainMenu(this, scanner);
-		scanner.close();
+		UI.mainMenu(this);
 	}
 
-	public static void main(String[] args) {
-		GameManager game = new GameManager(new CmdLineUI());
-		game.start();
+	public void onMainMenuFinish(int redirect) {
+		if (redirect == 0) {
+			UI.clubMenu(this);
+		} else if (redirect == 1) {
+			UI.stadiumMenu(this);
+		} else {
+			UI.storeMenu(this);
+		}
+	}
+
+	public Team getPlayerTeam() {
+		return this.playersTeam;
 	}
 }

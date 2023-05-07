@@ -6,7 +6,26 @@ enum AvailablePositions {
 	/**
 	 * An enumeration of the positions that a Player can play in.
 	 */
-	LEFT_DEFENCE, CENTER_DEFENCE, RIGHT_DEFENCE, LEFT_MIDFIELD, CENTER_MIDFIELD, RIGHT_MIDFIELD, LEFT_WING, STRIKER, RIGHT_WING
+	DEFENCE, MIDFIELD, STRIKER, GOALKEEPER;
+
+	/**
+	 * Returns the position in a String format.
+	 * @return The position in a String format.
+	 */
+	public String toString() {
+		switch (this) {
+			case DEFENCE:
+				return "Defence";
+			case MIDFIELD:
+				return "Midfield";
+			case STRIKER:
+				return "Striker";
+			case GOALKEEPER:
+				return "Goalkeeper";
+			default:
+				return "Unknown";
+		}
+	}
 }
 
 /**
@@ -39,7 +58,7 @@ public class Player extends Person {
 	 * @param rarity The rarity of the Player.
 	 * @return The random Player with the given rarity.
 	 */
-	public static Player createRandomPlayer(String rarity) {
+	public static Player createRandomPlayer(String rarity, AvailablePositions position) {
 
 		Random random = new Random();
 
@@ -81,48 +100,48 @@ public class Player extends Person {
 		}
 
 		// Generate the position of the player
-		int position_int = random.nextInt(9);
-		AvailablePositions position = AvailablePositions.LEFT_DEFENCE;
-		switch (position_int) {
-			case 0:
-				position = AvailablePositions.LEFT_DEFENCE;
-				break;
-			case 1:
-				position = AvailablePositions.CENTER_DEFENCE;
-				break;
-			case 2:
-				position = AvailablePositions.RIGHT_DEFENCE;
-				break;
-			case 3:
-				position = AvailablePositions.LEFT_MIDFIELD;
-				break;
-			case 4:
-				position = AvailablePositions.CENTER_MIDFIELD;
-				break;
-			case 5:
-				position = AvailablePositions.RIGHT_MIDFIELD;
-				break;
-			case 6:
-				position = AvailablePositions.LEFT_WING;
-				break;
-			case 7:
-				position = AvailablePositions.STRIKER;
-				break;
-			case 8:
-				position = AvailablePositions.RIGHT_WING;
-				break;
-		}
+		// int position_int = random.nextInt(9);
+		// AvailablePositions position = AvailablePositions.LEFT_DEFENCE;
+		// switch (position_int) {
+		// 	case 0:
+		// 		position = AvailablePositions.LEFT_DEFENCE;
+		// 		break;
+		// 	case 1:
+		// 		position = AvailablePositions.CENTER_DEFENCE;
+		// 		break;
+		// 	case 2:
+		// 		position = AvailablePositions.RIGHT_DEFENCE;
+		// 		break;
+		// 	case 3:
+		// 		position = AvailablePositions.LEFT_MIDFIELD;
+		// 		break;
+		// 	case 4:
+		// 		position = AvailablePositions.CENTER_MIDFIELD;
+		// 		break;
+		// 	case 5:
+		// 		position = AvailablePositions.RIGHT_MIDFIELD;
+		// 		break;
+		// 	case 6:
+		// 		position = AvailablePositions.LEFT_WING;
+		// 		break;
+		// 	case 7:
+		// 		position = AvailablePositions.STRIKER;
+		// 		break;
+		// 	case 8:
+		// 		position = AvailablePositions.RIGHT_WING;
+		// 		break;
+		// }
 
 		// Return the new player
 		return new Player(name, rarity, value, nickname, stats, position);
 	}
 
 	/**
-	 * Returns values of the Player in a String format.
+	 * Returns values of the Player in a String format on one line all evenly spaced.
 	 * @return Player values in string format.
 	 */
-	public String toString() {
-		return "Player [name=" +super.name+ ", nickname=" +this.nickname+ ", rarity=" +super.rarity+ ", value=" +super.value+ ", stats=[" +stats[0]+ ", " +stats[1]+ ", " +stats[2]+ "], position=" +this.position+ "]";
+	public String toString(int i) {
+		return String.format("%-4s %-15s %-5s %-5s %-8s %-1s","("+i+")" ,this.nickname, this.stats[0], this.stats[1], this.stats[2], this.position);
 	}
 	
 	/**

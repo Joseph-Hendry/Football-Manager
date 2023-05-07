@@ -7,8 +7,9 @@ import java.util.Random;
  * This class is used to create a team object. 
  * It contains the team name, the players on the team, the players on the bench, the coach, and the rank of the team.
  */
-class Team {
+public class Team {
 
+    private final static int[] formation = {4, 3, 3, 1};
     private static ArrayList<Team> teamList = new ArrayList<Team>();
     private String name;
     private ArrayList<Player> onTeam;
@@ -49,18 +50,17 @@ class Team {
 
         // Creates a onTeam of random players.
         ArrayList<Player> onTeam = new ArrayList<Player>();
-
-        for (int i = 0; i < 11; i++) {
-            Player player = Player.createRandomPlayer(rarity);
-            onTeam.add(player);
-        }
-
-        // Creates a onBench of random players.
         ArrayList<Player> onBench = new ArrayList<Player>();
 
-        for (int i = 0; i < 6; i++) {
-            Player player = Player.createRandomPlayer(rarity);
-            onTeam.add(player);
+        // Creates a onTeam of random player for each position
+        int i = 0;
+        for (AvailablePositions position : AvailablePositions.values()) {
+            for (int j = 0; j < formation[i]; j++) {
+                Player teamPlayer = Player.createRandomPlayer(rarity, position);
+                onTeam.add(teamPlayer);
+            Player benchPlayer = Player.createRandomPlayer(rarity, position);
+            onBench.add(benchPlayer);
+            }
         }
 
         // Creates an empty items list.
@@ -192,10 +192,4 @@ class Team {
     public void setRank(int rank) {
         this.rank = rank;
     }
-
-    /**
-     * This method is used to sort the list depending on the .
-     * @return The list of teams.
-     */
-
 }

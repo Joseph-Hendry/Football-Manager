@@ -52,9 +52,9 @@ public class Store {
      */
     public void refeshStore(String rarity) {
         storePlayers.clear();
-        for (int i = 0; i < 5; i++) {
-            Player player = Player.createRandomPlayer(rarity);
-            storePlayers.add(player);
+        for (AvailablePositions position : AvailablePositions.values()) {
+            Player teamPlayer = Player.createRandomPlayer(rarity, position);
+            storePlayers.add(teamPlayer);
         }
 
         storeCoach = Coach.createRandomCoach(rarity);
@@ -76,9 +76,10 @@ public class Store {
         Coach storeCoach;
         ArrayList<Item> storeItems = new ArrayList<Item>();
 
-        for (int i = 0; i < 5; i++) {
-            Player player = Player.createRandomPlayer(rarity);
-            storePlayers.add(player);
+        // Creates a onTeam of random players including position.
+        for (AvailablePositions position : AvailablePositions.values()) {
+            Player teamPlayer = Player.createRandomPlayer(rarity, position);
+            storePlayers.add(teamPlayer);
         }
     
         storeCoach = Coach.createRandomCoach(rarity);

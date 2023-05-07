@@ -1,7 +1,6 @@
 package main.UI;
 import main.*;
 
-import java.util.Scanner;
 
 public interface GameManagerUI {
 	
@@ -13,7 +12,7 @@ public interface GameManagerUI {
 	/**
 	 * Shows the main menu screen.
 	 */
-	public void mainMenu(GameManager manager, Scanner scanner);
+	public void mainMenu(GameManager manager);
 	
 	/**
 	 * Shows the club page to manage their team.
