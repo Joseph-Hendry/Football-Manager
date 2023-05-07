@@ -1,7 +1,6 @@
 package main.UI.GUI;
 import main.UI.GameManagerUI;
 import main.body.GameManager;
-import main.*;
 
 public class GUI implements GameManagerUI {
 
