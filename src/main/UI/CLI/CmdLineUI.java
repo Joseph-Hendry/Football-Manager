@@ -131,6 +131,36 @@ public class CmdLineUI implements GameManagerUI {
 		for (int j = 0; j < manager.getPlayerTeam().getBench().size(); j++) {
 			System.out.println(manager.getPlayerTeam().getBench().get(j).toString(j + i + 1));
 		}
+
+		System.out.println("\n\nSell Player: 'sell <player number>'");
+		System.out.println("Swap Players: 'swap < team player number> < bench player number>'");
+		System.out.println("Back: 'back'");
+		while (true) {
+			String input = scanner.nextLine();
+			if (input.matches("sell [1-15]+")) {
+				int playerNum = Integer.parseInt(input.split(" ")[1]);
+				try {
+					manager.onClubMenuFinish(0, playerNum);
+					return;
+				} catch (Exception e) {
+					System.out.println("Please enter a valid player number, player must be on bench");
+				}
+			} else if (input.matches("swap [1-11]+ [12-15]+")) {
+				int teamPlayerNum = Integer.parseInt(input.split(" ")[1]);
+				int benchPlayerNum = Integer.parseInt(input.split(" ")[2]);
+				try {
+					manager.onClubMenuFinish(teamPlayerNum, benchPlayerNum);
+					return;
+				} catch (Exception e) {
+					System.out.println("Please enter valid player to swap (must be same position)");
+				}
+			} else if (input.matches("back")) {
+				manager.onClubMenuFinish(0, 0);
+				return;
+			} else {
+				System.out.println("Please enter a valid command");
+			}
+		}
 	}
 
 	@Override
