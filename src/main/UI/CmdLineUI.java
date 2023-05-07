@@ -16,19 +16,29 @@ public class CmdLineUI implements GameManagerUI {
 		manager.onSetupFinish(difficulty);
 
 	}
-
+	/**
+	 * This function gets input from the user about what difficulty they would like
+	 * to play the game at.
+	 * @return chosenDiff	The chosen difficulty
+	 */
 	public int setDifficulty() {
+		String invalidInputMessage = "Enter either 0 or 1 to choose your difficulty.";
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Choose your difficulty: EASY (0), HARD (1)");
-		String input = "";
-		while (input != "0" || input != "1") {
-			input = scanner.nextLine();
-			if (input != "0" || input != "1") {
-				System.out.println("Write either 0 or 1 to choose your difficulty");
+		int number = 2;
+		while (number != 0 && number != 1) {
+			String input = scanner.nextLine();
+			if (number != 0 && number != 1) {
+				System.out.println(invalidInputMessage);
+			}
+			try {
+				number = Integer.parseInt(input);
+			} catch (NumberFormatException e) {
+				System.out.println(invalidInputMessage);
 			}
 		}
 		scanner.close();
-		int chosenDiff = (input == "0" ? 0 : 1);
+		int chosenDiff = (number == 0 ? 0 : 1);
 		return chosenDiff;
 	}
 
