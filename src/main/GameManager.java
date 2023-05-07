@@ -1,6 +1,8 @@
 package main;
 import main.UI.*;
 
+import java.util.Scanner;
+
 public class GameManager {
 
 	protected final GameManagerUI UI;
@@ -38,6 +40,14 @@ public class GameManager {
 			}
 		}
 		this.playersTeam = team;
+
+		Scanner scanner = new Scanner(System.in);
+		UI.mainMenu(this, scanner);
+		scanner.close();
 	}
 
+	public static void main(String[] args) {
+		GameManager game = new GameManager(new CmdLineUI());
+		game.start();
+	}
 }

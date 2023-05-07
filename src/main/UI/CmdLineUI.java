@@ -12,8 +12,8 @@ public class CmdLineUI implements GameManagerUI {
 	@Override
 	public void setup(GameManager manager) {
 		Scanner scanner = new Scanner(System.in);
-		int difficulty = setDifficulty(scanner);
 		String teamName = setTeamName(scanner);
+		int difficulty = setDifficulty(scanner);
 		int seasonLength = setSeasonLength(scanner);
 		scanner.close();
 
@@ -21,7 +21,7 @@ public class CmdLineUI implements GameManagerUI {
 
 	}
 
-	public String setTeamName(Scanner scanner) {
+	private String setTeamName(Scanner scanner) {
 
 		// Prompt user to enter a team name
 		System.out.println("Choose the team name: (3 - 15 characters)");
@@ -52,7 +52,7 @@ public class CmdLineUI implements GameManagerUI {
 	 * to play the game at.
 	 * @return chosenDiff	The chosen difficulty
 	 */
-	public int setDifficulty(Scanner scanner) {
+	private int setDifficulty(Scanner scanner) {
 		String invalidInputMessage = "Enter either 0 or 1 to choose your difficulty.";
 		System.out.println("Choose your difficulty: EASY (0), HARD (1)");
 		int number = -1;
@@ -73,7 +73,7 @@ public class CmdLineUI implements GameManagerUI {
 		return chosenDiff;
 	}
 
-	public int setSeasonLength(Scanner scanner) {
+	private int setSeasonLength(Scanner scanner) {
 
 		// Set the season length
 		System.out.println("Choose the season length: (5 - 15) weeks");
@@ -103,28 +103,57 @@ public class CmdLineUI implements GameManagerUI {
 		}
 	}
 
-
 	@Override
-	public void mainMenu(GameManager manager) {
-		// TODO Auto-generated method stub
+	public void mainMenu(GameManager manager, Scanner scanner) {
+		// Be able to go into club, stadium, store
 
+		System.out.println("Main Menu:");
+		System.out.println("(0) Club");
+		System.out.println("(1) Stadium");
+		System.out.println("(2) Store");
+
+		String input = "";
+
+		while (true) {
+			input = scanner.nextLine();
+
+			if (input == "0") {
+				scanner.close();
+				clubMenu(manager);
+				break;
+
+			} else if (input == "1") {
+				scanner.close();
+				stadiumMenu(manager);
+				break;
+
+			} else if (input == "2"){
+				scanner.close();
+				storeMenu(manager);
+				break;
+
+			} else {
+				System.out.println("Please enter a number between 0 & 2");
+			}
+		}
 	}
 
 	@Override
 	public void clubMenu(GameManager manager) {
-		// TODO Auto-generated method stub
-
+		// TODO: View current team properties, player properties
+		System.out.println("Club Menu:");
 	}
 
 	@Override
 	public void stadiumMenu(GameManager manager) {
-		// TODO Auto-generated method stub
-
+		// TODO: View rankings and possible matches
+		System.out.println("Stadium Menu:");
 	}
 
 	@Override
 	public void playMatch(GameManager manager) {
 		// TODO Auto-generated method stub
+
 	}
 
 	@Override
