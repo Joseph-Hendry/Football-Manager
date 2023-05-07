@@ -45,35 +45,27 @@ public class Team {
      public static Team createRandomTeam(String rarity) {
         Random random = new Random();
 
-        // Creates a random team name (Team + random numbers).
         String name = "Team " + (int) (random.nextDouble() * 1000);
-
-        // Creates a onTeam of random players.
         ArrayList<Player> onTeam = new ArrayList<Player>();
         ArrayList<Player> onBench = new ArrayList<Player>();
+        ArrayList<Item> items = new ArrayList<Item>();
+        Coach coach = Coach.createRandomCoach(rarity);
 
-        // Creates a onTeam of random player for each position
+
+        // Creates a onTeam of random playes depending on the formation.
+        // Adds one player to the bench for each position.
         int i = 0;
         for (AvailablePositions position : AvailablePositions.values()) {
             for (int j = 0; j < formation[i]; j++) {
                 Player teamPlayer = Player.createRandomPlayer(rarity, position);
                 onTeam.add(teamPlayer);
+            }
             Player benchPlayer = Player.createRandomPlayer(rarity, position);
             onBench.add(benchPlayer);
+            i++;
             }
-        }
 
-        // Creates an empty items list.
-        ArrayList<Item> items = new ArrayList<Item>();
-
-        // Creates a random coach.
-        Coach coach = Coach.createRandomCoach(rarity);
-
-        // Creates a random team rank (1-3).
-        int rank = 0; // To be continued...
-        
-        // Creates a new team.
-        Team team = new Team(name, onTeam, onBench, items, coach, rank);
+        Team team = new Team(name, onTeam, onBench, items, coach, 0);
         return team;
     }
 

@@ -99,39 +99,6 @@ public class Player extends Person {
 			stats[2] = random.nextInt(10) + 90;
 		}
 
-		// Generate the position of the player
-		// int position_int = random.nextInt(9);
-		// AvailablePositions position = AvailablePositions.LEFT_DEFENCE;
-		// switch (position_int) {
-		// 	case 0:
-		// 		position = AvailablePositions.LEFT_DEFENCE;
-		// 		break;
-		// 	case 1:
-		// 		position = AvailablePositions.CENTER_DEFENCE;
-		// 		break;
-		// 	case 2:
-		// 		position = AvailablePositions.RIGHT_DEFENCE;
-		// 		break;
-		// 	case 3:
-		// 		position = AvailablePositions.LEFT_MIDFIELD;
-		// 		break;
-		// 	case 4:
-		// 		position = AvailablePositions.CENTER_MIDFIELD;
-		// 		break;
-		// 	case 5:
-		// 		position = AvailablePositions.RIGHT_MIDFIELD;
-		// 		break;
-		// 	case 6:
-		// 		position = AvailablePositions.LEFT_WING;
-		// 		break;
-		// 	case 7:
-		// 		position = AvailablePositions.STRIKER;
-		// 		break;
-		// 	case 8:
-		// 		position = AvailablePositions.RIGHT_WING;
-		// 		break;
-		// }
-
 		// Return the new player
 		return new Player(name, rarity, value, nickname, stats, position);
 	}

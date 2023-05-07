@@ -14,6 +14,7 @@ public class CmdLineUI implements GameManagerUI {
 
 	@Override
 	public void setup(GameManager manager) {
+		System.out.println("########## Game Setup ##########");
 		String teamName = setTeamName();
 		int difficulty = setDifficulty();
 		int seasonLength = setSeasonLength();
@@ -22,26 +23,16 @@ public class CmdLineUI implements GameManagerUI {
 	}
 
 	private String setTeamName() {
-
-		// Prompt user to enter a team name
-		System.out.println("Choose the team name: (3 - 15 characters)");
-
+		System.out.println("\nChoose the team name: (3 - 15 characters)");
 		while (true) {
 			String input = scanner.nextLine();
-
-			// If name only contains letters or numbers then type is valid
 			if (input.matches("[a-zA-Z0-9]+")) {
-				// Check the string has the correct length
 				if (input.length() >= 3 && input.length() <= 15) {
 					return input;
-				}
-				// Otherwise prompt the user to enter the right size string
-				else {
+				} else {
 					System.out.println("Please enter a team name 3 - 15 characters");
 				}
-			}
-			// Otherwise prompt the user to not use any special strings
-			else {
+			} else {
 				System.out.println("Please enter a team name with no special characters");
 			}
 		}
@@ -54,7 +45,7 @@ public class CmdLineUI implements GameManagerUI {
 	 */
 	private int setDifficulty() {
 		String invalidInputMessage = "Enter either 0 or 1 to choose your difficulty.";
-		System.out.println("Choose your difficulty: EASY (0), HARD (1)");
+		System.out.println("\nChoose your difficulty: EASY (0), HARD (1)");
 		int number = -1;
 		
 		while (number != 0 && number != 1) { // Asks user for input until a valid input is given.
@@ -74,42 +65,32 @@ public class CmdLineUI implements GameManagerUI {
 	}
 
 	private int setSeasonLength() {
-
-		// Set the season length
-		System.out.println("Choose the season length: (5 - 15) weeks");
+		System.out.println("\nChoose the season length: (5 - 15) weeks");
 		String input_string = "";
 
 		while (true) {
 			input_string = scanner.nextLine();
-
-			// Try convert the input to an int
 			try {
 				int input = Integer.parseInt(input_string);
-
-				// If it's an int return it
 				if (input >= 5 && input <= 15) {
 					return input;
-				} 
-				// Else prompt use to enter and in range int
-				else {
+				} else {
 					System.out.println("Please enter a number between 5 and 15");
 				}
-			
-			}
-			// If input can't be converted to a string then prompt use for a int
-			catch (Exception e) {
+			} catch (Exception e) {
 				System.out.println("Please enter a number between 5 and 15 not a string");
 			}
 		}
 	}
 
+	/**
+	 * This function represents the main menu. It displays where the user can go.
+	 */
 	@Override
 	public void mainMenu(GameManager manager) {
 		// Be able to go into club, stadium, store
 
-		System.out.println("Main Menu:");
-		//System.out.println("\nMoney: " + manager.getMoney() + " Week: " + manager.getCurrentWeek()
-		//+ " Weeks remaining: " + (manager.getSeasonLength() - manager.getCurrentWeek()) + "\n");
+		System.out.println("\n\n########## Main Menu ##########");
 		System.out.println("(0) Club");
 		System.out.println("(1) Stadium");
 		System.out.println("(2) Store");
@@ -128,23 +109,26 @@ public class CmdLineUI implements GameManagerUI {
 		}
 	}
 
+	/**
+	 * This function represents the club menu. It displays the players team information.
+	 */
 	@Override
 	public void clubMenu(GameManager manager) {
-		// TODO: View current team properties, player properties
 		System.out.println("\n\n########## Club Menu ##########");
 		System.out.println("Team Name: " + manager.getPlayerTeam().getName());
-		System.out.println("Coach: " + manager.getPlayerTeam().getCoach().getName());
+		System.out.println("Coach: " + manager.getPlayerTeam().getCoach().toString());
 
 		System.out.println("\nPlayers On Team: \nNum  Name           [ATK,  MID,  DEF]     Position");
 
-		for (int i = 0; i < manager.getPlayerTeam().getTeam().size(); i++) {
-			System.out.println(manager.getPlayerTeam().getTeam().get(i).toString(i));
+		int i = 0;
+		for (i = 0; i < manager.getPlayerTeam().getTeam().size(); i++) {
+			System.out.println(manager.getPlayerTeam().getTeam().get(i).toString(i + 1));
 		}
 
 		System.out.println("\n\nPlayers On Bench: \nNum  Name           [ATK,  MID,  DEF]     Position");
 
-		for (int i = 0; i < manager.getPlayerTeam().getBench().size(); i++) {
-			System.out.println(manager.getPlayerTeam().getBench().get(i).toString(i));
+		for (int j = 0; j < manager.getPlayerTeam().getBench().size(); j++) {
+			System.out.println(manager.getPlayerTeam().getBench().get(j).toString(j + i + 1));
 		}
 	}
 
