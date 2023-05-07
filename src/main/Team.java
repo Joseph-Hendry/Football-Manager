@@ -16,7 +16,7 @@ public class Team {
     private ArrayList<Player> onBench;
     private ArrayList<Item> items;
     private Coach coach;
-    private int rank;
+    private int points;
 
     /**
      * This is the constructor for the Team class.
@@ -26,14 +26,14 @@ public class Team {
      * @param coach The coach of the team.
      * @param rank The rank of the team.
      */
-    public Team(String name, ArrayList<Player> onTeam, ArrayList<Player> onBench, ArrayList<Item> items, Coach coach, int rank) {
+    public Team(String name, ArrayList<Player> onTeam, ArrayList<Player> onBench, ArrayList<Item> items, Coach coach, int points) {
 
         this.name = name;
         this.onTeam = onTeam;
         this.onBench = onBench;
         this.items = items;
         this.coach = coach;
-        this.rank = rank;
+        this.points = points;
         teamList.add(this);
     }
 
@@ -170,18 +170,34 @@ public class Team {
     }
 
     /** 
-     * This method is used to get the rank of the team.
-     * @return The rank of the team.
+     * This method is used to get the points of the team.
+     * @return The points of the team.
      */
-    public int getRank() {
-        return this.rank;
+    public int getPoints() {
+        return this.points;
     }
 
     /**
      * This method is used to set the rank of the team.
      * @param rank The rank of the team.
      */
-    public void setRank(int rank) {
-        this.rank = rank;
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    /**
+     * This method is used to sort the teamList based on ponits.
+     * 
+     */
+    public static void sortTeamList() {
+        for (int i = 0; i < teamList.size(); i++) {
+            for (int j = 0; j < teamList.size() - 1; j++) {
+                if (teamList.get(j).getPoints() < teamList.get(j + 1).getPoints()) {
+                    Team temp = teamList.get(j);
+                    teamList.set(j, teamList.get(j + 1));
+                    teamList.set(j + 1, temp);
+                }
+            }
+        }
     }
 }
