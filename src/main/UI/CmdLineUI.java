@@ -26,17 +26,19 @@ public class CmdLineUI implements GameManagerUI {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Choose your difficulty: EASY (0), HARD (1)");
 		int number = 2;
-		while (number != 0 && number != 1) {
+		
+		while (number != 0 && number != 1) { // Asks user for input until a valid input is given.
 			String input = scanner.nextLine();
-			if (number != 0 && number != 1) {
-				System.out.println(invalidInputMessage);
-			}
 			try {
 				number = Integer.parseInt(input);
+				if (number != 0 && number != 1) {
+					System.out.println(invalidInputMessage);
+				}
 			} catch (NumberFormatException e) {
 				System.out.println(invalidInputMessage);
 			}
 		}
+		
 		scanner.close();
 		int chosenDiff = (number == 0 ? 0 : 1);
 		return chosenDiff;
