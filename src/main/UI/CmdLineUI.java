@@ -11,19 +11,17 @@ public class CmdLineUI implements GameManagerUI {
 
 	@Override
 	public void setup(GameManager manager) {
-		String teamName = setTeamName();
-		int difficulty = setDifficulty();
-		int seasonLength = setSeasonLength();
+		Scanner scanner = new Scanner(System.in);
+		int difficulty = setDifficulty(scanner);
+		String teamName = setTeamName(scanner);
+		int seasonLength = setSeasonLength(scanner);
+		scanner.close();
 
 		manager.onSetupFinish(teamName, difficulty, seasonLength);
+
 	}
 
-	/**
-	 * This function gets input from the user about what they would like the team name to be.
-	 * @return The team name.
-	 */
-	public String setTeamName() {
-		Scanner scanner = new Scanner(System.in);
+	public String setTeamName(Scanner scanner) {
 
 		// Prompt user to enter a team name
 		System.out.println("Choose the team name: (3 - 15 characters)");
@@ -35,7 +33,6 @@ public class CmdLineUI implements GameManagerUI {
 			if (input.matches("[a-zA-Z0-9]+")) {
 				// Check the string has the correct length
 				if (input.length() >= 3 && input.length() <= 15) {
-					scanner.close();
 					return input;
 				}
 				// Otherwise prompt the user to enter the right size string
@@ -55,11 +52,10 @@ public class CmdLineUI implements GameManagerUI {
 	 * to play the game at.
 	 * @return chosenDiff	The chosen difficulty
 	 */
-	public int setDifficulty() {
+	public int setDifficulty(Scanner scanner) {
 		String invalidInputMessage = "Enter either 0 or 1 to choose your difficulty.";
-		Scanner scanner = new Scanner(System.in);
 		System.out.println("Choose your difficulty: EASY (0), HARD (1)");
-		int number = 2;
+		int number = -1;
 		
 		while (number != 0 && number != 1) { // Asks user for input until a valid input is given.
 			String input = scanner.nextLine();
@@ -73,17 +69,11 @@ public class CmdLineUI implements GameManagerUI {
 			}
 		}
 		
-		scanner.close();
 		int chosenDiff = (number == 0 ? 0 : 1);
 		return chosenDiff;
 	}
 
-	/**
-	 * This function gets input from the user about the length of the season.
-	 * @return The length of the season.
-	 */
-	public int setSeasonLength() {
-		Scanner scanner = new Scanner(System.in);
+	public int setSeasonLength(Scanner scanner) {
 
 		// Set the season length
 		System.out.println("Choose the season length: (5 - 15) weeks");
@@ -98,7 +88,6 @@ public class CmdLineUI implements GameManagerUI {
 
 				// If it's an int return it
 				if (input >= 5 && input <= 15) {
-					scanner.close();
 					return input;
 				} 
 				// Else prompt use to enter and in range int
@@ -107,7 +96,7 @@ public class CmdLineUI implements GameManagerUI {
 				}
 			
 			}
-			// If input cant be converted to a string then prompt use for a int
+			// If input can't be converted to a string then prompt use for a int
 			catch (Exception e) {
 				System.out.println("Please enter a number between 5 and 15 not a string");
 			}

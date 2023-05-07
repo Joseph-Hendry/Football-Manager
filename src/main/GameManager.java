@@ -7,6 +7,8 @@ public class GameManager {
 	protected int difficulty;
 	protected int seasonLength;
 	protected Team playersTeam;
+	protected String teamName;
+	protected int money;
 
 
 	public GameManager(GameManagerUI ui) {
@@ -21,6 +23,7 @@ public class GameManager {
 	public void onSetupFinish(String teamName, int difficulty, int seasonLength) {
 		this.difficulty = difficulty;
 		this.seasonLength = seasonLength;
+		this.money = 75000 - this.difficulty * 25000;
 		Team team;
 
 		if (difficulty == 0) {
