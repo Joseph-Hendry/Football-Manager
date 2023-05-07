@@ -17,7 +17,6 @@ public class GameManager {
 
 	public void start() {
 		UI.setup(this);
-
 	}
 	
 	public int getMoney() {
