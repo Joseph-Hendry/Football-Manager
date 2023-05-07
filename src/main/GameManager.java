@@ -6,6 +6,8 @@ public class GameManager {
 
 	protected final GameManagerUI UI;
 	protected int difficulty;
+	protected String teamName;
+	protected int seasonLength;
 
 
 	public GameManager(GameManagerUI ui) {
@@ -17,8 +19,10 @@ public class GameManager {
 
 	}
 
-	public void onSetupFinish(int difficulty) {
+	public void onSetupFinish(int difficulty, String teamName, int seasonLength) {
 		this.difficulty = difficulty;
+		this.teamName = teamName;
+		this.seasonLength = seasonLength;
 	}
 
 }

@@ -12,8 +12,10 @@ public class CmdLineUI implements GameManagerUI {
 	@Override
 	public void setup(GameManager manager) {
 		int difficulty = setDifficulty();
+		String teamName = setTeamName();
+		int seasonLength = setSeasonLength();
 
-		manager.onSetupFinish(difficulty);
+		manager.onSetupFinish(difficulty, teamName, seasonLength);
 
 	}
 
