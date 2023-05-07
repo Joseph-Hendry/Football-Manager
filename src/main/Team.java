@@ -192,4 +192,10 @@ class Team {
     public void setRank(int rank) {
         this.rank = rank;
     }
+
+    /**
+     * This method is used to sort the list depending on the .
+     * @return The list of teams.
+     */
+
 }
