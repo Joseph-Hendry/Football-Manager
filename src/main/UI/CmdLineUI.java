@@ -11,7 +11,6 @@ public class CmdLineUI implements GameManagerUI {
 	public CmdLineUI() {
 		this.scanner = new Scanner(System.in);
 	}
-	
 
 	@Override
 	public void setup(GameManager manager) {
@@ -22,7 +21,6 @@ public class CmdLineUI implements GameManagerUI {
 		manager.onSetupFinish(teamName, difficulty, seasonLength);
 	}
 
-	private String setTeamName() {
 	private String setTeamName() {
 
 		// Prompt user to enter a team name
@@ -55,7 +53,6 @@ public class CmdLineUI implements GameManagerUI {
 	 * @return chosenDiff	The chosen difficulty
 	 */
 	private int setDifficulty() {
-	private int setDifficulty() {
 		String invalidInputMessage = "Enter either 0 or 1 to choose your difficulty.";
 		System.out.println("Choose your difficulty: EASY (0), HARD (1)");
 		int number = -1;
@@ -76,7 +73,6 @@ public class CmdLineUI implements GameManagerUI {
 		return chosenDiff;
 	}
 
-	private int setSeasonLength() {
 	private int setSeasonLength() {
 
 		// Set the season length
@@ -109,17 +105,14 @@ public class CmdLineUI implements GameManagerUI {
 
 	@Override
 	public void mainMenu(GameManager manager) {
-	public void mainMenu(GameManager manager) {
 		// Be able to go into club, stadium, store
 
 		System.out.println("Main Menu:");
-		System.out.println("\nMoney: " + manager.getMoney() + " Week: " + manager.getCurrentWeek()
-		+ " Weeks remaining: " + (manager.getSeasonLength() - manager.getCurrentWeek()) + "\n");
+		//System.out.println("\nMoney: " + manager.getMoney() + " Week: " + manager.getCurrentWeek()
+		//+ " Weeks remaining: " + (manager.getSeasonLength() - manager.getCurrentWeek()) + "\n");
 		System.out.println("(0) Club");
 		System.out.println("(1) Stadium");
 		System.out.println("(2) Store");
-
-		String input = "";
 
 		while (true) {
 			try {
@@ -153,9 +146,6 @@ public class CmdLineUI implements GameManagerUI {
 		for (int i = 0; i < manager.getPlayerTeam().getBench().size(); i++) {
 			System.out.println(manager.getPlayerTeam().getBench().get(i).toString(i));
 		}
-
-
-
 	}
 
 	@Override
@@ -175,5 +165,11 @@ public class CmdLineUI implements GameManagerUI {
 		// TODO Show players coach and items for sale
 		System.out.println("Store Menu:");
 
+	}
+
+	public static void main(String[] args) {
+		CmdLineUI ui = new CmdLineUI();
+		GameManager manager = new GameManager(ui);
+		manager.start();
 	}
 }
