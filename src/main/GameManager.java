@@ -8,6 +8,7 @@ public class GameManager {
 	protected int difficulty;
 	protected String teamName;
 	protected int seasonLength;
+	protected int money;
 
 
 	public GameManager(GameManagerUI ui) {
@@ -23,6 +24,7 @@ public class GameManager {
 		this.difficulty = difficulty;
 		this.teamName = teamName;
 		this.seasonLength = seasonLength;
+		this.money = 75000 - this.difficulty * 25000; // Easy starts with 75,000, hard with 50,000
 	}
 
 }
