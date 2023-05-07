@@ -1,5 +1,6 @@
-package main;
+package main.body;
 import main.UI.*;
+
 
 public class GameManager {
 

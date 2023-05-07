@@ -1,8 +1,9 @@
-package main.UI;
+package main.UI.CLI;
 
 import java.util.Scanner;
 
-import main.GameManager;
+import main.UI.GameManagerUI;
+import main.body.GameManager;
 
 public class CmdLineUI implements GameManagerUI {
 
@@ -149,11 +150,5 @@ public class CmdLineUI implements GameManagerUI {
 		// TODO Show players coach and items for sale
 		System.out.println("Store Menu:");
 
-	}
-
-	public static void main(String[] args) {
-		CmdLineUI ui = new CmdLineUI();
-		GameManager manager = new GameManager(ui);
-		manager.start();
 	}
 }

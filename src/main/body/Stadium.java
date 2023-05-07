@@ -1,4 +1,4 @@
-package main;
+package main.body;
 
 /**
  * This class implements a Stadium.

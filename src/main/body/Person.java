@@ -1,4 +1,4 @@
-package main;
+package main.body;
 
 /**
  * This class implements a Person that stores a name, rarity and value.

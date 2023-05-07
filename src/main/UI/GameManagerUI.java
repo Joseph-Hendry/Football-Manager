@@ -1,6 +1,5 @@
 package main.UI;
-import main.*;
-
+import main.body.GameManager;
 
 public interface GameManagerUI {
 	
