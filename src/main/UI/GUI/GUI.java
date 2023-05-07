@@ -5,37 +5,37 @@ import main.*;
 public class GUI implements GameManagerUI {
 
 	@Override
-	public void setup() {
+	public void setup(GameManager manager) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mainMenu() {
+	public void mainMenu(GameManager manager) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void clubMenu() {
+	public void clubMenu(GameManager manager) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void stadiumMenu() {
+	public void stadiumMenu(GameManager manager) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void playMatch() {
+	public void playMatch(GameManager manager) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void marketMenu() {
+	public void storeMenu(GameManager manager) {
 		// TODO Auto-generated method stub
 		
 	}

@@ -16,9 +16,20 @@ public class GameManager {
 	}
 
 	public void start() {
-		Scanner scanner = new Scanner(System.in);
-		UI.setup(this, scanner);
+		UI.setup(this);
 
+	}
+	
+	public int getMoney() {
+		return this.money;
+	}
+	
+	public int getCurrentWeek() {
+		return this.currentWeek;
+	}
+	
+	public int getSeasonLength() {
+		return this.seasonLength;
 	}
 
 	public void onSetupFinish(String teamName, int difficulty, int seasonLength) {
