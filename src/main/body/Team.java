@@ -187,17 +187,8 @@ public class Team {
 
     /**
      * This method is used to sort the teamList based on ponits.
-     * 
      */
     public static void sortTeamList() {
-        for (int i = 0; i < teamList.size(); i++) {
-            for (int j = 0; j < teamList.size() - 1; j++) {
-                if (teamList.get(j).getPoints() < teamList.get(j + 1).getPoints()) {
-                    Team temp = teamList.get(j);
-                    teamList.set(j, teamList.get(j + 1));
-                    teamList.set(j + 1, temp);
-                }
-            }
-        }
+        teamList.sort((team1, team2) -> team2.getPoints() - team1.getPoints());
     }
 }
