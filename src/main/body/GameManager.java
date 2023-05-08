@@ -68,7 +68,7 @@ public class GameManager {
 
 	public void onClubMenuFinish(int teamPlayerNum, int benchPlayerNum) throws Exception {
 		if (teamPlayerNum == 0 && benchPlayerNum == 0) {
-			UI.clubMenu(this);
+			UI.mainMenu(this);
 		} else if (teamPlayerNum == 0) {
 			try {
 				this.money += this.playersTeam.getBench().get(benchPlayerNum).getValue();
@@ -82,6 +82,7 @@ public class GameManager {
 			} else {
 				throw new Exception();
 			}
+			
 
 		}
 

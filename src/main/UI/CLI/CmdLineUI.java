@@ -1,9 +1,14 @@
 package main.UI.CLI;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import main.UI.GameManagerUI;
+import main.body.Coach;
 import main.body.GameManager;
+import main.body.Item;
+import main.body.Player;
+import main.body.Store;
 
 public class CmdLineUI implements GameManagerUI {
 
@@ -119,7 +124,7 @@ public class CmdLineUI implements GameManagerUI {
 	 */
 	@Override
 	public void clubMenu(GameManager manager) {
-		System.out.println("\n\n########## Club Menu ##########");
+		System.out.println("");
 		System.out.println("Team Name: " + manager.getPlayerTeam().getName());
 		System.out.println("Coach: " + manager.getPlayerTeam().getCoach().toString());
 
@@ -185,8 +190,83 @@ public class CmdLineUI implements GameManagerUI {
 
 	@Override
 	public void storeMenu(GameManager manager) {
-		// TODO Show players coach and items for sale
-		System.out.println("Store Menu:");
-
+		System.out.println("\n\n########## Store Menu ##########");
+		Store store = Store.createStore();
+		
+		// Prints the options available to the user
+		System.out.println("\n(0) Buy players and coaches");
+		System.out.println("(1) Buy items");
+		System.out.println("'back' Back to main menu");
+		
+		// Gets input from the player.
+		boolean validInput = false;
+		while (!validInput) {
+			String string_input = scanner.nextLine();
+			if (string_input.equals("back")) {
+				validInput = true;
+				mainMenu(manager);
+			} else {
+				try {
+					int int_input = Integer.parseInt(string_input);
+					if (int_input == 0) {
+						validInput = true;
+						storePlayerMenu(store);
+					} else if (int_input == 1) {
+						validInput = true;
+						storeItemMenu(store);
+					} else {
+						System.out.println("Please enter either 0, 1, or back");
+					}
+				} catch (Exception e) {
+					System.out.println("Please enter either 0, 1, or back");
+				}
+			}
+		}
+	}
+	/**
+	 * Allows the player to see which players and coach are available for sale in the store, and 
+	 * allows them to purchase these people for their team.
+	 * @param store	The store currently being displayed.
+	 */
+	public void storePlayerMenu(Store store) {
+		// Prints the players available for sale.
+		System.out.println("\nPlayers for sale:");
+		System.out.println("    NAME        RARITY    POSITION    ATK MID DEF   COST");
+		int counter = 0;
+		for (Player player : store.getStorePlayers()) {
+			int[] statList = player.getStats();
+			String line = String.format("(%d) %-10s  %-8s  %-10s %3d %3d %3d    %d",
+				counter, player.getName(),player.getRarity(), player.getPosition(), statList[0], statList[1], statList[2], player.getValue());
+			System.out.println(line);
+			counter += 1;
+		}
+		// Prints the coach available for sale.
+		Coach coach = store.getStoreCoach();
+		int[] coachStats = coach.getStats();
+		System.out.println("\nCoach for sale:");
+		String line = String.format("(4) NAME: %-10s  RARITY: %-10s  ATK: %d MID: %d DEF: %d COST: %d",
+				coach.getName(), coach.getRarity(), coachStats[0], coachStats[1], coachStats[2], coach.getValue());
+		System.out.println(line);
+		
+		System.out.println("\n'back' Back to store menu");
+	}
+	/**
+	 * Allows the player to see and purchase items that are available in the store.
+	 * @param store	The store currently being displayed.
+	 */
+	public void storeItemMenu(Store store) {
+		// Prints the items available for sale.
+		System.out.println("\nItems for sale");
+		System.out.println("    NAME        RARITY     ATK MID DEF  COST");
+		int counter = 0;
+		for (Item item : store.getStoreItems()) {
+			int[] statList = item.getStats();
+			String line = String.format("(%d) %-10s  %-8s  %3d %3d %3d   %d", 
+					counter, item.getName(), item.getRarity(), statList[0], statList[1], statList[2], item.getValue());
+			System.out.println(line);
+			counter += 1;
+		}
+		
+		System.out.println("\n'back' Back to store menu");
 	}
 }

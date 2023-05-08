@@ -1,6 +1,7 @@
 package main.body;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * This class is used to create a store object.
@@ -65,27 +66,48 @@ public class Store {
             storeItems.add(item);
         }
     }
+    /**
+     * This function creates a random rarity to be used when creating new objects that have rarity.
+     * @return
+     */
+    public static String randomRarity() {
+    	String rarity;
+    	Random  random = new Random();
+    	int rarityPercent = random.nextInt(100);
+    	if (rarityPercent <= 50) {
+    		rarity = "Bronze";
+    	} else if (50 < rarityPercent && rarityPercent <= 80) {
+    		rarity = "Silver";
+    	} else if (80 < rarityPercent && rarityPercent <= 95) {
+    		rarity = "Gold";
+    	} else {
+    		rarity = "Platinum";
+    	}
+    	return rarity;
+    }
 
     /**
      * This method generates a random basic store with rarity Bronze.
      * @return A random basic store.
      */
     public static Store createStore() {
-        String rarity = "Bronze";
+    	String rarity;
+    	
         ArrayList<Player> storePlayers = new ArrayList<Player>();
         Coach storeCoach;
         ArrayList<Item> storeItems = new ArrayList<Item>();
 
         // Creates a onTeam of random players including position.
         for (AvailablePositions position : AvailablePositions.values()) {
+        	rarity = randomRarity();
             Player teamPlayer = Player.createRandomPlayer(rarity, position);
             storePlayers.add(teamPlayer);
         }
     
-        storeCoach = Coach.createRandomCoach(rarity);
+        storeCoach = Coach.createRandomCoach(randomRarity());
             
         for (int i = 0; i < 5; i++) {
-            Item item = Item.createRandomItem(rarity);
+            Item item = Item.createRandomItem(randomRarity());
             storeItems.add(item);
         }
 
