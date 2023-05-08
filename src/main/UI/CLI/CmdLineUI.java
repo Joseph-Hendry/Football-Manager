@@ -158,7 +158,7 @@ public class CmdLineUI implements GameManagerUI {
 				} catch (Exception e) {
 					System.out.println("Please enter valid player to swap (must be same position)");
 				}
-			} else if (input.matches("back")) {
+			} else if (input.toLowerCase().matches("back")) {
 				try {
 					manager.onClubMenuFinish(0, 0);
 				} catch (Exception e) {
