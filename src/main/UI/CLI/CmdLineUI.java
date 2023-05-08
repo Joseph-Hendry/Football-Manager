@@ -65,6 +65,10 @@ public class CmdLineUI implements GameManagerUI {
 		return chosenDiff;
 	}
 
+	/**
+	 * This function gets input from the user about how long the season should be in weeks.
+	 * @return input	The number of weeks
+	 */
 	private int setSeasonLength() {
 		System.out.println("\nChoose the season length: (5 - 15) weeks");
 		String input_string = "";
@@ -155,7 +159,11 @@ public class CmdLineUI implements GameManagerUI {
 					System.out.println("Please enter valid player to swap (must be same position)");
 				}
 			} else if (input.matches("back")) {
-				manager.onClubMenuFinish(0, 0);
+				try {
+					manager.onClubMenuFinish(0, 0);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
 				return;
 			} else {
 				System.out.println("Please enter a valid command");
