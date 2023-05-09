@@ -119,14 +119,34 @@ public class Team {
 
     /**
      * This method is used to sub two players.
+     * Throws an exception if one of the players does not exist or if the players do not have the same position.
      * @param playerOnTeam This is the player on the team going onto bench.
      * @param playerOnBench This is the player on the bench going onto the team.
      */
-    public void subPlayerSwap(Player playerOnTeam, Player playerOnBench) {
-        this.onTeam.remove(playerOnTeam);
-        this.onBench.remove(playerOnBench);
-        this.onTeam.add(playerOnBench);
-        this.onBench.add(playerOnTeam);
+    public void subPlayerSwap(int numPlayerOnTeam, int numPlayerOnBench) throws Exception {
+        if (this.onTeam.get(numPlayerOnTeam) != null && this.onBench.get(numPlayerOnBench) != null) {
+            if (this.onTeam.get(numPlayerOnTeam).getPosition() == this.onBench.get(numPlayerOnBench).getPosition()) {
+                Player temp = this.onTeam.get(numPlayerOnTeam);
+                this.onTeam.set(numPlayerOnTeam, this.onBench.get(numPlayerOnBench));
+                this.onBench.set(numPlayerOnBench, temp);
+            }else {
+                throw new IllegalArgumentException("Players must have the same position.");
+            }
+        }else {
+            throw new IllegalArgumentException("Player does not exist.");
+        }
+    }
+
+    /**
+     * This method removes a player from the team.
+     * Throws an exception if the player does not exist.
+     */
+    public void sellPlayer(int playerNum) throws Exception {
+        if (this.onBench.get(playerNum) != null) {
+            this.onBench.remove(playerNum);
+        }else {
+            throw new IllegalArgumentException("Player does not exist.");
+        }
     }
 
     /**

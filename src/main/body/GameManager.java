@@ -11,6 +11,8 @@ public class GameManager {
 	protected int money;
 	protected int currentWeek;
 
+	private boolean finish = false;
+
 
 	public GameManager(GameManagerUI ui) {
 		this.UI = ui;
@@ -66,29 +68,37 @@ public class GameManager {
 		}
 	}
 
+	/**
+	 * This function is used to edit the players team.
+	 * @param teamPlayerNum The number of the player on the team.
+	 * @param benchPlayerNum The number of the player on the bench.
+	 * @throws Exception
+	 */
 	public void onClubMenuFinish(int teamPlayerNum, int benchPlayerNum) throws Exception {
 		if (teamPlayerNum == 0 && benchPlayerNum == 0) {
 			UI.clubMenu(this);
+			return;
 		} else if (teamPlayerNum == 0) {
 			try {
-				this.money += this.playersTeam.getBench().get(benchPlayerNum).getValue();
-			this.playersTeam.getBench().remove(benchPlayerNum);
+				this.playersTeam.sellPlayer(benchPlayerNum);
 			} catch (Exception e) {
-				throw new Exception();
+				throw e;
 			}
 		} else {
-			if (this.playersTeam.getTeam().get(teamPlayerNum).getPosition() == this.playersTeam.getBench().get(benchPlayerNum).getPosition()) {
-				this.playersTeam.subPlayerSwap(this.playersTeam.getTeam().get(teamPlayerNum), this.playersTeam.getBench().get(benchPlayerNum));
-			} else {
-				throw new Exception();
+			try {
+				this.playersTeam.subPlayerSwap(teamPlayerNum, benchPlayerNum);
+			} catch (Exception e) {
+				throw e;
 			}
-
 		}
-
 	}
 	
 
 	public Team getPlayerTeam() {
 		return this.playersTeam;
+	}
+
+	public void quit() {
+		finish = true;
 	}
 }
