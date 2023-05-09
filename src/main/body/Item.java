@@ -10,17 +10,20 @@ public class Item {
     private String name;
     private int value;
     private int[] stats = new int[3];
+    private String rarity;
 
     /**
      * This is the constructor for the Item class.
-     * @param name The name of the item.
-     * @param price The price of the item.
-     * @param stats The bonuses of the item.
+     * @param name		The name of the item.
+     * @param price 	The price of the item.
+     * @param stats 	The bonuses of the item.
+     * @param rarity	The rarity of the item. 
      */
-    public Item(String name, int value, int[] stats) {
+    public Item(String name, int value, int[] stats, String rarity) {
         this.name = name;
         this.value = value;
         this.stats = stats;
+        this.rarity = rarity;
     }
 
     /**
@@ -69,7 +72,7 @@ public class Item {
 		}
 
 		// Return the new Item
-		return new Item(name, value, stats);
+		return new Item(name, value, stats, rarity);
 	}
 
     /**
@@ -102,5 +105,12 @@ public class Item {
      */
     public int[] getStats() {
         return this.stats;
+    }
+     /**
+      * This method returns the rarity of the item.
+      * @return The rarity of the item.
+      */
+    public String getRarity() {
+    	return this.rarity;
     }
 }

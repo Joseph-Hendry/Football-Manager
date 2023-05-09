@@ -26,6 +26,10 @@ public class GameManager {
 		return this.money;
 	}
 	
+	public void setMoney(int amount) {
+		this.money = amount;
+	}
+	
 	public int getCurrentWeek() {
 		return this.currentWeek;
 	}
@@ -76,8 +80,7 @@ public class GameManager {
 	 */
 	public void onClubMenuFinish(int teamPlayerNum, int benchPlayerNum) throws Exception {
 		if (teamPlayerNum == 0 && benchPlayerNum == 0) {
-			UI.clubMenu(this);
-			return;
+			UI.mainMenu(this);
 		} else if (teamPlayerNum == 0) {
 			try {
 				this.playersTeam.sellPlayer(benchPlayerNum);
@@ -90,6 +93,7 @@ public class GameManager {
 			} catch (Exception e) {
 				throw e;
 			}
+
 		}
 	}
 	

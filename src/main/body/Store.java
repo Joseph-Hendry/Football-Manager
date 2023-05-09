@@ -1,6 +1,7 @@
 package main.body;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * This class is used to create a store object.
@@ -38,6 +39,30 @@ public class Store {
     public Coach getStoreCoach() {
         return storeCoach;
     }
+    
+    /**
+     * Removes a coach from the store.
+     * @param coach	The coach to be removed.
+     */
+    public void removeCoach(Coach coach) {
+    	if (this.getStoreCoach().equals(coach)) {
+    		this.storeCoach = null;
+    	} else {
+    		System.out.println("This coach is not in the store.");
+    	}
+    }
+    
+    /**
+     * Removes a player from the store.
+     * @param player	The player to be removed.
+     */
+    public void removePlayer(Player player) {
+    	if (this.getStorePlayers().contains(player)) {
+    		this.storePlayers.remove(player);
+    	} else {
+    		System.out.println("This player is not in the store");
+    	}
+    }
 
     /**
      * This method is used to get the items in the store.
@@ -65,27 +90,63 @@ public class Store {
             storeItems.add(item);
         }
     }
+    
+    /**
+     * Removes and item from the items available in the shop if the item is in the shop.
+     * @param item	The item you want to remove.
+     */
+    public void removeItem(Item item) {
+    	if (this.storeItems.contains(item)) {
+    		this.storeItems.remove(item);
+    	} else {
+    		System.out.println("Item is not in the list of store items.");
+    	}
+    }
+    
+    
+    
+    /**
+     * This function creates a random rarity to be used when creating new objects that have rarity.
+     * @return
+     */
+    public static String randomRarity() {
+    	String rarity;
+    	Random  random = new Random();
+    	int rarityPercent = random.nextInt(100);
+    	if (rarityPercent <= 50) {
+    		rarity = "Bronze";
+    	} else if (50 < rarityPercent && rarityPercent <= 80) {
+    		rarity = "Silver";
+    	} else if (80 < rarityPercent && rarityPercent <= 95) {
+    		rarity = "Gold";
+    	} else {
+    		rarity = "Platinum";
+    	}
+    	return rarity;
+    }
 
     /**
      * This method generates a random basic store with rarity Bronze.
      * @return A random basic store.
      */
     public static Store createStore() {
-        String rarity = "Bronze";
+    	String rarity;
+    	
         ArrayList<Player> storePlayers = new ArrayList<Player>();
         Coach storeCoach;
         ArrayList<Item> storeItems = new ArrayList<Item>();
 
         // Creates a onTeam of random players including position.
         for (AvailablePositions position : AvailablePositions.values()) {
+        	rarity = randomRarity();
             Player teamPlayer = Player.createRandomPlayer(rarity, position);
             storePlayers.add(teamPlayer);
         }
     
-        storeCoach = Coach.createRandomCoach(rarity);
+        storeCoach = Coach.createRandomCoach(randomRarity());
             
         for (int i = 0; i < 5; i++) {
-            Item item = Item.createRandomItem(rarity);
+            Item item = Item.createRandomItem(randomRarity());
             storeItems.add(item);
         }
 
