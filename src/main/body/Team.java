@@ -204,6 +204,14 @@ public class Team {
     public void setPoints(int points) {
         this.points = points;
     }
+    
+    /**
+     * Adds a player onto the bench.
+     * @param player	The player.
+     */
+    public void addPlayerToBench(Player player) {
+    	this.onBench.add(player);
+    }
 
     /**
      * This method is used to sort the teamList based on ponits.

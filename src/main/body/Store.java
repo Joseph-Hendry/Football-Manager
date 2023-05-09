@@ -11,6 +11,7 @@ public class Store {
     private ArrayList<Player> storePlayers = new ArrayList<Player>();
     private Coach storeCoach;
     private ArrayList<Item> storeItems = new ArrayList<Item>();
+    private boolean coachAvailability;
 
     /**
      * This is the constructor for the Store class.
@@ -22,6 +23,7 @@ public class Store {
         this.storePlayers = storePlayers;
         this.storeCoach = storeCoach;
         this.storeItems = storeItems;
+        this.coachAvailability = true;
     }
 
     /**
@@ -38,13 +40,6 @@ public class Store {
      */
     public Coach getStoreCoach() {
         return storeCoach;
-    }
-    
-    /**
-     * Removes the coach from the store.
-     */
-    public void removeCoach() {
-    	this.storeCoach = null;
     }
     
     /**
@@ -65,6 +60,21 @@ public class Store {
      */
     public ArrayList<Item> getStoreItems() {
         return storeItems;
+    }
+    
+    /**
+     * Returns whether the coach is available to sell or not.
+     * @return	bool.
+     */
+    public boolean coachAvailable() {
+    	return this.coachAvailability;
+    }
+    /**
+     * Sets whether the coach is available to buy or not.
+     * @param available	Bool of whether the coach can be bought.
+     */
+    public void setCoachAvailable(boolean available) {
+    	this.coachAvailability = available;
     }
 
     /**
