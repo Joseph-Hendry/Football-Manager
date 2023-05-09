@@ -45,7 +45,7 @@ public class Store {
      * @param coach	The coach to be removed.
      */
     public void removeCoach(Coach coach) {
-    	if (this.getStoreCoach().equals(coach)) {
+    	if (this.getStoreCoach() == (coach)) {
     		this.storeCoach = null;
     	} else {
     		System.out.println("This coach is not in the store.");
