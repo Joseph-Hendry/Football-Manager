@@ -289,7 +289,7 @@ public class CmdLineUI implements GameManagerUI {
 			if (manager.getMoney() >= item.getValue()) {
 				manager.getPlayerTeam().addItem(item);
 				manager.setMoney(manager.getMoney() - item.getValue());
-				System.out.println("\n You have bought " + item.getName());
+				System.out.println("\nYou have bought " + item.getName());
 				System.out.println("Your remaining balance is " + manager.getMoney());
 				store.removeItem(item);
 				storeItemMenu(store, manager);

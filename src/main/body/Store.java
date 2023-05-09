@@ -39,6 +39,30 @@ public class Store {
     public Coach getStoreCoach() {
         return storeCoach;
     }
+    
+    /**
+     * Removes a coach from the store.
+     * @param coach	The coach to be removed.
+     */
+    public void removeCoach(Coach coach) {
+    	if (this.getStoreCoach().equals(coach)) {
+    		this.storeCoach = null;
+    	} else {
+    		System.out.println("This coach is not in the store.");
+    	}
+    }
+    
+    /**
+     * Removes a player from the store.
+     * @param player	The player to be removed.
+     */
+    public void removePlayer(Player player) {
+    	if (this.getStorePlayers().contains(player)) {
+    		this.storePlayers.remove(player);
+    	} else {
+    		System.out.println("This player is not in the store");
+    	}
+    }
 
     /**
      * This method is used to get the items in the store.
