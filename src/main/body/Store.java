@@ -66,6 +66,21 @@ public class Store {
             storeItems.add(item);
         }
     }
+    
+    /**
+     * Removes and item from the items available in the shop if the item is in the shop.
+     * @param item	The item you want to remove.
+     */
+    public void removeItem(Item item) {
+    	if (this.storeItems.contains(item)) {
+    		this.storeItems.remove(item);
+    	} else {
+    		System.out.println("Item is not in the list of store items.");
+    	}
+    }
+    
+    
+    
     /**
      * This function creates a random rarity to be used when creating new objects that have rarity.
      * @return

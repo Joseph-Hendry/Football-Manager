@@ -1,6 +1,7 @@
 package main.UI.CLI;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import main.UI.GameManagerUI;
@@ -210,10 +211,10 @@ public class CmdLineUI implements GameManagerUI {
 					int int_input = Integer.parseInt(string_input);
 					if (int_input == 0) {
 						validInput = true;
-						storePlayerMenu(store);
+						storePlayerMenu(store, manager);
 					} else if (int_input == 1) {
 						validInput = true;
-						storeItemMenu(store);
+						storeItemMenu(store, manager);
 					} else {
 						System.out.println("Please enter either 0, 1, or back");
 					}
@@ -228,9 +229,10 @@ public class CmdLineUI implements GameManagerUI {
 	 * allows them to purchase these people for their team.
 	 * @param store	The store currently being displayed.
 	 */
-	public void storePlayerMenu(Store store) {
+	public void storePlayerMenu(Store store, GameManager manager) {
 		// Prints the players available for sale.
 		System.out.println("\nPlayers for sale:");
+		System.out.println("Balance: " + manager.getMoney());
 		System.out.println("    NAME        RARITY    POSITION    ATK MID DEF   COST");
 		int counter = 0;
 		for (Player player : store.getStorePlayers()) {
@@ -250,13 +252,15 @@ public class CmdLineUI implements GameManagerUI {
 		
 		System.out.println("\n'back' Back to store menu");
 	}
+	
 	/**
 	 * Allows the player to see and purchase items that are available in the store.
 	 * @param store	The store currently being displayed.
 	 */
-	public void storeItemMenu(Store store) {
+	public void storeItemMenu(Store store, GameManager manager) {
 		// Prints the items available for sale.
 		System.out.println("\nItems for sale");
+		System.out.println("Balance: " + manager.getMoney());
 		System.out.println("    NAME        RARITY     ATK MID DEF  COST");
 		int counter = 0;
 		for (Item item : store.getStoreItems()) {
@@ -268,5 +272,49 @@ public class CmdLineUI implements GameManagerUI {
 		}
 		
 		System.out.println("\n'back' Back to store menu");
+		
+		// Goes back to the main menu or buys an item, depending on the players input.
+		ArrayList<String> validInputs = new ArrayList<String>();
+		for (int i = 0; i < store.getStoreItems().size(); i++) {
+			validInputs.add(Integer.toString(i));
+		}
+		validInputs.add("back");
+			
+		String userInput = getValidInput(validInputs);
+		if (userInput.equals("back")) {
+			storeMenu(manager);
+		} else {
+			int i = Integer.parseInt(userInput);
+			Item item = store.getStoreItems().get(i);
+			if (manager.getMoney() >= item.getValue()) {
+				manager.getPlayerTeam().addItem(item);
+				manager.setMoney(manager.getMoney() - item.getValue());
+				System.out.println("\n You have bought " + item.getName());
+				System.out.println("Your remaining balance is " + manager.getMoney());
+				store.removeItem(item);
+				storeItemMenu(store, manager);
+			}
+		}
+	}
+
+	/**
+	 * Gets a valid input from the user. Is valid if the input is in validInputList.
+	 * @param validInputList	The list of valid inputs
+	 * @return the valid input when one is given.
+	 */
+	public String getValidInput(ArrayList<String> validInputList) {
+		boolean validInput = false;
+		String string_input;
+		while(!validInput) {
+			string_input = scanner.nextLine();
+			for (String valid : validInputList) {
+				if (string_input.equals(valid)) {
+					validInput = true;
+					return string_input;
+				}
+			}
+			System.out.println("Please enter one of the following options: " + String.join(", ", validInputList));
+		}
+		return "";
 	}
 }

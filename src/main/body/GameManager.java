@@ -24,6 +24,10 @@ public class GameManager {
 		return this.money;
 	}
 	
+	public void setMoney(int amount) {
+		this.money = amount;
+	}
+	
 	public int getCurrentWeek() {
 		return this.currentWeek;
 	}
