@@ -244,7 +244,7 @@ public class CmdLineUI implements GameManagerUI {
 		}
 		// Prints the coach available for sale.
 		Coach coach = store.getStoreCoach();
-		store.removeCoach(coach);
+		store.removeCoach();
 		System.out.println(coach.toString());
 		if (coach != null) {
 			int[] coachStats = coach.getStats();
@@ -297,6 +297,9 @@ public class CmdLineUI implements GameManagerUI {
 				System.out.println("\nYou have bought " + item.getName());
 				System.out.println("Your remaining balance is " + manager.getMoney());
 				store.removeItem(item);
+				storeItemMenu(store, manager);
+			} else {
+				System.out.println("You do not have enough money to buy this item.");
 				storeItemMenu(store, manager);
 			}
 		}

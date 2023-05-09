@@ -41,15 +41,10 @@ public class Store {
     }
     
     /**
-     * Removes a coach from the store.
-     * @param coach	The coach to be removed.
+     * Removes the coach from the store.
      */
-    public void removeCoach(Coach coach) {
-    	if (this.getStoreCoach() == (coach)) {
-    		this.storeCoach = null;
-    	} else {
-    		System.out.println("This coach is not in the store.");
-    	}
+    public void removeCoach() {
+    	this.storeCoach = null;
     }
     
     /**
