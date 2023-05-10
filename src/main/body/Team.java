@@ -143,7 +143,9 @@ public class Team {
      */
     public void sellPlayer(int playerNum) throws Exception {
         if (this.onBench.get(playerNum) != null) {
-            this.onBench.remove(playerNum);
+            Player player = this.onBench.get(playerNum);
+            this.onBench.remove(player);
+            System.out.println("Player removed.");
         }else {
             throw new IllegalArgumentException("Player does not exist.");
         }

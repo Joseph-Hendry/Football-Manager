@@ -125,7 +125,12 @@ public class CmdLineUI implements GameManagerUI {
 	 */
 	@Override
 	public void clubMenu(GameManager manager) {
-		System.out.println("");
+		printClub(manager);
+		getClubInput(manager);
+	}
+
+	private void printClub(GameManager manager) {
+		System.out.println("\n\n########## Club Menu ##########");
 		System.out.println("Team Name: " + manager.getPlayerTeam().getName());
 		System.out.println("Coach: " + manager.getPlayerTeam().getCoach().toString());
 
@@ -138,41 +143,39 @@ public class CmdLineUI implements GameManagerUI {
 
 		System.out.println("\n\nPlayers On Bench: \nNum  Name           [ATK,  MID,  DEF]     Position");
 
-		for (int j = 0; j < manager.getPlayerTeam().getBench().size(); j++) {
-			System.out.println(manager.getPlayerTeam().getBench().get(j).toString(j + i + 1));
+		for (int j = 0; j < 4; j++) {
+			try {
+				System.out.println(manager.getPlayerTeam().getBench().get(j).toString(j + i + 1));
+			} catch (Exception e) {
+				System.out.println("(" + (j + i + 1) + ")" + "  Empty");
+			}
 		}
 
 		System.out.println("\n\nSell Player: 'sell <player number>'");
 		System.out.println("Swap Players: 'swap < team player number> < bench player number>'");
 		System.out.println("Back: 'back'");
+	}
+
+	private String getClubInput(GameManager manager) {
 		while (true) {
 			String input = scanner.nextLine();
-			if (input.matches("sell [1-15]+")) {
+			if (input.matches("swap [0-9]+ [0-9]+")) {
+				String[] splitInput = input.split(" ");
+				int teamPlayerNum = Integer.parseInt(splitInput[1]);
+				int benchPlayerNum = Integer.parseInt(splitInput[2]);
+				manager.swapPlayers(teamPlayerNum, benchPlayerNum);
+				printClub(manager);
+
+			} else if (input.matches("sell [0-9]+")) {
 				int playerNum = Integer.parseInt(input.split(" ")[1]);
-				try {
-					manager.onClubMenuFinish(0, playerNum);
-					return;
-				} catch (Exception e) {
-					System.out.println("Please enter a valid player number, player must be on bench");
-				}
-			} else if (input.matches("swap [1-11]+ [12-15]+")) {
-				int teamPlayerNum = Integer.parseInt(input.split(" ")[1]);
-				int benchPlayerNum = Integer.parseInt(input.split(" ")[2]);
-				try {
-					manager.onClubMenuFinish(teamPlayerNum, benchPlayerNum);
-					return;
-				} catch (Exception e) {
-					System.out.println("Please enter valid player to swap (must be same position)");
-				}
-			} else if (input.toLowerCase().matches("back")) {
-				try {
-					manager.onClubMenuFinish(0, 0);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				return;
+				manager.sellPlayer(playerNum);
+				printClub(manager);
+
+			} else if (input.equals("back")) {
+				mainMenu(manager);
+
 			} else {
-				System.out.println("Please enter a valid command");
+				System.out.println("Please enter a valid input");
 			}
 		}
 	}
@@ -316,5 +319,15 @@ public class CmdLineUI implements GameManagerUI {
 			System.out.println("Please enter one of the following options: " + String.join(", ", validInputList));
 		}
 		return "";
+	}
+
+	public void showError(String message) {
+		System.out.println(message);
+	}
+
+	public static void main(String[] args) {
+		CmdLineUI ui = new CmdLineUI();
+		GameManager manager = new GameManager(ui);
+		ui.setup(manager);
 	}
 }

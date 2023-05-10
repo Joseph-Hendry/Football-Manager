@@ -13,7 +13,6 @@ public class GameManager {
 
 	private boolean finish = false;
 
-
 	public GameManager(GameManagerUI ui) {
 		this.UI = ui;
 	}
@@ -78,22 +77,27 @@ public class GameManager {
 	 * @param benchPlayerNum The number of the player on the bench.
 	 * @throws Exception
 	 */
-	public void onClubMenuFinish(int teamPlayerNum, int benchPlayerNum) throws Exception {
-		if (teamPlayerNum == 0 && benchPlayerNum == 0) {
-			UI.mainMenu(this);
-		} else if (teamPlayerNum == 0) {
-			try {
-				this.playersTeam.sellPlayer(benchPlayerNum);
-			} catch (Exception e) {
-				throw e;
-			}
-		} else {
-			try {
-				this.playersTeam.subPlayerSwap(teamPlayerNum, benchPlayerNum);
-			} catch (Exception e) {
-				throw e;
-			}
+	public void onClubMenuFinish() {
+		UI.mainMenu(this);
+	}
 
+	public void sellPlayer(int playerNum) {
+		try {
+			playerNum -= 12;
+			this.money += this.playersTeam.getBench().get(playerNum).getValue();
+			this.playersTeam.sellPlayer(playerNum);
+		} catch (Exception e) {
+			UI.showError(e.getMessage());
+		}
+	}
+
+	public void swapPlayers(int teamPlayerNum, int benchPlayerNum) {
+		try {
+			teamPlayerNum -= 1;
+			benchPlayerNum -= 12;
+			this.playersTeam.subPlayerSwap(teamPlayerNum, benchPlayerNum);
+		} catch (Exception e) {
+			UI.showError(e.getMessage());
 		}
 	}
 	

@@ -32,4 +32,9 @@ public interface GameManagerUI {
 	 * Shows the market where the player can buy and sell players, coaches and items.
 	 */
 	public void storeMenu(GameManager manager);
+
+	/**
+	 * Shows error message.
+	 */
+	public void showError(String message);
 }

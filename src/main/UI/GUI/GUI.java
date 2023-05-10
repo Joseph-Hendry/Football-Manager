@@ -40,4 +40,9 @@ public class GUI implements GameManagerUI {
 		
 	}
 
+	@Override
+	public void showError(String message) {
+		// TODO Auto-generated method stub
+		
+	}
 }
