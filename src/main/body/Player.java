@@ -36,6 +36,8 @@ public class Player extends Person {
 	private String nickname;
 	private int[] stats;
 	private AvailablePositions position;
+	private int stamina;
+	private boolean injured;
 
 	/**
 	 * The constructor for the Player object.
@@ -51,6 +53,8 @@ public class Player extends Person {
 		this.nickname = nickname;
 		this.stats = stats;
 		this.position = position;
+		this.injured = false;
+		this.stamina = 100;
 	}
 
 	/**
@@ -161,5 +165,44 @@ public class Player extends Person {
 	 */
 	public void setPosition(AvailablePositions position) {
 		this.position = position;
+	}
+	/**
+	 * Sets the stamina of the player. If it is equal to or below 0 it is set to zero and the 
+	 * player is injured.
+	 * @param stamina	The stamina value to give to the player.
+	 */
+	public void setStamina(int stamina) {
+		if (stamina < 0) {
+			this.setInjured(true);
+			this.stamina = 0;
+		} else if (stamina > 100) {
+			this.stamina = 100;
+		} else {
+			this.stamina = stamina;
+		}		
+	}
+	
+	/**
+	 * Returns the stamina of the player.
+	 * @return	The stamina of the player.
+	 */
+	public int getStamina() {
+		return this.stamina;
+	}
+	
+	/**
+	 * Sets whether the player is injured or not.
+	 * @param injured	The injury status (true or false).
+	 */
+	public void setInjured(boolean injured) {
+		this.injured = injured;
+	}
+	
+	/**
+	 * Returns whether the playter is injured or not.
+	 * @return	Bool the injury status.
+	 */
+	public boolean isInjured() {
+		return this.injured;
 	}
 }
