@@ -1,14 +1,12 @@
 package main.UI.CLI;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 import java.util.Scanner;
 
 import main.UI.GameManagerUI;
-import main.body.Coach;
-import main.body.GameManager;
-import main.body.Item;
-import main.body.Player;
-import main.body.Store;
+import main.body.*;
 
 public class CmdLineUI implements GameManagerUI {
 
@@ -191,11 +189,51 @@ public class CmdLineUI implements GameManagerUI {
 	@Override
 	public void stadiumMenu(GameManager manager) {
 		// TODO: View rankings and possible matches
-		System.out.println("Stadium Menu:");
+		ArrayList<Team> teamsToPlay = new ArrayList<Team>();
+		Random random = new Random();
+		int scaleValue = manager.getDifficulty() == 0 ? 2 : 4;
+		for (int i = 0; i < 4; i++) {
+			// Sets how good the teams are based off the current week and the difficulty.
+			String rarity = getStrRarity(random.nextInt(50) + scaleValue * manager.getCurrentWeek());
+			teamsToPlay.add(Team.createRandomTeam(rarity));
+		}
+		
+		System.out.println("\n\n########## Stadium Menu ##########");
+		System.out.println("\nChose which team you would like to play:");
+		for (int i = 0; i < teamsToPlay.size(); i++) {
+			Team team = teamsToPlay.get(i);
+			System.out.println("(" + i + ") " + team.getName() + " Rarity: " + team.getCoach().getRarity());
+		}
+		
+		ArrayList<String> validInputs = new ArrayList<String>(Arrays.asList("0", "1", "2", "3", "back"));
+		String userInput = getValidInput(validInputs);
+		if (userInput.equals("back")) {
+			mainMenu(manager);
+		} else {
+			//TODO: Check that the player's team is able to play a match.
+			playMatch(manager, teamsToPlay.get(Integer.parseInt(userInput)));
+		}
+	}
+	
+	/**
+	 * Converts a range of 0-100 into its rarity type.
+	 * @param intRarity	The int value of the rarity.
+	 * @return	The string rarity.
+	 */
+	public String getStrRarity(int intRarity) {
+	if (intRarity <= 50) {
+		return "Bronze";
+	} else if (intRarity <= 80) {
+		return "Silver";
+	} else if (intRarity <= 95) {
+		return "Gold";
+	} else {
+		return "Platinum";
+		}
 	}
 
 	@Override
-	public void playMatch(GameManager manager) {
+	public void playMatch(GameManager manager, Team oppositionTeam) {
 		// TODO Auto-generated method stub
 
 	}
