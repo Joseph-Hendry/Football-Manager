@@ -10,6 +10,7 @@ public class GameManager {
 	protected Team playersTeam;
 	protected int money;
 	protected int currentWeek;
+	protected Store currentStore;
 
 	private boolean finish = false;
 
@@ -36,11 +37,16 @@ public class GameManager {
 	public int getSeasonLength() {
 		return this.seasonLength;
 	}
+	
+	public Store getCurrentStore() {
+		return this.currentStore;
+	}
 
 	public void onSetupFinish(String teamName, int difficulty, int seasonLength) {
 		this.currentWeek = 0;
 		this.difficulty = difficulty;
 		this.seasonLength = seasonLength;
+		this.currentStore = Store.createStore();
 		this.money = 75000 - this.difficulty * 25000;
 		Team team;
 

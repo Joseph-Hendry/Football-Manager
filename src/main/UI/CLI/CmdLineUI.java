@@ -195,7 +195,7 @@ public class CmdLineUI implements GameManagerUI {
 	@Override
 	public void storeMenu(GameManager manager) {
 		System.out.println("\n\n########## Store Menu ##########");
-		Store store = Store.createStore();
+		Store store = manager.getCurrentStore();
 		
 		// Prints the options available to the user
 		System.out.println("\n(0) Buy players and coaches");
@@ -246,14 +246,52 @@ public class CmdLineUI implements GameManagerUI {
 			counter += 1;
 		}
 		// Prints the coach available for sale.
-		Coach coach = store.getStoreCoach();
-		int[] coachStats = coach.getStats();
-		System.out.println("\nCoach for sale:");
-		String line = String.format("(4) NAME: %-10s  RARITY: %-10s  ATK: %d MID: %d DEF: %d COST: %d",
-				coach.getName(), coach.getRarity(), coachStats[0], coachStats[1], coachStats[2], coach.getValue());
-		System.out.println(line);
+		if (store.coachAvailable()) {
+			Coach coach = store.getStoreCoach();
+			int[] coachStats = coach.getStats();
+			System.out.println("\nCoach for sale:");
+			String line = String.format("(4) NAME: %s  RARITY: %s  ATK: %d MID: %d DEF: %d COST: %d (Will replace current coach)",
+					coach.getName(), coach.getRarity(), coachStats[0], coachStats[1], coachStats[2], coach.getValue());
+			System.out.println(line);
+		}
+		System.out.println("\n'back' Back to store menu"); 	
 		
-		System.out.println("\n'back' Back to store menu");
+		// Generates the available inputs a user can select.
+		ArrayList<String> validInputs = new ArrayList<String>();
+		for (int i = 0; i < store.getStorePlayers().size(); i++) {
+			validInputs.add(Integer.toString(i));
+		}
+		if (store.coachAvailable()) {
+			validInputs.add(Integer.toString(store.getStorePlayers().size() + 1));
+		}
+		validInputs.add("back");
+		
+		String userInput = getValidInput(validInputs);
+		if (userInput.equals("back")) {
+			storeMenu(manager);
+		} else if (Integer.parseInt(userInput) == store.getStorePlayers().size() - 1){
+			if (manager.getMoney() >= store.getStoreCoach().getValue()) {
+				manager.getPlayerTeam().setCoach(store.getStoreCoach());
+				manager.setMoney(manager.getMoney() - store.getStoreCoach().getValue());
+				store.setCoachAvailable(false);
+			} else {
+				System.out.println("You do not have enough money to buy this coach.");
+			}
+		} else {
+			int i = Integer.parseInt(userInput);
+			Player player = store.getStorePlayers().get(i);
+			if (manager.getMoney() >= player.getValue()) {
+				manager.getPlayerTeam().addPlayerToBench(player);
+				manager.setMoney(manager.getMoney() - player.getValue());
+				System.out.println("\n" + player.getName() + " has been added to your bench.");
+				System.out.println("Your remaining balance is " + manager.getMoney());
+				store.removePlayer(player);
+				storePlayerMenu(store, manager);
+			} else {
+				System.out.println("You do not have enough money to buy this player.");
+				storeItemMenu(store, manager);
+			}
+		}
 	}
 	
 	/**
@@ -295,6 +333,9 @@ public class CmdLineUI implements GameManagerUI {
 				System.out.println("\nYou have bought " + item.getName());
 				System.out.println("Your remaining balance is " + manager.getMoney());
 				store.removeItem(item);
+				storeItemMenu(store, manager);
+			} else {
+				System.out.println("You do not have enough money to buy this item.");
 				storeItemMenu(store, manager);
 			}
 		}
