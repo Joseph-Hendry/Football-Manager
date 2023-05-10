@@ -125,11 +125,11 @@ public class CmdLineUI implements GameManagerUI {
 	 */
 	@Override
 	public void clubMenu(GameManager manager) {
-		printClub(manager);
+		showClub(manager);
 		getClubInput(manager);
 	}
 
-	private void printClub(GameManager manager) {
+	public void showClub(GameManager manager) {
 		System.out.println("\n\n########## Club Menu ##########");
 		System.out.println("Team Name: " + manager.getPlayerTeam().getName());
 		System.out.println("Coach: " + manager.getPlayerTeam().getCoach().toString());
@@ -164,12 +164,10 @@ public class CmdLineUI implements GameManagerUI {
 				int teamPlayerNum = Integer.parseInt(splitInput[1]);
 				int benchPlayerNum = Integer.parseInt(splitInput[2]);
 				manager.swapPlayers(teamPlayerNum, benchPlayerNum);
-				printClub(manager);
 
 			} else if (input.matches("sell [0-9]+")) {
 				int playerNum = Integer.parseInt(input.split(" ")[1]);
 				manager.sellPlayer(playerNum);
-				printClub(manager);
 
 			} else if (input.equals("back")) {
 				mainMenu(manager);
@@ -362,7 +360,7 @@ public class CmdLineUI implements GameManagerUI {
 		return "";
 	}
 
-	public void showError(String message) {
+	public void showMessage(String message) {
 		System.out.println(message);
 	}
 

@@ -90,10 +90,11 @@ public class GameManager {
 	public void sellPlayer(int playerNum) {
 		try {
 			playerNum -= 12;
-			this.money += this.playersTeam.getBench().get(playerNum).getValue();
-			this.playersTeam.sellPlayer(playerNum);
+			this.playersTeam.sellPlayer(this, playerNum);
+			UI.showClub(this);
+			UI.showMessage("Player has been sold.");
 		} catch (Exception e) {
-			UI.showError(e.getMessage());
+			UI.showMessage(e.getMessage());
 		}
 	}
 
@@ -102,8 +103,10 @@ public class GameManager {
 			teamPlayerNum -= 1;
 			benchPlayerNum -= 12;
 			this.playersTeam.subPlayerSwap(teamPlayerNum, benchPlayerNum);
+			UI.showClub(this);
+			UI.showMessage("Players have been swapped.");
 		} catch (Exception e) {
-			UI.showError(e.getMessage());
+			UI.showMessage(e.getMessage());
 		}
 	}
 	

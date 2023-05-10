@@ -17,6 +17,11 @@ public interface GameManagerUI {
 	 * Shows the club page to manage their team.
 	 */
 	public void clubMenu(GameManager manager);
+
+	/**
+	 * Shows the players team.
+	 */
+	public void showClub(GameManager manager);
 	
 	/**
 	 * Shows the stadium menu which allows them to play a match.
@@ -34,7 +39,7 @@ public interface GameManagerUI {
 	public void storeMenu(GameManager manager);
 
 	/**
-	 * Shows error message.
+	 * Shows message.
 	 */
-	public void showError(String message);
+	public void showMessage(String message);
 }

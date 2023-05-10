@@ -124,16 +124,20 @@ public class Team {
      * @param playerOnBench This is the player on the bench going onto the team.
      */
     public void subPlayerSwap(int numPlayerOnTeam, int numPlayerOnBench) throws Exception {
-        if (this.onTeam.get(numPlayerOnTeam) != null && this.onBench.get(numPlayerOnBench) != null) {
-            if (this.onTeam.get(numPlayerOnTeam).getPosition() == this.onBench.get(numPlayerOnBench).getPosition()) {
-                Player temp = this.onTeam.get(numPlayerOnTeam);
-                this.onTeam.set(numPlayerOnTeam, this.onBench.get(numPlayerOnBench));
-                this.onBench.set(numPlayerOnBench, temp);
-            }else {
+        if (numPlayerOnTeam <= this.onTeam.size() && numPlayerOnBench <= this.onBench.size() && numPlayerOnTeam  >= 0 && numPlayerOnBench >= 0) {
+            if (this.onTeam.get(numPlayerOnTeam) != null || this.onBench.get(numPlayerOnBench) != null) {
+                if (this.onTeam.get(numPlayerOnTeam).getPosition() == this.onBench.get(numPlayerOnBench).getPosition()) {
+                    Player temp = this.onTeam.get(numPlayerOnTeam);
+                    this.onTeam.set(numPlayerOnTeam, this.onBench.get(numPlayerOnBench));
+                    this.onBench.set(numPlayerOnBench, temp);
+                } else {
                 throw new IllegalArgumentException("Players must have the same position.");
-            }
-        }else {
+                }
+            } else {
             throw new IllegalArgumentException("Player does not exist.");
+            }
+        } else {
+            throw new IllegalArgumentException("Invalid Number");
         }
     }
 
@@ -141,13 +145,16 @@ public class Team {
      * This method removes a player from the team.
      * Throws an exception if the player does not exist.
      */
-    public void sellPlayer(int playerNum) throws Exception {
-        if (this.onBench.get(playerNum) != null) {
-            //Player player = this.onBench.get(playerNum);
-            this.onBench.set(playerNum, null);
-            System.out.println("Player removed.");
-        }else {
+    public void sellPlayer(GameManager manager, int playerNum) throws Exception {
+        if (playerNum >= 0 && playerNum <= this.onBench.size()) {
+            if (this.onBench.get(playerNum) != null) {
+                manager.money += this.getBench().get(playerNum).getValue();
+                this.onBench.set(playerNum, null);
+            } else {
             throw new IllegalArgumentException("Player does not exist.");
+            }
+        } else {
+            throw new IllegalArgumentException("Invalid Number");
         }
     }
 
