@@ -150,7 +150,7 @@ public class CmdLineUI implements GameManagerUI {
 				System.out.println("(" + (j + i + 1) + ")" + " Empty");
 			}
 		}
-		System.out.println("\n\nNickname Player: '<player number> <name>'");
+		System.out.println("\nNickname Player: '<player number> <name>'");
 		System.out.println("Sell Player: 'sell <player number>'");
 		System.out.println("Swap Players: 'swap <team player number> <bench player number>'");
 		System.out.println("Back: 'back'\n");
