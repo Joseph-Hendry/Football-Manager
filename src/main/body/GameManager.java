@@ -1,5 +1,6 @@
 package main.body;
 import main.UI.*;
+import main.UI.CLI.CmdLineUI;
 
 
 public class GameManager {
@@ -123,5 +124,17 @@ public class GameManager {
 
 	public void quit() {
 		finish = true;
+	}
+
+	public static void main(String[] args) {
+		// Test play match
+		GameManager manager = new GameManager(new CmdLineUI());
+		Team team = Team.createRandomTeam(80);
+		team.setName("Test Team");
+		Team oppositionTeam = Team.createRandomTeam(80);
+		oppositionTeam.setName("Test Opposition Team");
+
+		Match match = new Match(team, oppositionTeam);
+		match.playMatch(manager);
 	}
 }

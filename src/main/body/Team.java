@@ -283,4 +283,12 @@ public class Team {
     public static void sortTeamList() {
         teamList.sort((team1, team2) -> team2.getPoints() - team1.getPoints());
     }
+
+    /**
+     * This method return the formation of the team.
+     * @return The formation of the team.
+     */
+    public static int[] getFormation() {
+        return formation;
+    }
 }
