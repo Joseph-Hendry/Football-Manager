@@ -186,6 +186,9 @@ public class CmdLineUI implements GameManagerUI {
 		}
 	}
 
+	/**
+	 * This function displays the stadium menu, which allows the user to choose a match to play.
+	 */
 	@Override
 	public void stadiumMenu(GameManager manager) {
 		// TODO: View rankings and possible matches
@@ -199,7 +202,7 @@ public class CmdLineUI implements GameManagerUI {
 		}
 		
 		System.out.println("\n\n########## Stadium Menu ##########");
-		System.out.println("\nChose which team you would like to play:");
+		System.out.println("\nChoose which team you would like to play:");
 		for (int i = 0; i < teamsToPlay.size(); i++) {
 			Team team = teamsToPlay.get(i);
 			System.out.println("(" + i + ") " + team.getName() + " Rarity: " + team.getCoach().getRarity());
@@ -211,8 +214,26 @@ public class CmdLineUI implements GameManagerUI {
 		if (userInput.equals("back")) {
 			mainMenu(manager);
 		} else {
-			//TODO: Check that the player's team is able to play a match.
-			playMatch(manager, teamsToPlay.get(Integer.parseInt(userInput)));
+			
+			Team oppositionTeam = teamsToPlay.get(Integer.parseInt(userInput));
+			
+			// Checks that the players team is full.
+			boolean fullTeam = manager.getPlayerTeam().getTeam().size() == 11 ? true : false;
+			
+			// Testing whether all the players in the users team are injured.
+			boolean allInjured = true;
+			for (Player player : manager.getPlayerTeam().getTeam()) {
+				if (!player.isInjured()) {
+					allInjured = false;
+				}
+			}
+			
+			if(!allInjured && fullTeam) {
+				playMatch(manager, oppositionTeam);
+			} else {
+				System.out.println("\n You must have a full team with at least one\nnon-injured player to enter a match.");
+				stadiumMenu(manager);
+			}
 		}
 	}
 	
