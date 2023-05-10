@@ -108,7 +108,7 @@ public class Player extends Person {
 	 * @return Player values in string format.
 	 */
 	public String toString(int i) {
-		return String.format("%-4s %-15s %-5s %-5s %-8s %-1s","("+i+")" ,this.nickname, this.stats[0], this.stats[1], this.stats[2], this.position);
+		return String.format("%-4s %-15s %-5s %-5s %-8s %-15s %-1s","("+i+")" ,this.nickname, this.stats[0], this.stats[1], this.stats[2], this.position, this.value);
 	}
 	
 	/**

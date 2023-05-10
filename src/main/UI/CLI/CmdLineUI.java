@@ -104,7 +104,7 @@ public class CmdLineUI implements GameManagerUI {
 		System.out.println("\n\n########## Main Menu ##########");
 		System.out.println("(0) Club");
 		System.out.println("(1) Stadium");
-		System.out.println("(2) Store");
+		System.out.println("(2) Store\n");
 
 		while (true) {
 			try {
@@ -132,9 +132,10 @@ public class CmdLineUI implements GameManagerUI {
 	public void showClub(GameManager manager) {
 		System.out.println("\n\n########## Club Menu ##########");
 		System.out.println("Team Name: " + manager.getPlayerTeam().getName());
+		System.out.println("Team Money: " + manager.getMoney());
 		System.out.println("Coach: " + manager.getPlayerTeam().getCoach().toString());
 
-		System.out.println("\nPlayers On Team: \nNum  Name           [ATK,  MID,  DEF]     Position");
+		System.out.println("\nPlayers On Team: \nNum  Name           [ATK,  MID,  DEF]    [Position]      [Value]");
 
 		int i = 0;
 		for (i = 0; i < manager.getPlayerTeam().getTeam().size(); i++) {
@@ -153,12 +154,12 @@ public class CmdLineUI implements GameManagerUI {
 
 		System.out.println("\n\nSell Player: 'sell <player number>'");
 		System.out.println("Swap Players: 'swap <team player number> <bench player number>'");
-		System.out.println("Back: 'back'");
+		System.out.println("Back: 'back'\n");
 	}
 
 	private String getClubInput(GameManager manager) {
 		while (true) {
-			String input = scanner.nextLine();
+			String input = scanner.nextLine().toLowerCase();
 			if (input.matches("swap [0-9]+ [0-9]+")) {
 				String[] splitInput = input.split(" ");
 				int teamPlayerNum = Integer.parseInt(splitInput[1]);
@@ -198,7 +199,7 @@ public class CmdLineUI implements GameManagerUI {
 		// Prints the options available to the user
 		System.out.println("\n(0) Buy players and coaches");
 		System.out.println("(1) Buy items");
-		System.out.println("'back' Back to main menu");
+		System.out.println("'back' Back to main menu\n");
 		
 		// Gets input from the player.
 		boolean validInput = false;
