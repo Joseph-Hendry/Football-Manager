@@ -229,6 +229,7 @@ public class CmdLineUI implements GameManagerUI {
 				playMatch(manager, oppositionTeam);
 			} else {
 				System.out.println("\n You must have a full team with at least one\nnon-injured player to enter a match.");
+				stadiumMenu(manager);
 			}
 		}
 	}
