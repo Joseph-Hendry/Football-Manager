@@ -87,6 +87,16 @@ public class GameManager {
 		UI.mainMenu(this);
 	}
 
+	public void setNickname(int playerNum, String nickname) {
+		try {
+			this.playersTeam.setNickname(playerNum, nickname);
+			UI.showClub(this);
+			UI.showMessage("Players nickname has been changed.");
+		} catch (Exception e) {
+			UI.showMessage(e.getMessage());
+		}
+	}
+
 	public void sellPlayer(int playerNum) {
 		try {
 			playerNum -= 12;
@@ -100,8 +110,6 @@ public class GameManager {
 
 	public void swapPlayers(int teamPlayerNum, int benchPlayerNum) {
 		try {
-			teamPlayerNum -= 1;
-			benchPlayerNum -= 12;
 			this.playersTeam.subPlayerSwap(teamPlayerNum, benchPlayerNum);
 			UI.showClub(this);
 			UI.showMessage("Players have been swapped.");

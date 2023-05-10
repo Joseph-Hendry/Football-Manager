@@ -118,24 +118,28 @@ public class Team {
     }
 
     /**
-     * This method is used to sub two players.
-     * Throws an exception if one of the players does not exist or if the players do not have the same position.
-     * @param playerOnTeam This is the player on the team going onto bench.
-     * @param playerOnBench This is the player on the bench going onto the team.
+     * This method sets a players nickname
+     * @param manager
+     * @param playerNum
+     * @throws Exception
      */
-    public void subPlayerSwap(int numPlayerOnTeam, int numPlayerOnBench) throws Exception {
-        if (numPlayerOnTeam <= this.onTeam.size() && numPlayerOnBench <= this.onBench.size() && numPlayerOnTeam  >= 0 && numPlayerOnBench >= 0) {
-            if (this.onTeam.get(numPlayerOnTeam) != null || this.onBench.get(numPlayerOnBench) != null) {
-                if (this.onTeam.get(numPlayerOnTeam).getPosition() == this.onBench.get(numPlayerOnBench).getPosition()) {
-                    Player temp = this.onTeam.get(numPlayerOnTeam);
-                    this.onTeam.set(numPlayerOnTeam, this.onBench.get(numPlayerOnBench));
-                    this.onBench.set(numPlayerOnBench, temp);
-                } else {
-                throw new IllegalArgumentException("Players must have the same position.");
-                }
+    public void setNickname(int playerNum, String nickname) throws Exception {
+        if (playerNum >= 0 && playerNum <= 11) {
+            playerNum -= 1;
+            if (this.onTeam.get(playerNum) != null) {
+                this.onTeam.get(playerNum).setNickname(nickname);
             } else {
-            throw new IllegalArgumentException("Player does not exist.");
+                throw new IllegalArgumentException("Player does not exist");
             }
+
+		} else if (playerNum >= 12 && playerNum <= 15) {
+            playerNum -= 12;
+            if (this.onBench.get(playerNum) != null) {
+                this.onBench.get(playerNum).setNickname(nickname);
+            } else {
+                throw new IllegalArgumentException("Player does not exist");
+            }
+
         } else {
             throw new IllegalArgumentException("Invalid Number");
         }
@@ -150,6 +154,32 @@ public class Team {
             if (this.onBench.get(playerNum) != null) {
                 manager.money += this.getBench().get(playerNum).getValue();
                 this.onBench.set(playerNum, null);
+            } else {
+            throw new IllegalArgumentException("Player does not exist.");
+            }
+        } else {
+            throw new IllegalArgumentException("Invalid Number");
+        }
+    }
+
+    /**
+     * This method is used to sub two players.
+     * Throws an exception if one of the players does not exist or if the players do not have the same position.
+     * @param playerOnTeam This is the player on the team going onto bench.
+     * @param playerOnBench This is the player on the bench going onto the team.
+     */
+    public void subPlayerSwap(int numPlayerOnTeam, int numPlayerOnBench) throws Exception {
+        numPlayerOnTeam -= 1;
+		numPlayerOnBench -= 12;
+        if (numPlayerOnTeam <= this.onTeam.size() && numPlayerOnBench <= this.onBench.size() && numPlayerOnTeam  >= 0 && numPlayerOnBench >= 0) {
+            if (this.onTeam.get(numPlayerOnTeam) != null || this.onBench.get(numPlayerOnBench) != null) {
+                if (this.onTeam.get(numPlayerOnTeam).getPosition() == this.onBench.get(numPlayerOnBench).getPosition()) {
+                    Player temp = this.onTeam.get(numPlayerOnTeam);
+                    this.onTeam.set(numPlayerOnTeam, this.onBench.get(numPlayerOnBench));
+                    this.onBench.set(numPlayerOnBench, temp);
+                } else {
+                throw new IllegalArgumentException("Players must have the same position.");
+                }
             } else {
             throw new IllegalArgumentException("Player does not exist.");
             }

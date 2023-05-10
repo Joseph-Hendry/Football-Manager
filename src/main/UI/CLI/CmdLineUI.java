@@ -151,30 +151,40 @@ public class CmdLineUI implements GameManagerUI {
 				System.out.println("(" + (j + i + 1) + ")" + " Empty");
 			}
 		}
-
-		System.out.println("\n\nSell Player: 'sell <player number>'");
+		System.out.println("\n\nNickname Player: '<player number> <name>'");
+		System.out.println("Sell Player: 'sell <player number>'");
 		System.out.println("Swap Players: 'swap <team player number> <bench player number>'");
 		System.out.println("Back: 'back'\n");
 	}
 
 	private String getClubInput(GameManager manager) {
 		while (true) {
-			String input = scanner.nextLine().toLowerCase();
-			if (input.matches("swap [0-9]+ [0-9]+")) {
+			String input = scanner.nextLine();
+			if (input.matches("[0-9]+ [a-zA-Z]+")) {
 				String[] splitInput = input.split(" ");
-				int teamPlayerNum = Integer.parseInt(splitInput[1]);
-				int benchPlayerNum = Integer.parseInt(splitInput[2]);
-				manager.swapPlayers(teamPlayerNum, benchPlayerNum);
-
-			} else if (input.matches("sell [0-9]+")) {
-				int playerNum = Integer.parseInt(input.split(" ")[1]);
-				manager.sellPlayer(playerNum);
-
-			} else if (input.equals("back")) {
-				mainMenu(manager);
-
+				int playerNum = Integer.parseInt(splitInput[0]);
+				String nickname = splitInput[1].toString();
+				System.out.println(nickname);
+				manager.setNickname(playerNum, nickname);
 			} else {
-				System.out.println("Please enter a valid input");
+				input = input.toLowerCase();
+
+				if (input.matches("swap [0-9]+ [0-9]+")) {
+					String[] splitInput = input.split(" ");
+					int teamPlayerNum = Integer.parseInt(splitInput[1]);
+					int benchPlayerNum = Integer.parseInt(splitInput[2]);
+					manager.swapPlayers(teamPlayerNum, benchPlayerNum);
+
+				} else if (input.matches("sell [0-9]+")) {
+					int playerNum = Integer.parseInt(input.split(" ")[1]);
+					manager.sellPlayer(playerNum);
+
+				} else if (input.equals("back")) {
+					mainMenu(manager);
+
+				} else {
+					System.out.println("Please enter a valid input");
+				}
 			}
 		}
 	}
