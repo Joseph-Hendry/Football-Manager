@@ -186,6 +186,9 @@ public class CmdLineUI implements GameManagerUI {
 		}
 	}
 
+	/**
+	 * This function displays the stadium menu, which allows the user to choose a match to play.
+	 */
 	@Override
 	public void stadiumMenu(GameManager manager) {
 		// TODO: View rankings and possible matches
@@ -199,7 +202,7 @@ public class CmdLineUI implements GameManagerUI {
 		}
 		
 		System.out.println("\n\n########## Stadium Menu ##########");
-		System.out.println("\nChose which team you would like to play:");
+		System.out.println("\nChoose which team you would like to play:");
 		for (int i = 0; i < teamsToPlay.size(); i++) {
 			Team team = teamsToPlay.get(i);
 			System.out.println("(" + i + ") " + team.getName() + " Rarity: " + team.getCoach().getRarity());
