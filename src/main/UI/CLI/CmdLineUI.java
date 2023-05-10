@@ -147,12 +147,12 @@ public class CmdLineUI implements GameManagerUI {
 			try {
 				System.out.println(manager.getPlayerTeam().getBench().get(j).toString(j + i + 1));
 			} catch (Exception e) {
-				System.out.println("(" + (j + i + 1) + ")" + "  Empty");
+				System.out.println("(" + (j + i + 1) + ")" + " Empty");
 			}
 		}
 
 		System.out.println("\n\nSell Player: 'sell <player number>'");
-		System.out.println("Swap Players: 'swap < team player number> < bench player number>'");
+		System.out.println("Swap Players: 'swap <team player number> <bench player number>'");
 		System.out.println("Back: 'back'");
 	}
 
