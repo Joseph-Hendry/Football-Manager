@@ -41,6 +41,10 @@ public class GameManager {
 	public Store getCurrentStore() {
 		return this.currentStore;
 	}
+	
+	public int getDifficulty() {
+		return this.difficulty;
+	}
 
 	public void onSetupFinish(String teamName, int difficulty, int seasonLength) {
 		this.currentWeek = 0;
