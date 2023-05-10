@@ -55,15 +55,9 @@ public class GameManager {
 		Team team;
 
 		if (difficulty == 0) {
-			team = Team.createRandomTeam("Silver");
-			for (int i = 0; i < seasonLength; i++) {
-				Team.createRandomTeam("Bronze");
-			}
+			team = Team.createRandomTeam(80);
 		} else {
-			team = Team.createRandomTeam("Bronze");
-			for (int i = 0; i < seasonLength; i++) {
-				Team.createRandomTeam("Bronze");
-			}
+			team = Team.createRandomTeam(50);
 		}
 		team.setName(teamName);
 		this.playersTeam = team;

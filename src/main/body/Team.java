@@ -42,25 +42,33 @@ public class Team {
      * @param rarity The difficulty of the team.
      * @return A random team.
      */
-     public static Team createRandomTeam(String rarity) {
+     public static Team createRandomTeam(int intRarity) {
         Random random = new Random();
+        String rarity = getStrRarity(intRarity);
 
-        String name = "Team " + (int) (random.nextDouble() * 1000);
+        String name = "Team" + (int) (random.nextDouble() * 1000);
         ArrayList<Player> onTeam = new ArrayList<Player>();
         ArrayList<Player> onBench = new ArrayList<Player>();
         ArrayList<Item> items = new ArrayList<Item>();
-        Coach coach = Coach.createRandomCoach(rarity);
+        
+        int coachVariety = random.nextInt(20) - 10; 
+        
+        Coach coach = Coach.createRandomCoach(getStrRarity(intRarity + coachVariety));
 
 
-        // Creates a onTeam of random playes depending on the formation.
+        // Creates a onTeam of random players depending on the formation.
         // Adds one player to the bench for each position.
         int i = 0;
         for (AvailablePositions position : AvailablePositions.values()) {
+        	int benchVariety = random.nextInt(20) - 10; 
+        	int benchRarity = intRarity + benchVariety;
             for (int j = 0; j < formation[i]; j++) {
-                Player teamPlayer = Player.createRandomPlayer(rarity, position);
+            	int playerVariety = random.nextInt(20) - 10; 
+            	int playerRarity = intRarity + playerVariety;
+                Player teamPlayer = Player.createRandomPlayer(getStrRarity(playerRarity), position);
                 onTeam.add(teamPlayer);
             }
-            Player benchPlayer = Player.createRandomPlayer(rarity, position);
+            Player benchPlayer = Player.createRandomPlayer(getStrRarity(benchRarity), position);
             onBench.add(benchPlayer);
             i++;
             }
@@ -68,6 +76,23 @@ public class Team {
         Team team = new Team(name, onTeam, onBench, items, coach, 0);
         return team;
     }
+     
+ 	/**
+ 	 * Converts a range of 0-100 into its rarity type.
+ 	 * @param intRarity	The int value of the rarity.
+ 	 * @return	The string rarity.
+ 	 */
+ 	public static String getStrRarity(int intRarity) {
+ 	if (intRarity <= 50) {
+ 		return "Bronze";
+ 	} else if (intRarity <= 80) {
+ 		return "Silver";
+ 	} else if (intRarity <= 95) {
+ 		return "Gold";
+ 	} else {
+ 		return "Platinum";
+ 		}
+ 	}
 
     /**
      * This method is used to get the name of the team.

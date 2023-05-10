@@ -194,7 +194,7 @@ public class CmdLineUI implements GameManagerUI {
 		int scaleValue = manager.getDifficulty() == 0 ? 2 : 4;
 		for (int i = 0; i < 4; i++) {
 			// Sets how good the teams are based off the current week and the difficulty.
-			String rarity = getStrRarity(random.nextInt(50) + scaleValue * manager.getCurrentWeek());
+			int rarity = random.nextInt(50) + scaleValue * manager.getCurrentWeek();
 			teamsToPlay.add(Team.createRandomTeam(rarity));
 		}
 		
@@ -204,6 +204,7 @@ public class CmdLineUI implements GameManagerUI {
 			Team team = teamsToPlay.get(i);
 			System.out.println("(" + i + ") " + team.getName() + " Rarity: " + team.getCoach().getRarity());
 		}
+		System.out.println("\n	'back' Back to main menu\n");
 		
 		ArrayList<String> validInputs = new ArrayList<String>(Arrays.asList("0", "1", "2", "3", "back"));
 		String userInput = getValidInput(validInputs);
@@ -215,22 +216,6 @@ public class CmdLineUI implements GameManagerUI {
 		}
 	}
 	
-	/**
-	 * Converts a range of 0-100 into its rarity type.
-	 * @param intRarity	The int value of the rarity.
-	 * @return	The string rarity.
-	 */
-	public String getStrRarity(int intRarity) {
-	if (intRarity <= 50) {
-		return "Bronze";
-	} else if (intRarity <= 80) {
-		return "Silver";
-	} else if (intRarity <= 95) {
-		return "Gold";
-	} else {
-		return "Platinum";
-		}
-	}
 
 	@Override
 	public void playMatch(GameManager manager, Team oppositionTeam) {
