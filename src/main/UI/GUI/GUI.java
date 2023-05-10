@@ -23,6 +23,11 @@ public class GUI implements GameManagerUI {
 	}
 
 	@Override
+	public void showClub(GameManager manager) {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
 	public void stadiumMenu(GameManager manager) {
 		// TODO Auto-generated method stub
 		
@@ -41,7 +46,7 @@ public class GUI implements GameManagerUI {
 	}
 
 	@Override
-	public void showError(String message) {
+	public void showMessage(String message) {
 		// TODO Auto-generated method stub
 		
 	}

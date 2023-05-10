@@ -1,7 +1,6 @@
 package main.UI.CLI;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 import main.UI.GameManagerUI;
