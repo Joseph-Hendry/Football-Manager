@@ -191,7 +191,7 @@ public class CmdLineUI implements GameManagerUI {
 	 */
 	@Override
 	public void stadiumMenu(GameManager manager) {
-		// TODO: View rankings and possible matches
+
 		ArrayList<Team> teamsToPlay = new ArrayList<Team>();
 		Random random = new Random();
 		int scaleValue = manager.getDifficulty() == 0 ? 2 : 4;

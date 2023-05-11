@@ -29,6 +29,22 @@ public class Match {
     }
 
     /**
+     * This is the getter for the points to win.
+     * @return The points to win.
+     */
+    public int getPointsToWin() {
+        return pointsToWin;
+    }
+
+    /**
+     * This is the getter for the money to win.
+     * @return The money to win.
+     */
+    public int getMoneyToWin() {
+        return moneyToWin;
+    }
+
+    /**
      * This method is used to play a match between two teams.
      * @return The score of the match.
      */

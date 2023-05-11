@@ -59,14 +59,14 @@ public class Team {
         // Adds one player to the bench for each position.
         int i = 0;
         for (AvailablePositions position : AvailablePositions.values()) {
-        	int benchVariety = random.nextInt(20) - 10; 
-        	int benchRarity = intRarity + benchVariety;
             for (int j = 0; j < formation[i]; j++) {
             	int playerVariety = random.nextInt(20) - 10; 
             	int playerRarity = intRarity + playerVariety;
                 Player teamPlayer = Player.createRandomPlayer(getStrRarity(playerRarity), position);
                 onTeam.add(teamPlayer);
             }
+            int benchVariety = random.nextInt(20) - 10; 
+        	int benchRarity = intRarity + benchVariety;
             Player benchPlayer = Player.createRandomPlayer(getStrRarity(benchRarity), position);
             onBench.add(benchPlayer);
             i++;
@@ -74,6 +74,25 @@ public class Team {
 
         Team team = new Team(name, onTeam, onBench, items, coach, 0);
         return team;
+    }
+
+    /**
+     * This method is used to improve the stats of the non-player teams.
+     */
+    public void updateNPCTeam(int intRarity) {
+        Random random = new Random();
+        for (Team team : teamList) {
+            if (team != this) {
+                int variety = random.nextInt(20) - 10;
+                int rarity = intRarity + variety;
+
+                Team tempTeam = Team.createRandomTeam(rarity);
+
+                team.setCoach(tempTeam.getCoach());
+                team.setTeam(tempTeam.getTeam());
+                team.setBench(tempTeam.getBench());
+            }
+        }
     }
      
  	/**
@@ -281,6 +300,14 @@ public class Team {
      */
     public static void sortTeamList() {
         teamList.sort((team1, team2) -> team2.getPoints() - team1.getPoints());
+    }
+
+    /**
+     * This method is used to get the teamList.
+     * @return The teamList.
+     */
+    public static ArrayList<Team> getTeamList() {
+        return teamList;
     }
 
     /**
