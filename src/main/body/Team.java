@@ -44,7 +44,6 @@ public class Team {
      */
      public static Team createRandomTeam(int intRarity) {
         Random random = new Random();
-        String rarity = getStrRarity(intRarity);
 
         String name = "Team" + (int) (random.nextDouble() * 1000);
         ArrayList<Player> onTeam = new ArrayList<Player>();

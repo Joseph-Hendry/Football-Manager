@@ -3,7 +3,6 @@ package main.body;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.Timer;
 
 public class Match {
     private int[] score = {0, 0};

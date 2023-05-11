@@ -2,54 +2,31 @@ package main.body;
 
 /**
  * This class implements a Stadium.
- * This stores a name, home team and home advantage.
+ * From here the player can view and play possible matches
+ * It will also show the player the current standings of the league.
+ * It will also check to see if the player can play a match.
+ * From the stadium the player can also take a bye.
  */
 public class Stadium {
-    private String name;
-    private Team homeTeam;
-    private float homeAdvantage;
 
     /**
-     * This is the constructor for the Stadium class.
-     * @param name The name of the stadium.
-     * @param homeTeam The home team of the stadium.
-     * @param homeAdvantage The home advantage of the stadium.
+     * This method is used to initialize the stadium.
      */
-    public Stadium(String name, Team homeTeam, float homeAdvantage) {
-        this.name = name;
-        this.homeTeam = homeTeam;
-        this.homeAdvantage = homeAdvantage;
+    public Stadium(GameManager manager, Team playerTeam) {
+        
     }
-
+    
     /**
-     * This method is used to get the name of the stadium.
-     * @return The name of the stadium.
-     */
-    public String getName() {
-        return this.name;
+     * This method is used to check if the player can play a match.
+     */ 
+    public void checkMatch() {
+        // TODO - implement Stadium.checkMatch
     }
-
+    
     /**
-     * This method is used to get the home team of the stadium.
-     * @return The home team of the stadium.
+     * This method is used to play a match.
      */
-    public Team getHomeTeam() {
-        return this.homeTeam;
-    }
-
-    /**
-     * This method is used to get the home advantage boost of the stadium.
-     * @return The home advantage of the stadium.
-     */
-    public float getHomeAdvantage() {
-        return this.homeAdvantage;
-    }
-
-    /**
-     * This method is used to set the name of the stadium.
-     * @param homeAdvantage The home advantage of the stadium.
-     */
-    public void setHomeAdvantage(float homeAdvantage) {
-        this.homeAdvantage = homeAdvantage;
+    public void playMatch() {
+        // TODO - implement Stadium.playMatch
     }
 }
