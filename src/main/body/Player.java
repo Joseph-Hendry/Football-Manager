@@ -176,10 +176,25 @@ public class Player extends Person {
 			this.setInjured(true);
 			this.stamina = 0;
 		} else if (stamina > 100) {
+			this.setInjured(false);
 			this.stamina = 100;
 		} else {
 			this.stamina = stamina;
 		}		
+	}
+
+	/**
+	 * Incriments the stamina of the player by the given amount.
+	 */
+	public void incStamina(int amount) {
+		this.setStamina(this.stamina + amount);
+	}
+
+	/**
+	 * Decriments the stamina of the player by the given amount.
+	 */
+	public void decStamina(int amount) {
+		this.setStamina(this.stamina - amount);
 	}
 	
 	/**
