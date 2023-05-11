@@ -1,6 +1,7 @@
 package main.UI.GUI;
 import main.UI.GameManagerUI;
 import main.body.GameManager;
+import main.body.Team;
 
 public class GUI implements GameManagerUI {
 
@@ -34,7 +35,7 @@ public class GUI implements GameManagerUI {
 	}
 
 	@Override
-	public void playMatch(GameManager manager) {
+	public void playMatch(GameManager manager, Team team) {
 		// TODO Auto-generated method stub
 		
 	}
