@@ -12,6 +12,7 @@ public class GameManager {
 	protected int money;
 	protected int currentWeek = 0;
 	protected Store currentStore;
+	protected Stadium stadium;
 
 	//private boolean finish = false;
 
