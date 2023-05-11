@@ -47,6 +47,10 @@ public class GameManager {
 		return this.difficulty;
 	}
 
+	public int getWeek() {
+		return this.currentWeek;
+	}
+
 	public void onSetupFinish(String teamName, int difficulty, int seasonLength) {
 		this.currentWeek = 1;
 		this.difficulty = difficulty;
@@ -118,19 +122,47 @@ public class GameManager {
 	}
 	
 	public void incWeek() {
-		this.currentWeek++;
 
-		// Update shop
-		int rarity = 0;
-		if (this.difficulty == 0) {
-			rarity = (currentWeek/seasonLength) * 50 + 60;
-		} else {
-			rarity = (currentWeek/seasonLength) * 50 + 40;
-		}
+		this.currentWeek++;
+		int rarity = getRarityInt();
+
+		// Update shop with slightly better items
 		this.currentStore.refeshStore(rarity);
 
-		// TODO:Update Opposing Team's
+		// Update players team with slightly better stats
+		this.playersTeam.updateNPCTeam(rarity);
+	}
+
+	/**
+	 * This method calculates the a number which represents
+	 * the rarity of the players in the store and the opposing team.
+	 * @return
+	 */
+	private int getRarityInt() {
 		
+		// Integers to represent the progression of the player (0 - 100)
+		int playerProgression = (currentWeek / seasonLength) * 100;
+
+		// Progression is then changed based on the difficulty
+		// Easy: (50 - 100) as progression goes from (0 - 100)
+		// Hard: (40 - 90)  as progression goes from (0 - 100)
+		if (difficulty == 0) {
+			return playerProgression / 2 + 50;
+		} else {
+			return playerProgression / 2 + 40;
+		}
+	}
+
+	/**
+	 * This method is used to play a match.
+	 * @param match The match that is being played.
+	 */
+	public void playMatch(Match match) {
+		try {
+			match.playMatch(this);
+		} catch (Exception e) {
+			UI.showMessage(e.getMessage());
+		}
 	}
 
 	public Team getPlayerTeam() {
