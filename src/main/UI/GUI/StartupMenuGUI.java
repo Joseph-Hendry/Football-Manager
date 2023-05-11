@@ -17,7 +17,7 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 
-public class startupMenuGUI {
+public class StartupMenuGUI {
 
 	private JFrame frame;
 	private JTextField txtTeamName;
@@ -29,7 +29,7 @@ public class startupMenuGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					startupMenuGUI window = new startupMenuGUI();
+					StartupMenuGUI window = new StartupMenuGUI();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,7 +41,7 @@ public class startupMenuGUI {
 	/**
 	 * Create the application.
 	 */
-	public startupMenuGUI() {
+	public StartupMenuGUI() {
 		initialize();
 	}
 

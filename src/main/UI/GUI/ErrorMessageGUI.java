@@ -4,7 +4,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 
-public class mainMenuGUI {
+public class ErrorMessageGUI {
 
 	private JFrame frame;
 
@@ -15,7 +15,7 @@ public class mainMenuGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					mainMenuGUI window = new mainMenuGUI();
+					ErrorMessageGUI window = new ErrorMessageGUI();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -27,7 +27,7 @@ public class mainMenuGUI {
 	/**
 	 * Create the application.
 	 */
-	public mainMenuGUI() {
+	public ErrorMessageGUI() {
 		initialize();
 	}
 
@@ -36,8 +36,7 @@ public class mainMenuGUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setResizable(false);
-		frame.setBounds(100, 100, 640, 360);
+		frame.setBounds(100, 100, 250, 200);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
