@@ -80,18 +80,28 @@ public class Store {
     /**
      * This method freshes the items in the store
      */
-    public void refeshStore(String rarity) {
+    public void refeshStore(int intRarity) {
+        Random random = new Random();
+        int variety;
+        int rarity;
+
         storePlayers.clear();
         for (AvailablePositions position : AvailablePositions.values()) {
-            Player teamPlayer = Player.createRandomPlayer(rarity, position);
+            variety = random.nextInt(20) - 10; 
+        	rarity = intRarity + variety;
+            Player teamPlayer = Player.createRandomPlayer(Team.getStrRarity(intRarity), position);
             storePlayers.add(teamPlayer);
         }
 
-        storeCoach = Coach.createRandomCoach(rarity);
+        variety = random.nextInt(20) - 10;
+        int coahcrarity = intRarity + variety;
+        storeCoach = Coach.createRandomCoach(Team.getStrRarity(coahcrarity));
 
         storeItems.clear();
         for (int i = 0; i < 5; i++) {
-            Item item = Item.createRandomItem(rarity);
+            variety = random.nextInt(20) - 10;
+            rarity = intRarity + variety;
+            Item item = Item.createRandomItem(Team.getStrRarity(rarity));
             storeItems.add(item);
         }
     }
@@ -107,8 +117,6 @@ public class Store {
     		System.out.println("Item is not in the list of store items.");
     	}
     }
-    
-    
     
     /**
      * This function creates a random rarity to be used when creating new objects that have rarity.
