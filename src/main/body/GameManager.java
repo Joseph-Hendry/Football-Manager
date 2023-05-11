@@ -10,10 +10,10 @@ public class GameManager {
 	protected int seasonLength;
 	protected Team playersTeam;
 	protected int money;
-	protected int currentWeek;
+	protected int currentWeek = 0;
 	protected Store currentStore;
 
-	private boolean finish = false;
+	//private boolean finish = false;
 
 	public GameManager(GameManagerUI ui) {
 		this.UI = ui;
@@ -48,7 +48,7 @@ public class GameManager {
 	}
 
 	public void onSetupFinish(String teamName, int difficulty, int seasonLength) {
-		this.currentWeek = 0;
+		this.currentWeek = 1;
 		this.difficulty = difficulty;
 		this.seasonLength = seasonLength;
 		this.currentStore = Store.createStore();
@@ -117,24 +117,41 @@ public class GameManager {
 		}
 	}
 	
+	public void incWeek() {
+		this.currentWeek++;
+
+		// Update shop
+		int rarity = 0;
+		if (this.difficulty == 0) {
+			rarity = (currentWeek/seasonLength) * 50 + 60;
+		} else {
+			rarity = (currentWeek/seasonLength) * 50 + 40;
+		}
+		this.currentStore.refeshStore(rarity);
+
+		// TODO:Update Opposing Team's
+		
+	}
 
 	public Team getPlayerTeam() {
 		return this.playersTeam;
 	}
 
-	public void quit() {
-		finish = true;
-	}
+	// public void quit() {
+	// 	finish = true;
+	// }
 
 	public static void main(String[] args) {
 		// Test play match
 		GameManager manager = new GameManager(new CmdLineUI());
 		Team team = Team.createRandomTeam(80);
-		team.setName("Test Team");
+		team.setName("Home");
 		Team oppositionTeam = Team.createRandomTeam(80);
-		oppositionTeam.setName("Test Opposition Team");
+		oppositionTeam.setName("Opposition");
 
-		Match match = new Match(team, oppositionTeam);
+		Match match = new Match(team, oppositionTeam, 10, 1000);
+		match.playMatch(manager);
+		match.playMatch(manager);
 		match.playMatch(manager);
 	}
 }

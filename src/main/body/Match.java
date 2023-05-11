@@ -10,6 +10,8 @@ public class Match {
     private Team[] teams = new Team[2];
     private int[] playerTeamStats = new int[4];
     private int[] NPCTeamStats = new int[4];
+    private int pointsToWin;
+    private int moneyToWin;
     private int time;
 
     /**
@@ -18,11 +20,13 @@ public class Match {
      * @param stadium The stadium the match is being played in.
      * @param time The time of the match.
      */
-    public Match(Team playerTeam, Team NPCTeam) {
+    public Match(Team playerTeam, Team NPCTeam, int pointsToWin, int moneyToWin) {
         this.teams[0] = playerTeam;
         this.teams[1] = NPCTeam;
         this.playerTeamStats = findTeamStats(playerTeam);
         this.NPCTeamStats = findTeamStats(NPCTeam);
+        this.pointsToWin = pointsToWin;
+        this.moneyToWin = moneyToWin;
     }
 
     /**
@@ -50,6 +54,13 @@ public class Match {
 
         // Play the match
         while (time > 0) {
+            // Wait 1 second
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
             if (ballPosition == 0) {
                 // If the team is taking a shot on goal
                 winningProbability = teamStats.get(teamWithBall)[0] - teamStats.get((teamWithBall + 1) % 2)[3];
@@ -179,16 +190,29 @@ public class Match {
     }
 
     private void onGameEnd(GameManager manager) {
+        // Decrease the stamina of the players
+        for (Player player : teams[0].getTeam()) {
+            player.decStamina(20);
+        }
+
+        // Increase the stamina of the players on bench
+        for (Player player : teams[0].getBench()) {
+            player.incStamina(20);
+        }
+
+        // Update the points and money of the teams
         if (score[0] > score[1]) {
-            manager.UI.showMessage(teams[0].getName() + " has won the match.");
-            teams[0].setPoints(teams[0].getPoints() + 3);
+            manager.UI.showMessage("Congratulations, " + teams[0].getName() + " has won the match.\n+ " + pointsToWin + " points and $" + moneyToWin + " has been added to your account.");
+            teams[0].setPoints(teams[0].getPoints() + pointsToWin);
+            manager.money = (manager.money + moneyToWin);
         } else if (score[0] < score[1]) {
             manager.UI.showMessage(teams[1].getName() + " has won the match.");
-            teams[1].setPoints(teams[1].getPoints() + 3);
         } else {
             manager.UI.showMessage("The match has ended in a draw.");
-            teams[0].setPoints(teams[0].getPoints() + 1);
-            teams[1].setPoints(teams[1].getPoints() + 1);
+            teams[1].setPoints(teams[0].getPoints() + (pointsToWin/2));
         }
+
+        // Incriment the week
+        manager.incWeek();
     }
 }
