@@ -43,4 +43,6 @@ public interface GameManagerUI {
 	 * Shows message.
 	 */
 	public void showMessage(String message);
+
+    public void endGame(GameManager gameManager);
 }

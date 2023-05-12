@@ -10,6 +10,7 @@ import java.util.Random;
 public class Team {
 
     private final static int[] formation = {4, 3, 3, 1};
+    private final static String[] names = {"Arsenal", "Aston Villa", "Bournemouth", "Brighton", "Burnley"};
     private static ArrayList<Team> teamList = new ArrayList<Team>();
     private String name;
     private ArrayList<Player> onTeam;
@@ -38,14 +39,31 @@ public class Team {
     }
 
     /**
+     * This method is used to create a random team.
+     * @param rarity The difficulty of the team.
+     * @return A random team.
+     */
+    public static void createNPCTeams(int intRarity) {
+        for (int i = 0; i < names.length; i++) {
+            createRandomTeam(intRarity, names[i]);
+        }
+    }
+
+    public void resetNPCTeams(int intRarity) {
+        Team temp = this;
+        teamList.clear();
+        teamList.add(temp);
+        createNPCTeams(intRarity);
+    }
+
+    /**
      * This method is used to generate a random team based on difficulty.
      * @param rarity The difficulty of the team.
      * @return A random team.
      */
-     public static Team createRandomTeam(int intRarity) {
+     public static Team createRandomTeam(int intRarity, String name) {
         Random random = new Random();
 
-        String name = "Team" + (int) (random.nextDouble() * 1000);
         ArrayList<Player> onTeam = new ArrayList<Player>();
         ArrayList<Player> onBench = new ArrayList<Player>();
         ArrayList<Item> items = new ArrayList<Item>();
@@ -74,25 +92,6 @@ public class Team {
 
         Team team = new Team(name, onTeam, onBench, items, coach, 0);
         return team;
-    }
-
-    /**
-     * This method is used to improve the stats of the non-player teams.
-     */
-    public void updateNPCTeam(int intRarity) {
-        Random random = new Random();
-        for (Team team : teamList) {
-            if (team != this) {
-                int variety = random.nextInt(20) - 10;
-                int rarity = intRarity + variety;
-
-                Team tempTeam = Team.createRandomTeam(rarity);
-
-                team.setCoach(tempTeam.getCoach());
-                team.setTeam(tempTeam.getTeam());
-                team.setBench(tempTeam.getBench());
-            }
-        }
     }
      
  	/**

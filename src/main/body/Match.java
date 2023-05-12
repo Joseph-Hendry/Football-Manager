@@ -7,7 +7,7 @@ import java.util.Random;
 public class Match {
     private int[] score = {0, 0};
     private Team[] teams = new Team[2];
-    private int[] playerTeamStats = new int[4];
+    public int[] playerTeamStats = new int[4];
     private int[] NPCTeamStats = new int[4];
     private int pointsToWin;
     private int moneyToWin;
@@ -65,16 +65,16 @@ public class Match {
 
         // Random team starts with the ball
         teamWithBall = random.nextInt(2);
-        manager.UI.showMessage("[00:00]" + teams[teamWithBall].getName() + " starts with the ball.");
+        manager.UI.showMessage(teams[teamWithBall].getName() + " starts with the ball.");
 
         // Play the match
         while (time > 0) {
             // Wait 1 second
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            // try {
+            //     Thread.sleep(3000);
+            // } catch (InterruptedException e) {
+            //     e.printStackTrace();
+            // }
 
             if (ballPosition == 0) {
                 // If the team is taking a shot on goal
@@ -169,38 +169,29 @@ public class Match {
         // Get the players on the team
         ArrayList<Player> teamList = team.getTeam();
         
-        for (int i = 0; i < formation.length; i++) {
-            for (int j = 0; j < formation[i]; j++) {
-                Player player = teamList.get(j + i);
+        for (Player player : teamList) {
                 int[] playerStats = player.getStats();
-                if (i == 0) {
-                    if (player.getPosition() == AvailablePositions.DEFENCE) {
-                        teamStats[2] += (playerStats[0] * 0.2 + playerStats[1] * 0.2 + playerStats[2] * 0.6);
-                    } else {
-                        teamStats[2] += (playerStats[0] * 0.2 + playerStats[1] * 0.2 + playerStats[2] * 0.2);
-                    }
-                } else if (i == 1) {
-                    if (player.getPosition() == AvailablePositions.MIDFIELD) {
+                AvailablePositions position = player.getPosition();
+                switch (position) {
+                    case DEFENCE:
+                        teamStats[0] += (playerStats[0] * 0.2 + playerStats[1] * 0.2 + playerStats[2] * 0.6);
+                        break;
+                    case MIDFIELD:
                         teamStats[1] += (playerStats[0] * 0.2 + playerStats[1] * 0.6 + playerStats[2] * 0.2);
-                    } else {
-                        teamStats[1] += (playerStats[0] * 0.2 + playerStats[1] * 0.2 + playerStats[2] * 0.2);
-                    }
-                } else if (i == 2) {
-                    if (player.getPosition() == AvailablePositions.STRIKER) {
-                        teamStats[0] += (playerStats[0] * 0.6 + playerStats[1] * 0.2 + playerStats[2] * 0.2);
-                    } else {
-                        teamStats[0] += (playerStats[0] * 0.2 + playerStats[1] * 0.2 + playerStats[2] * 0.2);
-                    }
-                } else {
-                    if (player.getPosition() == AvailablePositions.GOALKEEPER) {
-                        teamStats[0] += (playerStats[0] * 0.3 + playerStats[1] * 0.3 + playerStats[2] * 0.4);
-                    } else {
-                        teamStats[0] += (playerStats[0] * 0.2 + playerStats[1] * 0.2 + playerStats[2] * 0.2);
-                    }
+                        break;
+                    case STRIKER:
+                        teamStats[2] += (playerStats[0] * 0.6 + playerStats[1] * 0.2 + playerStats[2] * 0.2);
+                        break;
+                    case GOALKEEPER:
+                        teamStats[3] += (playerStats[0] * 0.3 + playerStats[1] * 0.3 + playerStats[2] * 0.4);
+                        break;
                 }
             }
-            teamStats[i] /= formation[i];
-        }
+        // Divide the stats by the number of players in each position
+        teamStats[0] /= formation[0];
+        teamStats[1] /= formation[1];
+        teamStats[2] /= formation[2];
+        teamStats[3] /= formation[3];
         return teamStats;
     }
 
@@ -212,7 +203,7 @@ public class Match {
 
         // Increase the stamina of the players on bench
         for (Player player : teams[0].getBench()) {
-            player.incStamina(20);
+            player.incStamina(50);
         }
 
         // Update the points and money of the teams
@@ -221,13 +212,64 @@ public class Match {
             teams[0].setPoints(teams[0].getPoints() + pointsToWin);
             manager.money = (manager.money + moneyToWin);
         } else if (score[0] < score[1]) {
-            manager.UI.showMessage(teams[1].getName() + " has won the match.");
+            manager.UI.showMessage("Unfortunitly " +teams[1].getName() + " has won the match.");
         } else {
             manager.UI.showMessage("The match has ended in a draw.");
             teams[1].setPoints(teams[0].getPoints() + (pointsToWin/2));
         }
+    }
 
-        // Incriment the week
-        manager.incWeek();
+    /**
+     * This method is used to get the score of the match.
+     * @return The score of the match.
+     */
+    public int[] getScore() {
+        return score;
+    }
+
+    /**
+     * This method is used to get the points to win.
+     * @return The points to win.
+     */
+    public int getPoints() {
+        return pointsToWin;
+    }
+
+    /**
+     * This method is used to get the money to win.
+     * @return The money to win.
+     */
+    public int getMoney() {
+        return moneyToWin;
+    }
+
+    /**
+     * This method returns the opposing team.
+     */
+    public Team getOpposingTeam() {
+        return teams[1];
+    }
+
+    /**
+     * Get NPC team stats
+     */
+    public int[] getNPCTeamStats() {
+        return NPCTeamStats;
+    }
+
+    public static void main(String[] args) {
+        // Test team stats
+        Team team = Team.createRandomTeam(100, "Test1");
+        Team team2 = Team.createRandomTeam(100, "Test2");
+        Match match = new Match(team, team2, 3, 1000);
+        int[] teamStats = match.playerTeamStats;
+        System.out.println("Team 1 stats: " + teamStats[0] + " " + teamStats[1] + " " + teamStats[2] + " " + teamStats[3]);
+        // System.out.println("Team 2 stats: " + team2Stats[0] + " " + team2Stats[1] + " " + team2Stats[2] + " " + team2Stats[3]);
+
+        // Prints players in eam statistics
+        System.out.println("Team 1 players:");
+        for (Player player : team.getTeam()) {
+            System.out.println(player.getName() + " " + player.getPosition() + " " + player.getStats()[0] + " " + player.getStats()[1] + " " + player.getStats()[2]);
+        }
     }
 }

@@ -20,15 +20,14 @@ public class Stadium {
     public Stadium(GameManager manager, Team playerTeam) {
         this.manage = manager;
         this.playerTeam = playerTeam;
+        generateNPCTeams();
+        setPossibleMatches();
     }
 
     /**
      * This method is used to take a bye.
      */
     public void takeBye() {
-        // Increment the week
-        manage.incWeek();
-
         // Increase all player stamina
         for (Player player : playerTeam.getTeam()) {
             player.incStamina(50);
@@ -45,6 +44,12 @@ public class Stadium {
     public ArrayList<Team> getRankings() {
         Team.sortTeamList();
         return Team.getTeamList();
+    }
+
+    public void generateNPCTeams() {
+        int teamStrength = 50;
+
+        Team.createNPCTeams(teamStrength);
     }
 
     /**

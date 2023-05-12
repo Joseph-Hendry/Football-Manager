@@ -2,7 +2,6 @@ package main.UI.CLI;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Random;
 import java.util.Scanner;
 
 import main.UI.GameManagerUI;
@@ -123,7 +122,15 @@ public class CmdLineUI implements GameManagerUI {
 	@Override
 	public void clubMenu(GameManager manager) {
 		showClub(manager);
-		getClubInput(manager);
+		
+		while (true) {
+			String redirect = scanner.nextLine();
+			try {
+				manager.onClubMenuFinish(redirect);
+			} catch (Exception e) {
+				System.out.println(e);
+			}
+		}
 	}
 
 	public void showClub(GameManager manager) {
@@ -154,87 +161,29 @@ public class CmdLineUI implements GameManagerUI {
 		System.out.println("Back: 'back'\n");
 	}
 
-	private String getClubInput(GameManager manager) {
-		while (true) {
-			String input = scanner.nextLine();
-			if (input.matches("[0-9]+ [a-zA-Z]+")) {
-				String[] splitInput = input.split(" ");
-				int playerNum = Integer.parseInt(splitInput[0]);
-				String nickname = splitInput[1].toString();
-				System.out.println(nickname);
-				manager.setNickname(playerNum, nickname);
-			} else {
-				input = input.toLowerCase();
-
-				if (input.matches("swap [0-9]+ [0-9]+")) {
-					String[] splitInput = input.split(" ");
-					int teamPlayerNum = Integer.parseInt(splitInput[1]);
-					int benchPlayerNum = Integer.parseInt(splitInput[2]);
-					manager.swapPlayers(teamPlayerNum, benchPlayerNum);
-
-				} else if (input.matches("sell [0-9]+")) {
-					int playerNum = Integer.parseInt(input.split(" ")[1]);
-					manager.sellPlayer(playerNum);
-
-				} else if (input.equals("back")) {
-					mainMenu(manager);
-
-				} else {
-					System.out.println("Please enter a valid input");
-				}
-			}
-		}
-	}
-
 	/**
 	 * This function displays the stadium menu, which allows the user to choose a match to play.
 	 */
 	@Override
 	public void stadiumMenu(GameManager manager) {
 
-		ArrayList<Team> teamsToPlay = new ArrayList<Team>();
-		Random random = new Random();
-		int scaleValue = manager.getDifficulty() == 0 ? 2 : 4;
-		for (int i = 0; i < 4; i++) {
-			// Sets how good the teams are based off the current week and the difficulty.
-			int rarity = random.nextInt(50) + scaleValue * manager.getCurrentWeek();
-			teamsToPlay.add(Team.createRandomTeam(rarity));
-		}
+		ArrayList<Match> matches = manager.getStadium().getPossibleMatches();
 		
 		System.out.println("\n\n########## Stadium Menu ##########");
 		System.out.println("\nChoose which team you would like to play:");
-		for (int i = 0; i < teamsToPlay.size(); i++) {
-			Team team = teamsToPlay.get(i);
-			System.out.println("(" + i + ") " + team.getName() + " Rarity: " + team.getCoach().getRarity());
+
+		int i = 0;
+		for (Match match : matches) {
+			int[] stats = match.getNPCTeamStats();
+			System.out.println("(" + (i + 1) + ")  Team: " + match.getOpposingTeam().getName() + " Stats: " + stats[0] + " " + stats[1] + " " + stats[2] + " " + stats[3] + " Points: " + match.getPoints() + " Money: " + match.getMoney());
+			i++;
 		}
-		System.out.println("\n	'back' Back to main menu\n");
+		System.out.println("("+ (i + 1) +")  Take a bye");
+		System.out.println("\n'back' Back to main menu\n");
 		
-		ArrayList<String> validInputs = new ArrayList<String>(Arrays.asList("0", "1", "2", "3", "back"));
+		ArrayList<String> validInputs = new ArrayList<String>(Arrays.asList("1", "2", "3", "4", "5", "6", "back"));
 		String userInput = getValidInput(validInputs);
-		if (userInput.equals("back")) {
-			mainMenu(manager);
-		} else {
-			
-			Team oppositionTeam = teamsToPlay.get(Integer.parseInt(userInput));
-			
-			// Checks that the players team is full.
-			boolean fullTeam = manager.getPlayerTeam().getTeam().size() == 11 ? true : false;
-			
-			// Testing whether all the players in the users team are injured.
-			boolean allInjured = true;
-			for (Player player : manager.getPlayerTeam().getTeam()) {
-				if (!player.isInjured()) {
-					allInjured = false;
-				}
-			}
-			
-			if(!allInjured && fullTeam) {
-				playMatch(manager, oppositionTeam);
-			} else {
-				System.out.println("\n You must have a full team with at least one\nnon-injured player to enter a match.");
-				stadiumMenu(manager);
-			}
-		}
+		manager.onStadiumMenuFinish(userInput);
 	}
 	
 
@@ -247,7 +196,7 @@ public class CmdLineUI implements GameManagerUI {
 	@Override
 	public void storeMenu(GameManager manager) {
 		System.out.println("\n\n########## Store Menu ##########");
-		Store store = manager.getCurrentStore();
+		Store store = manager.getStore();
 		
 		// Prints the options available to the user
 		System.out.println("\n(0) Buy players and coaches");
@@ -391,6 +340,19 @@ public class CmdLineUI implements GameManagerUI {
 				storeItemMenu(store, manager);
 			}
 		}
+	}
+
+	/**
+	 * This function is the end of the game. It displays the final standings of the league.
+	 */
+	public void endGame(GameManager manager) {
+		System.out.println("\n\n########## End Game ##########");
+		System.out.println("Final Standings:");
+		ArrayList<Team> rankings = manager.getStadium().getRankings();
+		for (int i = 0; i < rankings.size(); i++) {
+			System.out.println((i + 1) + ". " + rankings.get(i).getName());
+		}
+		System.out.println("\n\nThanks for playing!");
 	}
 
 	/**
