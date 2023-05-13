@@ -263,18 +263,20 @@ public class CmdLineUI implements GameManagerUI {
 			validInputs.add(Integer.toString(i));
 		}
 		if (store.coachAvailable()) {
-			validInputs.add(Integer.toString(store.getStorePlayers().size() + 1));
+			System.out.println(store.getStorePlayers().size());
+			validInputs.add(Integer.toString(store.getStorePlayers().size()));
 		}
 		validInputs.add("back");
 		
 		String userInput = getValidInput(validInputs);
 		if (userInput.equals("back")) {
 			storeMenu(manager);
-		} else if (Integer.parseInt(userInput) == store.getStorePlayers().size() - 1){
+		} else if (Integer.parseInt(userInput) == store.getStorePlayers().size()){
 			if (manager.getMoney() >= store.getStoreCoach().getValue()) {
 				manager.getPlayerTeam().setCoach(store.getStoreCoach());
 				manager.setMoney(manager.getMoney() - store.getStoreCoach().getValue());
 				store.setCoachAvailable(false);
+				storeItemMenu(store, manager);
 			} else {
 				System.out.println("You do not have enough money to buy this coach.");
 			}
@@ -282,12 +284,17 @@ public class CmdLineUI implements GameManagerUI {
 			int i = Integer.parseInt(userInput);
 			Player player = store.getStorePlayers().get(i);
 			if (manager.getMoney() >= player.getValue()) {
-				manager.getPlayerTeam().addPlayerToBench(player);
-				manager.setMoney(manager.getMoney() - player.getValue());
-				System.out.println("\n" + player.getName() + " has been added to your bench.");
-				System.out.println("Your remaining balance is " + manager.getMoney());
-				store.removePlayer(player);
-				storePlayerMenu(store, manager);
+				try {
+					manager.getPlayerTeam().addPlayerToBench(player);
+					manager.setMoney(manager.getMoney() - player.getValue());
+					System.out.println("\n" + player.getName() + " has been added to your bench.");
+					System.out.println("Your remaining balance is " + manager.getMoney());
+					store.removePlayer(player);
+					storePlayerMenu(store, manager);
+				} catch (Exception e) {
+					System.out.println(e.getMessage());
+					storePlayerMenu(store, manager);
+				}
 			} else {
 				System.out.println("You do not have enough money to buy this player.");
 				storeItemMenu(store, manager);
@@ -329,12 +336,17 @@ public class CmdLineUI implements GameManagerUI {
 			int i = Integer.parseInt(userInput);
 			Item item = store.getStoreItems().get(i);
 			if (manager.getMoney() >= item.getValue()) {
-				manager.getPlayerTeam().addItem(item);
-				manager.setMoney(manager.getMoney() - item.getValue());
-				System.out.println("\nYou have bought " + item.getName());
-				System.out.println("Your remaining balance is " + manager.getMoney());
-				store.removeItem(item);
-				storeItemMenu(store, manager);
+				try {
+					manager.getPlayerTeam().addItem(item);
+					manager.setMoney(manager.getMoney() - item.getValue());
+					System.out.println("\nYou have bought " + item.getName());
+					System.out.println("Your remaining balance is " + manager.getMoney());
+					store.removeItem(item);
+					storeItemMenu(store, manager);
+				} catch (Exception e) {
+					System.out.println("You already have this item.");
+					storeItemMenu(store, manager);
+				}
 			} else {
 				System.out.println("You do not have enough money to buy this item.");
 				storeItemMenu(store, manager);
@@ -353,6 +365,7 @@ public class CmdLineUI implements GameManagerUI {
 			System.out.println((i + 1) + ". " + rankings.get(i).getName());
 		}
 		System.out.println("\n\nThanks for playing!");
+		System.exit(0);
 	}
 
 	/**

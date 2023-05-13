@@ -50,10 +50,31 @@ public class Team {
     }
 
     public void resetNPCTeams(int intRarity) {
-        Team temp = this;
-        teamList.clear();
-        teamList.add(temp);
-        createNPCTeams(intRarity);
+        for (Team temp : teamList) {
+            if (temp != this) {
+                Coach tempCoach = Coach.createRandomCoach(getStrRarity(intRarity));
+                temp.setCoach(tempCoach);
+
+                ArrayList<Player> tempOnTeam = new ArrayList<Player>();
+                ArrayList<Player> tempOnBench = new ArrayList<Player>();
+
+                int i = 0;
+                for (AvailablePositions position : AvailablePositions.values()) {
+                    for (int j = 0; j < formation[i]; j++) {
+                        Player teamPlayer = Player.createRandomPlayer(getStrRarity(intRarity), position);
+                        tempOnTeam.add(teamPlayer);
+                    }
+                    int benchVariety = new Random().nextInt(20) - 10; 
+                	int benchRarity = intRarity + benchVariety;
+                    Player benchPlayer = Player.createRandomPlayer(getStrRarity(benchRarity), position);
+                    tempOnBench.add(benchPlayer);
+                    i++;
+                }
+
+                temp.setTeam(tempOnTeam);
+                temp.setBench(tempOnBench);
+            }
+        }
     }
 
     /**
@@ -242,7 +263,10 @@ public class Team {
      * This method is used to add an item to the team.
      * @param item The added item.
      */
-    public void addItem(Item item) {
+    public void addItem(Item item) throws Exception {
+        if (this.items.size() >= 3) {
+            throw new Exception("You can only have 3 items.");
+        }
         this.items.add(item);
     }
 
@@ -290,8 +314,14 @@ public class Team {
      * Adds a player onto the bench.
      * @param player	The player.
      */
-    public void addPlayerToBench(Player player) {
-    	this.onBench.add(player);
+    public void addPlayerToBench(Player player) throws Exception {
+        for (int i = 0; i < this.onBench.size(); i++) {
+            if (this.onBench.get(i) == null) {
+                this.onBench.set(i, player);
+                return;
+            }
+        }
+        throw new Exception("Bench is full");
     }
 
     /**

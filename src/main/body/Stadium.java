@@ -72,10 +72,10 @@ public class Stadium {
                 }
             }
         } else {
-            for (int i = 0; i < teamIndex; i++) {
+            for (int i = 0; i < teamListSize; i++) {
                 if (i != teamIndex) {
-                    pointsToWin = (teamListSize - teamIndex) * 3;
-                    moneyToWin = (teamListSize - teamIndex) * 1000;
+                    pointsToWin = 10 + (teamListSize - i) * 3;
+                    moneyToWin = 1000 + (teamListSize - i) * 30;
                     possibleMatches.add(new Match(playerTeam, teamList.get(i), pointsToWin, moneyToWin));
                 }
             }
@@ -89,6 +89,7 @@ public class Stadium {
      * @return The possible matches.
      */
     public ArrayList<Match> getPossibleMatches() {
+        setPossibleMatches();
         return possibleMatches;
     }
     

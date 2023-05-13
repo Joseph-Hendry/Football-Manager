@@ -64,7 +64,7 @@ public class GameManager {
 		this.store.refeshStore(rarity);
 
 		// Update other players teams with slightly better players
-		this.playersTeam.resetNPCTeams(rarity);
+		 this.playersTeam.resetNPCTeams(rarity);
 	}
 
 	/**
@@ -243,10 +243,11 @@ public class GameManager {
 	 * This method is used to take a bye.
 	 */
 	private void takeBye() {
-		incWeek();
 		try {
 			this.stadium.takeBye();
 			UI.showMessage("You have taken a bye.");
+			onMatchFinish();
+			UI.mainMenu(this);
 		} catch (Exception e) {
 			UI.showMessage(e.getMessage());
 		}
