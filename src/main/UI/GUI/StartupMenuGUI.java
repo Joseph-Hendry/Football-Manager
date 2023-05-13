@@ -4,9 +4,17 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import main.body.GameManager;
+
 import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
@@ -21,6 +29,11 @@ public class StartupMenuGUI {
 
 	private JFrame frame;
 	private JTextField txtTeamName;
+	private JSpinner spnrSeasonLength;
+	private JComboBox<String> comboDifficulty;
+    private JButton btnContinue;
+    
+    private final GameManager manager;
 
 	/**
 	 * Launch the application.
@@ -29,7 +42,9 @@ public class StartupMenuGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					StartupMenuGUI window = new StartupMenuGUI();
+					GUI ui = new GUI();
+					GameManager manager = new GameManager(ui);
+					StartupMenuGUI window = new StartupMenuGUI(manager);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,8 +56,19 @@ public class StartupMenuGUI {
 	/**
 	 * Create the application.
 	 */
-	public StartupMenuGUI() {
+	public StartupMenuGUI(GameManager manager) {
+		this.manager = manager;
 		initialize();
+	}
+	
+	/**
+	 * Completes the setup of our {@link RocketManager}.
+	 */
+	private void setupComplete() {
+		System.out.println(txtTeamName.getText());
+		System.out.println((int) spnrSeasonLength.getValue());
+		System.out.println(comboDifficulty.getSelectedIndex());
+		manager.onSetupFinish(txtTeamName.getText(), comboDifficulty.getSelectedIndex(), (int) spnrSeasonLength.getValue());
 	}
 
 	/**
@@ -64,6 +90,7 @@ public class StartupMenuGUI {
 		JLabel lbChooseName = new JLabel("Please choose a name for your team (3-15 characters):");
 		lbChooseName.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lbChooseName.setBounds(10, 81, 347, 29);
+		
 		frame.getContentPane().add(lbChooseName);
 		
 		txtTeamName = new JTextField();
@@ -78,14 +105,14 @@ public class StartupMenuGUI {
 		lblSeasonLength.setBounds(10, 134, 347, 29);
 		frame.getContentPane().add(lblSeasonLength);
 		
-		JSpinner spnrSeasonLength = new JSpinner();
+		spnrSeasonLength = new JSpinner();
 		spnrSeasonLength.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		spnrSeasonLength.setModel(new SpinnerNumberModel(5, 5, 15, 1));
 		spnrSeasonLength.setBounds(378, 136, 218, 26);
 		frame.getContentPane().add(spnrSeasonLength);
 		
-		JComboBox comboDifficulty = new JComboBox();
-		comboDifficulty.setModel(new DefaultComboBoxModel(new String[] {"Easy", "Hard"}));
+		comboDifficulty = new JComboBox<String>();
+		comboDifficulty.setModel(new DefaultComboBoxModel<String>(new String[] {"Easy", "Hard"}));
 		comboDifficulty.setBounds(378, 187, 218, 29);
 		frame.getContentPane().add(comboDifficulty);
 		
@@ -94,14 +121,40 @@ public class StartupMenuGUI {
 		lblChooseDifficulty.setBounds(10, 190, 218, 18);
 		frame.getContentPane().add(lblChooseDifficulty);
 		
-		JButton btnContinue = new JButton("Continue");
+		btnContinue = new JButton("Continue");
 		btnContinue.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnContinue.setBounds(10, 247, 294, 63);
 		frame.getContentPane().add(btnContinue);
-		
-		JButton btnQuit = new JButton("Quit\r\n");
+
+		// Add action listener to the "Continue" button
+		btnContinue.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Get the team name and season length values
+				String teamName = txtTeamName.getText();
+				int seasonLength = (int) spnrSeasonLength.getValue();
+
+				// Check if both fields have been filled out
+				if (teamName.length() >= 3 && teamName.length() <= 15 && seasonLength >= 5 && seasonLength <= 15) {
+					System.out.println("This is working");
+					setupComplete();
+				} else {
+					// If one or both fields are invalid, display an error message
+					JOptionPane.showMessageDialog(frame, "Please enter a valid team name (3-15 characters) and season length (5-15 weeks).", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
+
+		JButton btnQuit = new JButton("Quit");
 		btnQuit.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnQuit.setBounds(314, 247, 300, 63);
 		frame.getContentPane().add(btnQuit);
+
+		btnQuit.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        System.exit(0);
+		    }
+		});
 	}
 }

@@ -51,4 +51,10 @@ public class GUI implements GameManagerUI {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public static void main(String[] args) {
+		CmdLineUI ui = new CmdLineUI();
+		GameManager manager = new GameManager(ui);
+		ui.setup(manager);
+	}
 }
