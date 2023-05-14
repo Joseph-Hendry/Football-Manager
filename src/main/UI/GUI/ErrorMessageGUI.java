@@ -1,7 +1,5 @@
 package main.UI.GUI;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.BorderLayout;
@@ -16,23 +14,6 @@ public class ErrorMessageGUI {
 
 	private JFrame frame;
 	private String error;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				String error = args[0];
-				try {
-					ErrorMessageGUI window = new ErrorMessageGUI(error);
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.

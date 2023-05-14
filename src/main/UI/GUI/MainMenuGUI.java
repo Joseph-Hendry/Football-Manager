@@ -2,15 +2,12 @@ package main.UI.GUI;
 
 import main.body.GameManager;
 
-import java.awt.EventQueue;
 import java.awt.Font;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-
-import java.awt.BorderLayout;
 
 public class MainMenuGUI {
 

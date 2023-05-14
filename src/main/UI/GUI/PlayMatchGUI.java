@@ -2,8 +2,6 @@ package main.UI.GUI;
 
 import java.util.ArrayList;
 
-import java.awt.EventQueue;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
