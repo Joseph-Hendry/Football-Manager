@@ -58,6 +58,10 @@ public class StartupMenuGUI {
 	public JFrame getFrame() {
 		return this.frame;
 	}
+	
+	public GameManager getManager() {
+		return this.manager;
+	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -124,7 +128,10 @@ public class StartupMenuGUI {
 					String[] errorArg = {"Please enter a name with 3-15 characters."};
 					ErrorMessageGUI.main(errorArg);
 				}
-//				MainMenuGUI.main(null);
+				getManager().onSetupFinish(text, intDifficulty, Integer.parseInt(spnrSeasonLength.getValue().toString()));
+				MainMenuGUI mainMenu = new MainMenuGUI();
+				mainMenu.setManager(manager);
+				mainMenu.getFrame().setVisible(true);
 				frame.dispose();
 			}
 		});

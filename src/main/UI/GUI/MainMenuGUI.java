@@ -19,7 +19,7 @@ public class MainMenuGUI {
 	private JButton btnStadium;
 	private JButton btnStore;
 
-	private final GameManager manager;
+	private GameManager manager;
 
 	/**
 	 * Launch the application.
@@ -29,8 +29,7 @@ public class MainMenuGUI {
 			public void run() {
 				try {
 					GUI ui = new GUI();
-					GameManager manager = new GameManager(ui);
-					MainMenuGUI window = new MainMenuGUI(manager);
+					MainMenuGUI window = new MainMenuGUI();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,13 +41,16 @@ public class MainMenuGUI {
 	/**
 	 * Create the application.
 	 */
-	public MainMenuGUI(GameManager manager) {
-		this.manager = manager;
+	public MainMenuGUI() {
 		initialize();
 	}
 	
 	public void setManager(GameManager manager) {
 		this.manager = manager;
+	}
+	
+	public JFrame getFrame() {
+		return this.frame;
 	}
 
 	/**
