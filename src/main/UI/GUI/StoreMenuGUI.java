@@ -20,24 +20,6 @@ public class StoreMenuGUI{
 
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUI ui = new GUI();
-					GameManager manager = new GameManager(ui);
-					StoreMenuGUI window = new StoreMenuGUI(manager);
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the application.
 	 */
 	public StoreMenuGUI(GameManager manager) {

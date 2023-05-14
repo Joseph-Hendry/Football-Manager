@@ -29,24 +29,6 @@ public class StartupMenuGUI {
     private JButton btnContinue;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GUI ui = new GUI();
-					GameManager manager = new GameManager(ui);
-					StartupMenuGUI window = new StartupMenuGUI(manager);
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the application.
 	 */
 	public StartupMenuGUI(GameManager manager) {

@@ -30,28 +30,6 @@ public class PlayMatchGUI {
 	private Match match;
 
 	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					// Test the PlayMatchGUI
-					GUI ui = new GUI();
-					GameManager manager = new GameManager(ui);
-					Team playerTeam = Team.createRandomTeam(50, "HomeTeam");
-					Team NPCTeam = Team.createRandomTeam(50, "AwayTeam");
-					Match match = new Match(playerTeam, NPCTeam, 5, 5);
-					PlayMatchGUI window = new PlayMatchGUI(manager, match);
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
 	 * Create the application.
 	 */
 	public PlayMatchGUI(GameManager manager, Match match) {
@@ -80,9 +58,8 @@ public class PlayMatchGUI {
 		lblNewLabel.setBounds(38, 77, 132, 15);
 		frame.getContentPane().add(lblNewLabel);
 		
-		DefaultListModel<String> activeList = new DefaultListModel<>();
+		activeList = new DefaultListModel<>();
 		commentaryJList = new JList<>(activeList);
-		//commentaryJList.setHorizontalAlignment(SwingConstants.CENTER);
 		commentaryJList.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		commentaryJList.setBounds(10, 80, 800, 500);
         frame.getContentPane().add(commentaryJList);
