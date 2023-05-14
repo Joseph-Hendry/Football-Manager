@@ -19,7 +19,7 @@ public class MainMenuGUI {
 	private JButton btnStadium;
 	private JButton btnStore;
 
-	private GameManager manager;
+	protected GameManager manager;
 
 	/**
 	 * Launch the application.
@@ -94,15 +94,15 @@ public class MainMenuGUI {
 
 		// Preform actions for each of these buttons redirecting to the appropriate GUI
 		btnClub.addActionListener(e -> {
-			ClubGUI clubGUI = new ClubGUI();
-			clubGUI.main(null);
+//			ClubGUI clubGUI = new ClubGUI();
+//			clubGUI.main(null);
 		});
 		btnStadium.addActionListener(e -> {
-			StadiumMenuGUI.StadiumMenuGUI(manager);
+//			StadiumMenuGUI.StadiumMenuGUI(manager);
 		});
 		btnStore.addActionListener(e -> {
-			StoreGUI storeGUI = new StoreGUI();
-			storeGUI.main(null);
+//			StoreGUI storeGUI = new StoreGUI();
+//			storeGUI.main(null);
 		});
 	}
 }

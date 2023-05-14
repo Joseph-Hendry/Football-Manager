@@ -18,6 +18,7 @@ public class GUI implements GameManagerUI {
 	public void clubMenu() {
 		// TODO Auto-generated method stub
 		
+		
 	}
 
 	@Override
@@ -53,5 +54,17 @@ public class GUI implements GameManagerUI {
 		GUI ui = new GUI();
 		GameManager manager = new GameManager(ui);
 		ui.setup(manager);
+	}
+
+	@Override
+	public void mainMenu() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void endGame() {
+		// TODO Auto-generated method stub
+		
 	}
 }
