@@ -12,37 +12,37 @@ public interface GameManagerUI {
 	/**
 	 * Shows the main menu screen.
 	 */
-	public void mainMenu(GameManager manager);
+	public void mainMenu();
 	
 	/**
 	 * Shows the club page to manage their team.
 	 */
-	public void clubMenu(GameManager manager);
+	public void clubMenu();
 
 	/**
 	 * Shows the players team.
 	 */
-	public void showClub(GameManager manager);
+	public void showClub();
 	
 	/**
 	 * Shows the stadium menu which allows them to play a match.
 	 */
-	public void stadiumMenu(GameManager manager);
+	public void stadiumMenu();
 	
 	/**
 	 * Shows the events of playing a match.
 	 */
-	public void playMatch(GameManager manager, Team oppositionTeam);
+	public void playMatch(Team oppositionTeam);
 	
 	/**
 	 * Shows the market where the player can buy and sell players, coaches and items.
 	 */
-	public void storeMenu(GameManager manager);
+	public void storeMenu();
 
 	/**
 	 * Shows message.
 	 */
 	public void showMessage(String message);
 
-    public void endGame(GameManager gameManager);
+    public void endGame();
 }

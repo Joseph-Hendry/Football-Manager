@@ -10,6 +10,7 @@ import main.body.*;
 public class CmdLineUI implements GameManagerUI {
 
 	private final Scanner scanner;
+	private GameManager manager;
 
 	public CmdLineUI() {
 		this.scanner = new Scanner(System.in);
@@ -17,6 +18,8 @@ public class CmdLineUI implements GameManagerUI {
 
 	@Override
 	public void setup(GameManager manager) {
+		this.manager = manager;
+
 		System.out.println("########## Game Setup ##########");
 		String teamName = setTeamName();
 		int difficulty = setDifficulty();
@@ -94,7 +97,7 @@ public class CmdLineUI implements GameManagerUI {
 	 * This function represents the main menu. It displays where the user can go.
 	 */
 	@Override
-	public void mainMenu(GameManager manager) {
+	public void mainMenu() {
 		// Be able to go into club, stadium, store
 
 		System.out.println("\n\n########## Main Menu ##########");
@@ -120,8 +123,8 @@ public class CmdLineUI implements GameManagerUI {
 	 * This function represents the club menu. It displays the players team information.
 	 */
 	@Override
-	public void clubMenu(GameManager manager) {
-		showClub(manager);
+	public void clubMenu() {
+		showClub();
 		
 		while (true) {
 			String redirect = scanner.nextLine();
@@ -133,7 +136,7 @@ public class CmdLineUI implements GameManagerUI {
 		}
 	}
 
-	public void showClub(GameManager manager) {
+	public void showClub() {
 		System.out.println("\n\n########## Club Menu ##########");
 		System.out.println("Team Name: " + manager.getPlayerTeam().getName());
 		System.out.println("Team Money: " + manager.getMoney());
@@ -165,7 +168,7 @@ public class CmdLineUI implements GameManagerUI {
 	 * This function displays the stadium menu, which allows the user to choose a match to play.
 	 */
 	@Override
-	public void stadiumMenu(GameManager manager) {
+	public void stadiumMenu() {
 
 		ArrayList<Match> matches = manager.getStadium().getPossibleMatches();
 		
@@ -188,13 +191,13 @@ public class CmdLineUI implements GameManagerUI {
 	
 
 	@Override
-	public void playMatch(GameManager manager, Team oppositionTeam) {
+	public void playMatch(Team oppositionTeam) {
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
-	public void storeMenu(GameManager manager) {
+	public void storeMenu() {
 		System.out.println("\n\n########## Store Menu ##########");
 		Store store = manager.getStore();
 		
@@ -209,16 +212,16 @@ public class CmdLineUI implements GameManagerUI {
 			String string_input = scanner.nextLine();
 			if (string_input.equals("back")) {
 				validInput = true;
-				mainMenu(manager);
+				mainMenu();
 			} else {
 				try {
 					int int_input = Integer.parseInt(string_input);
 					if (int_input == 0) {
 						validInput = true;
-						storePlayerMenu(store, manager);
+						storePlayerMenu(store);
 					} else if (int_input == 1) {
 						validInput = true;
-						storeItemMenu(store, manager);
+						storeItemMenu(store);
 					} else {
 						System.out.println("Please enter either 0, 1, or back");
 					}
@@ -233,7 +236,7 @@ public class CmdLineUI implements GameManagerUI {
 	 * allows them to purchase these people for their team.
 	 * @param store	The store currently being displayed.
 	 */
-	public void storePlayerMenu(Store store, GameManager manager) {
+	public void storePlayerMenu(Store store) {
 		// Prints the players available for sale.
 		System.out.println("\nPlayers for sale:");
 		System.out.println("Balance: " + manager.getMoney());
@@ -270,13 +273,13 @@ public class CmdLineUI implements GameManagerUI {
 		
 		String userInput = getValidInput(validInputs);
 		if (userInput.equals("back")) {
-			storeMenu(manager);
+			storeMenu();
 		} else if (Integer.parseInt(userInput) == store.getStorePlayers().size()){
 			if (manager.getMoney() >= store.getStoreCoach().getValue()) {
 				manager.getPlayerTeam().setCoach(store.getStoreCoach());
 				manager.setMoney(manager.getMoney() - store.getStoreCoach().getValue());
 				store.setCoachAvailable(false);
-				storeItemMenu(store, manager);
+				storeItemMenu(store);
 			} else {
 				System.out.println("You do not have enough money to buy this coach.");
 			}
@@ -290,14 +293,14 @@ public class CmdLineUI implements GameManagerUI {
 					System.out.println("\n" + player.getName() + " has been added to your bench.");
 					System.out.println("Your remaining balance is " + manager.getMoney());
 					store.removePlayer(player);
-					storePlayerMenu(store, manager);
+					storePlayerMenu(store);
 				} catch (Exception e) {
 					System.out.println(e.getMessage());
-					storePlayerMenu(store, manager);
+					storePlayerMenu(store);
 				}
 			} else {
 				System.out.println("You do not have enough money to buy this player.");
-				storeItemMenu(store, manager);
+				storeItemMenu(store);
 			}
 		}
 	}
@@ -306,7 +309,7 @@ public class CmdLineUI implements GameManagerUI {
 	 * Allows the player to see and purchase items that are available in the store.
 	 * @param store	The store currently being displayed.
 	 */
-	public void storeItemMenu(Store store, GameManager manager) {
+	public void storeItemMenu(Store store) {
 		// Prints the items available for sale.
 		System.out.println("\nItems for sale");
 		System.out.println("Balance: " + manager.getMoney());
@@ -331,7 +334,7 @@ public class CmdLineUI implements GameManagerUI {
 			
 		String userInput = getValidInput(validInputs);
 		if (userInput.equals("back")) {
-			storeMenu(manager);
+			storeMenu();
 		} else {
 			int i = Integer.parseInt(userInput);
 			Item item = store.getStoreItems().get(i);
@@ -342,14 +345,14 @@ public class CmdLineUI implements GameManagerUI {
 					System.out.println("\nYou have bought " + item.getName());
 					System.out.println("Your remaining balance is " + manager.getMoney());
 					store.removeItem(item);
-					storeItemMenu(store, manager);
+					storeItemMenu(store);
 				} catch (Exception e) {
 					System.out.println("You already have this item.");
-					storeItemMenu(store, manager);
+					storeItemMenu(store);
 				}
 			} else {
 				System.out.println("You do not have enough money to buy this item.");
-				storeItemMenu(store, manager);
+				storeItemMenu(store);
 			}
 		}
 	}
@@ -357,7 +360,7 @@ public class CmdLineUI implements GameManagerUI {
 	/**
 	 * This function is the end of the game. It displays the final standings of the league.
 	 */
-	public void endGame(GameManager manager) {
+	public void endGame() {
 		System.out.println("\n\n########## End Game ##########");
 		System.out.println("Final Standings:");
 		ArrayList<Team> rankings = manager.getStadium().getRankings();

@@ -4,44 +4,46 @@ import main.body.GameManager;
 import main.body.Team;
 
 public class GUI implements GameManagerUI {
+	GameManager manager;
 
 	@Override
 	public void setup(GameManager manager) {
+		this.manager = manager;
+		StartupMenuGUI startupMenu = new StartupMenuGUI(manager);
+		
+	}
+
+	@Override
+	public void mainMenu() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void mainMenu(GameManager manager) {
+	public void clubMenu() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void clubMenu(GameManager manager) {
+	public void showClub() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void stadiumMenu() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void showClub(GameManager manager) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void stadiumMenu(GameManager manager) {
+	public void playMatch(Team team) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void playMatch(GameManager manager, Team team) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void storeMenu(GameManager manager) {
+	public void storeMenu() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -53,7 +55,7 @@ public class GUI implements GameManagerUI {
 	}
 	
 	public static void main(String[] args) {
-		CmdLineUI ui = new CmdLineUI();
+		GUI ui = new GUI();
 		GameManager manager = new GameManager(ui);
 		ui.setup(manager);
 	}
