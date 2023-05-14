@@ -9,8 +9,7 @@ public class GUI implements GameManagerUI {
 
 	@Override
 	public void setup(GameManager manager) {
-		StartupMenuGUI startup = new StartupMenuGUI();
-		startup.setManager(manager);
+		StartupMenuGUI startup = new StartupMenuGUI(manager);
 		startup.getFrame().setVisible(true);
 		
 	}
