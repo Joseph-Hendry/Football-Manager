@@ -3,7 +3,6 @@ package main.UI.GUI;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
-import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.SwingConstants;
@@ -14,8 +13,6 @@ import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
-import javax.swing.JRadioButton;
-import javax.swing.JToggleButton;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -56,7 +53,6 @@ public class StartupMenuGUI {
 		this.manager = manager;
 		initialize();
 	}
-
 		
 	/**
 	 * Completes the setup of {@link GameManager}.
@@ -65,6 +61,10 @@ public class StartupMenuGUI {
 		manager.onSetupFinish(txtTeamName.getText(), comboDifficulty.getSelectedIndex(), (int) spnrSeasonLength.getValue());
 		MainMenuGUI.main(null);
 		frame.dispose();
+	}
+	
+	public JFrame getFrame() {
+		return this.frame;
 	}
 	
 	/**
