@@ -71,9 +71,11 @@ public class ClubMenuGUI {
 		frame.getContentPane().add(lblTeamMoney);
 		
 		Coach coach = getManager().getPlayerTeam().getCoach();
-		JLabel lblCoach = new JLabel("Coach: " + coach.getName() + " " + coach.getRarity() + " " + coach.getStats().toString());
+		int[] coachStats = coach.getStats();
+		String coachString = String.format("Coach: %s, Rarity: %s, ATK:%d MID:%d DEF:%d", coach.getName(), coach.getRarity(), coachStats[0], coachStats[1], coachStats[2]);
+		JLabel lblCoach = new JLabel(coachString);
 		lblCoach.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblCoach.setBounds(10, 97, 177, 28);
+		lblCoach.setBounds(10, 97, 614, 28);
 		frame.getContentPane().add(lblCoach);
 		frame.setBounds(100, 100, 650, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
