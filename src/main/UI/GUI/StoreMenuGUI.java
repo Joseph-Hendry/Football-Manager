@@ -2,24 +2,19 @@ package main.UI.GUI;
 
 import main.body.GameManager;
 
-import java.awt.EventQueue;
-import java.awt.Font;
+import javax.swing.*;
+import java.awt.*;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
+public class StoreMenuGUI {
 
-import java.awt.BorderLayout;
+	private JFrame frame;
+	private JTextField txtTeamName;
+	private JSpinner spnrSeasonLength;
+	private JComboBox<String> comboDifficulty;
+    private JButton btnContinue;
+    
+    private final GameManager manager;
 
-public class MainMenuGUI {
-
-	JFrame frame;
-	private JButton btnClub;
-	private JButton btnStadium;
-	private JButton btnStore;
-
-	private final GameManager manager;
 
 	/**
 	 * Launch the application.
@@ -30,7 +25,7 @@ public class MainMenuGUI {
 				try {
 					GUI ui = new GUI();
 					GameManager manager = new GameManager(ui);
-					MainMenuGUI window = new MainMenuGUI(manager);
+					StoreMenuGUI window = new StoreMenuGUI(manager);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,7 +37,7 @@ public class MainMenuGUI {
 	/**
 	 * Create the application.
 	 */
-	public MainMenuGUI(GameManager manager) {
+	public StoreMenuGUI(GameManager manager) {
 		this.manager = manager;
 		initialize();
 	}
@@ -63,15 +58,7 @@ public class MainMenuGUI {
 		lblWelcomeMessage.setBounds(66, 12, 287, 43);
 		frame.getContentPane().add(lblWelcomeMessage);
 		
-		JLabel lblMoney = new JLabel("Money: " + manager.getMoney());
-		lblMoney.setBounds(283, 57, 70, 15);
-		frame.getContentPane().add(lblMoney);
-		
-		JLabel lblWeek = new JLabel("Week: " + manager.getWeek() + "/" + manager.getSeasonLength());
-		lblWeek.setBounds(59, 57, 70, 15);
-		frame.getContentPane().add(lblWeek);
-		
-		btnClub = new JButton("Club");
+		 = new JButton("Club");
 		btnClub.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnClub.setBounds(59, 77, 294, 63);
 		frame.getContentPane().add(btnClub);
@@ -80,11 +67,6 @@ public class MainMenuGUI {
 		btnStadium.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnStadium.setBounds(59, 152, 294, 63);
 		frame.getContentPane().add(btnStadium);
-		
-		btnStore = new JButton("Store");
-		btnStore.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnStore.setBounds(59, 227, 294, 63);
-		frame.getContentPane().add(btnStore);
 
 		// Preform actions for each of these buttons redirecting to the appropriate GUI
 		btnClub.addActionListener(e -> {
@@ -101,3 +83,4 @@ public class MainMenuGUI {
 		});
 	}
 }
+
