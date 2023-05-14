@@ -90,7 +90,7 @@ public class GameManager {
 		this.stadium = new Stadium(this, this.playersTeam); 
 
 		// Redirect to the main menu
-		UI.mainMenu(this);
+		UI.mainMenu();
 	}
 
 
@@ -104,11 +104,11 @@ public class GameManager {
 	 */
 	public void onMainMenuFinish(int redirect) {
 		if (redirect == 0) {
-			UI.clubMenu(this);
+			UI.clubMenu();
 		} else if (redirect == 1) {
-			UI.stadiumMenu(this);
+			UI.stadiumMenu();
 		} else {
-			UI.storeMenu(this);
+			UI.storeMenu();
 		}
 	}
 
@@ -148,7 +148,7 @@ public class GameManager {
 
 			// If the player wants to go back
 			} else if (redirect.equals("back")) {
-				UI.mainMenu(this);
+				UI.mainMenu();
 
 			// If the input isn't valid
 			} else {
@@ -166,7 +166,7 @@ public class GameManager {
 	private void setNickname(int playerNum, String nickname) {
 		try {
 			this.playersTeam.setNickname(playerNum, nickname);
-			UI.showClub(this);
+			UI.showClub();
 			UI.showMessage("Players nickname has been changed.");
 		} catch (Exception e) {
 			UI.showMessage(e.getMessage());
@@ -177,7 +177,7 @@ public class GameManager {
 		try {
 			playerNum -= 12;
 			this.playersTeam.sellPlayer(this, playerNum);
-			UI.showClub(this);
+			UI.showClub();
 			UI.showMessage("Player has been sold.");
 		} catch (Exception e) {
 			UI.showMessage(e.getMessage());
@@ -187,7 +187,7 @@ public class GameManager {
 	private void swapPlayers(int teamPlayerNum, int benchPlayerNum) {
 		try {
 			playersTeam.subPlayerSwap(teamPlayerNum, benchPlayerNum);
-			UI.showClub(this);
+			UI.showClub();
 			UI.showMessage("Players have been swapped.");
 		} catch (Exception e) {
 			UI.showMessage(e.getMessage());
@@ -208,7 +208,7 @@ public class GameManager {
 	 */
 	public void onStadiumMenuFinish(String redirect) throws IllegalArgumentException {
 		if (redirect.equals("back")) {
-			UI.mainMenu(this);
+			UI.mainMenu();
 		}
 		else {
 			int redirectInt = Integer.parseInt(redirect);
@@ -216,7 +216,7 @@ public class GameManager {
 				playMatch(stadium.getPossibleMatches().get(redirectInt - 1));
 			} else if (redirectInt == stadium.getPossibleMatches().size() + 1) {
 				takeBye();
-				UI.clubMenu(this);
+				UI.clubMenu();
 			} else {
 				throw new IllegalArgumentException("Please enter a valid input");
 			}
@@ -270,9 +270,9 @@ public class GameManager {
 
 		// If the season is over, end the game
 		if (week > seasonLength) {
-			UI.endGame(this);
+			UI.endGame();
 		} else {
-			UI.mainMenu(this);
+			UI.mainMenu();
 		}
 	}
 
@@ -302,7 +302,7 @@ public class GameManager {
 
 
 	public void onStoreMenuFinish() {
-		UI.clubMenu(this);
+		UI.clubMenu();
 	}
 
 

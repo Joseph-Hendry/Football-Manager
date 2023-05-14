@@ -5,6 +5,7 @@ import main.body.Team;
 import main.UI.GUI.*;
 
 public class GUI implements GameManagerUI {
+	GameManager manager;
 
 	@Override
 	public void setup(GameManager manager) {
@@ -15,36 +16,30 @@ public class GUI implements GameManagerUI {
 	}
 
 	@Override
-	public void mainMenu(GameManager manager) {
+	public void clubMenu() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void clubMenu(GameManager manager) {
+	public void showClub() {
+		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public void stadiumMenu() {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void showClub(GameManager manager) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void stadiumMenu(GameManager manager) {
+	public void playMatch(Team team) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void playMatch(GameManager manager, Team team) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void storeMenu(GameManager manager) {
+	public void storeMenu() {
 		// TODO Auto-generated method stub
 		
 	}
