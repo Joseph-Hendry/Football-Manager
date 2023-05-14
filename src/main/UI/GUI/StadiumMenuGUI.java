@@ -1,24 +1,34 @@
 package main.UI.GUI;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import java.awt.Font;
 import javax.swing.SwingConstants;
+
+import main.body.GameManager;
+
 import javax.swing.JButton;
 
 public class StadiumMenuGUI {
 
 	private JFrame frame;
+	private final GameManager manager;
 
 
 	/**
 	 * Create the application.
 	 */
-	public StadiumMenuGUI() {
+	public StadiumMenuGUI(GameManager manager) {
+		this.manager = manager;
 		initialize();
+	}
+
+	/**
+	 * Get the frame.
+	 */
+	public JFrame getFrame() {
+		return this.frame;
 	}
 
 	/**
