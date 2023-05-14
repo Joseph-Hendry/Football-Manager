@@ -177,8 +177,7 @@ public class CmdLineUI implements GameManagerUI {
 
 		int i = 0;
 		for (Match match : matches) {
-			int[] stats = match.getNPCTeamStats();
-			System.out.println("(" + (i + 1) + ")  Team: " + match.getOpposingTeam().getName() + " Stats: " + stats[0] + " " + stats[1] + " " + stats[2] + " " + stats[3] + " Points: " + match.getPoints() + " Money: " + match.getMoney());
+			System.out.println("(" + (i + 1) + ")  " + match.toString());
 			i++;
 		}
 		System.out.println("("+ (i + 1) +")  Take a bye");
@@ -191,7 +190,7 @@ public class CmdLineUI implements GameManagerUI {
 	
 
 	@Override
-	public void playMatch(Team oppositionTeam) {
+	public void playMatch(Match match) {
 		// TODO Auto-generated method stub
 
 	}

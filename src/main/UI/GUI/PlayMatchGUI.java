@@ -40,6 +40,13 @@ public class PlayMatchGUI {
 	}
 
 	/**
+	 * Get the frame.
+	 */
+	public JFrame getFrame() {
+		return this.frame;
+	}
+
+	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
@@ -56,7 +63,6 @@ public class PlayMatchGUI {
 		lblNewLabel.setBounds(38, 77, 132, 15);
 		frame.getContentPane().add(lblNewLabel);
 		
-		activeList = new DefaultListModel<>();
 		commentaryJList = new JList<>(activeList);
 		commentaryJList.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		commentaryJList.setBounds(10, 80, 800, 500);

@@ -32,6 +32,13 @@ public class GameEndGUI {
 	}
 
 	/**
+	 * Get the frame.
+	 */
+	public JFrame getFrame() {
+		return this.frame;
+	}
+
+	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {

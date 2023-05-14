@@ -152,6 +152,16 @@ public class Match {
         return commentaryList;
     }
 
+    /**
+     * To string method for the match.
+     * 
+     * @return  The string representation of the match.
+     */
+    public String toString() {
+        int[] stats = getNPCTeamStats();
+        return "Team: " + this.getOpposingTeam().getName() + " Stats: " + stats[0] + " " + stats[1] + " " + stats[2] + " " + stats[3] + " Points: " + this.getPoints() + " Money: " + this.getMoney();
+    }
+
 
     ////////// Play Match //////////
 

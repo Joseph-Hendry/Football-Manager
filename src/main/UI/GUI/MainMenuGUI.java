@@ -80,11 +80,12 @@ public class MainMenuGUI {
 			frame.dispose();
 		});
 		btnStadium.addActionListener(e -> {
-//			StadiumMenuGUI.StadiumMenuGUI(manager);
+			getManager().onMainMenuFinish(1);
+			frame.dispose();
 		});
 		btnStore.addActionListener(e -> {
-//			StoreGUI storeGUI = new StoreGUI();
-//			storeGUI.main(null);
+			getManager().onMainMenuFinish(2);
+			frame.dispose();
 		});
 	}
 }

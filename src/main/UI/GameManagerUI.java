@@ -1,6 +1,7 @@
 package main.UI;
 import main.body.GameManager;
 import main.body.Team;
+import main.body.Match;
 
 public interface GameManagerUI {
 	
@@ -32,7 +33,7 @@ public interface GameManagerUI {
 	/**
 	 * Shows the events of playing a match.
 	 */
-	public void playMatch(Team oppositionTeam);
+	public void playMatch(Match match);
 	
 	/**
 	 * Shows the market where the player can buy and sell players, coaches and items.

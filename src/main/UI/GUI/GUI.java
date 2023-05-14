@@ -1,6 +1,7 @@
 package main.UI.GUI;
 import main.UI.GameManagerUI;
 import main.body.GameManager;
+import main.body.Match;
 import main.body.Stadium;
 import main.body.Team;
 import main.UI.GUI.*;
@@ -34,9 +35,9 @@ public class GUI implements GameManagerUI {
 	}
 
 	@Override
-	public void playMatch(Team team) {
-		PlayMatchGUI match = new PlayMatchGUI(manager, team);
-		match.getFrame().setVisible(true);
+	public void playMatch(Match match) {
+		PlayMatchGUI playMatch = new PlayMatchGUI(manager, match);
+		playMatch.getFrame().setVisible(true);
 		
 	}
 
@@ -68,10 +69,10 @@ public class GUI implements GameManagerUI {
 	public static void main(String[] args) {
 		GUI ui = new GUI();
 		GameManager manager = new GameManager(ui);
-		//ui.setup(manager);
+		ui.setup(manager);
 		//ui.mainMenu();
 		//ui.clubMenu();
-		ui.stadiumMenu();
+		//ui.stadiumMenu();
 		//ui.playMatch(manager.getStadium().getOppositionTeam());
 	}
 }

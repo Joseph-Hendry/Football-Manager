@@ -231,6 +231,7 @@ public class GameManager {
 	private void playMatch(Match match) {
 		try {
 			match.playMatch(this);
+			UI.playMatch(match);
 			onMatchFinish();
 		} catch (Exception e) {
 			UI.showMessage(e.getMessage());
@@ -245,7 +246,6 @@ public class GameManager {
 		try {
 			this.stadium.takeBye();
 			UI.showMessage("You have taken a bye.");
-			onMatchFinish();
 		} catch (Exception e) {
 			UI.showMessage(e.getMessage());
 		}
@@ -256,7 +256,7 @@ public class GameManager {
 	 * It will increase the week by 1 and update the store and other teams.
 	 * If the season is over, it will end the game.
 	 */
-	private void onMatchFinish() {
+	public void onMatchFinish() {
 
 		// Increase the week by 1
 		this.week += 1;
