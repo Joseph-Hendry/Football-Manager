@@ -1,5 +1,7 @@
 package main.UI.GUI;
 
+import java.util.ArrayList;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,12 +13,18 @@ import java.awt.event.ActionListener;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 
+import main.body.GameManager;
+import main.body.Match;
+import main.body.Team;
+
 public class PlayMatchGUI {
 
 	private JFrame frame;
 	private JLabel commentaryString;
 	private int currentIndex = 0;
-	private String[] commentaryList;
+	private ArrayList<String> commentaryList;
+	private GameManager manager;
+	private Match match;
 
 	/**
 	 * Launch the application.
@@ -25,7 +33,13 @@ public class PlayMatchGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PlayMatchGUI window = new PlayMatchGUI();
+					// Test the PlayMatchGUI
+					GUI ui = new GUI();
+					GameManager manager = new GameManager(ui);
+					Team playerTeam = Team.createRandomTeam(50, "HomeTeam");
+					Team NPCTeam = Team.createRandomTeam(50, "AwayTeam");
+					Match match = new Match(playerTeam, NPCTeam, 5, 5);
+					PlayMatchGUI window = new PlayMatchGUI(manager, match);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -37,7 +51,11 @@ public class PlayMatchGUI {
 	/**
 	 * Create the application.
 	 */
-	public PlayMatchGUI() {
+	public PlayMatchGUI(GameManager manager, Match match) {
+		this.manager = manager;
+		this.match = match;
+		match.playMatch(manager);
+		commentaryList = match.getCommentaryList();
 		initialize();
 		startTimer();
 	}
@@ -62,7 +80,7 @@ public class PlayMatchGUI {
 		commentaryString = new JLabel("");
 		commentaryString.setHorizontalAlignment(SwingConstants.CENTER);
 		commentaryString.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		commentaryString.setBounds(10, 80, 414, 44);
+		commentaryString.setBounds(10, 80, 800, 500);
         frame.getContentPane().add(commentaryString);
     }
 
@@ -71,8 +89,8 @@ public class PlayMatchGUI {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (currentIndex < commentaryList.length) {
-                	commentaryString.setText(commentaryList[currentIndex]);
+                if (currentIndex < commentaryList.size()) {
+                	commentaryString.setText(commentaryString.getText() + "<html>" + commentaryList.get(currentIndex) + "<br/>");
                     currentIndex++;
                 } else {
                     ((Timer)e.getSource()).stop();
@@ -81,6 +99,4 @@ public class PlayMatchGUI {
         });
         timer.start();
     }
-
-	
 }
