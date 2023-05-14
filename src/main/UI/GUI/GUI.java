@@ -2,12 +2,15 @@ package main.UI.GUI;
 import main.UI.GameManagerUI;
 import main.body.GameManager;
 import main.body.Team;
+import main.UI.GUI.*;
 
 public class GUI implements GameManagerUI {
 
 	@Override
 	public void setup(GameManager manager) {
-		// TODO Auto-generated method stub
+		StartupMenuGUI startup = new StartupMenuGUI();
+		startup.setManager(manager);
+		startup.getFrame().setVisible(true);
 		
 	}
 
@@ -53,7 +56,7 @@ public class GUI implements GameManagerUI {
 	}
 	
 	public static void main(String[] args) {
-		CmdLineUI ui = new CmdLineUI();
+		GUI ui = new GUI();
 		GameManager manager = new GameManager(ui);
 		ui.setup(manager);
 	}

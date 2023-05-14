@@ -46,6 +46,10 @@ public class MainMenuGUI {
 		this.manager = manager;
 		initialize();
 	}
+	
+	public void setManager(GameManager manager) {
+		this.manager = manager;
+	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -92,8 +96,7 @@ public class MainMenuGUI {
 			clubGUI.main(null);
 		});
 		btnStadium.addActionListener(e -> {
-			StadiumGUI stadiumGUI = new StadiumGUI();
-			stadiumGUI.main(null);
+			StadiumMenuGUI.StadiumMenuGUI(manager);
 		});
 		btnStore.addActionListener(e -> {
 			StoreGUI storeGUI = new StoreGUI();
