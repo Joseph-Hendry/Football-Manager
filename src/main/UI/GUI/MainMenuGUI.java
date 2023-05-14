@@ -33,10 +33,6 @@ public class MainMenuGUI {
 	public JFrame getFrame() {
 		return this.frame;
 	}
-	
-	public GameManager getManager() {
-		return this.manager;
-	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -54,11 +50,11 @@ public class MainMenuGUI {
 		lblWelcomeMessage.setBounds(66, 12, 287, 43);
 		frame.getContentPane().add(lblWelcomeMessage);
 		
-		JLabel lblMoney = new JLabel("Money: " + getManager().getMoney());
+		JLabel lblMoney = new JLabel("Money: " + manager.getMoney());
 		lblMoney.setBounds(272, 57, 81, 15);
 		frame.getContentPane().add(lblMoney);
 		
-		JLabel lblWeek = new JLabel("Week: " + getManager().getWeek() + "/" + getManager().getSeasonLength());
+		JLabel lblWeek = new JLabel("Week: " + manager.getWeek() + "/" + manager.getSeasonLength());
 		lblWeek.setBounds(59, 57, 70, 15);
 		frame.getContentPane().add(lblWeek);
 		

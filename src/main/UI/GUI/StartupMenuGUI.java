@@ -41,8 +41,6 @@ public class StartupMenuGUI {
 	 */
 	private void setupComplete() {
 		manager.onSetupFinish(txtTeamName.getText(), comboDifficulty.getSelectedIndex(), (int) spnrSeasonLength.getValue());
-		MainMenuGUI menu = new MainMenuGUI(manager);
-		menu.getFrame().setVisible(true);
 		frame.dispose();
 	}
 	
