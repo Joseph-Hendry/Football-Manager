@@ -247,7 +247,7 @@ public class CmdLineUI implements GameManagerUI {
 			counter += 1;
 		}
 		// Prints the coach available for sale.
-		if (store.coachAvailable()) {
+		if (store.getcoachAvailable()) {
 			Coach coach = store.getStoreCoach();
 			int[] coachStats = coach.getStats();
 			System.out.println("\nCoach for sale:");
@@ -262,7 +262,7 @@ public class CmdLineUI implements GameManagerUI {
 		for (int i = 0; i < store.getStorePlayers().size(); i++) {
 			validInputs.add(Integer.toString(i));
 		}
-		if (store.coachAvailable()) {
+		if (store.getcoachAvailable()) {
 			System.out.println(store.getStorePlayers().size());
 			validInputs.add(Integer.toString(store.getStorePlayers().size()));
 		}
