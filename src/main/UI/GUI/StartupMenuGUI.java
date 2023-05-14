@@ -27,6 +27,9 @@ public class StartupMenuGUI {
 	private JFrame frame;
 	private JTextField txtTeamName;
 	private GameManager manager;
+	private JSpinner spnrSeasonLength;
+	private JComboBox<String> comboDifficulty;
+    private JButton btnContinue;
 
 	/**
 	 * Launch the application.
@@ -35,7 +38,9 @@ public class StartupMenuGUI {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					StartupMenuGUI window = new StartupMenuGUI();
+					GUI ui = new GUI();
+					GameManager manager = new GameManager(ui);
+					StartupMenuGUI window = new StartupMenuGUI(manager);
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -47,18 +52,21 @@ public class StartupMenuGUI {
 	/**
 	 * Create the application.
 	 */
-	public StartupMenuGUI() {
+	public StartupMenuGUI(GameManager manager) {
+		this.manager = manager;
 		initialize();
 	}
-	
-	public void setManager(GameManager manager) {
-		this.manager = manager;
-	}
-	
-	public JFrame getFrame() {
-		return this.frame;
-	}
 
+		
+	/**
+	 * Completes the setup of {@link GameManager}.
+	 */
+	private void setupComplete() {
+		manager.onSetupFinish(txtTeamName.getText(), comboDifficulty.getSelectedIndex(), (int) spnrSeasonLength.getValue());
+		MainMenuGUI.main(null);
+		frame.dispose();
+	}
+	
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -92,14 +100,14 @@ public class StartupMenuGUI {
 		lblSeasonLength.setBounds(10, 134, 347, 29);
 		frame.getContentPane().add(lblSeasonLength);
 		
-		JSpinner spnrSeasonLength = new JSpinner();
+		spnrSeasonLength = new JSpinner();
 		spnrSeasonLength.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		spnrSeasonLength.setModel(new SpinnerNumberModel(5, 5, 15, 1));
 		spnrSeasonLength.setBounds(378, 136, 218, 26);
 		frame.getContentPane().add(spnrSeasonLength);
 		
-		JComboBox comboDifficulty = new JComboBox();
-		comboDifficulty.setModel(new DefaultComboBoxModel(new String[] {"Easy", "Hard"}));
+		comboDifficulty = new JComboBox<String>();
+		comboDifficulty.setModel(new DefaultComboBoxModel<String>(new String[] {"Easy", "Hard"}));
 		comboDifficulty.setBounds(378, 187, 218, 29);
 		frame.getContentPane().add(comboDifficulty);
 		
@@ -108,24 +116,20 @@ public class StartupMenuGUI {
 		lblChooseDifficulty.setBounds(10, 190, 218, 18);
 		frame.getContentPane().add(lblChooseDifficulty);
 		
-		JButton btnContinue = new JButton("Continue");
+		btnContinue = new JButton("Continue");
 		btnContinue.addActionListener(new ActionListener() {
 			
 			public void actionPerformed(ActionEvent e) {
-				boolean validName = false;
-				int intDifficulty = comboDifficulty.getSelectedItem().toString().equals("Easy") ? 0 : 1;
 				String text = txtTeamName.getText().strip();
-				if (text.matches("[a-zA-Z0-9]+")) {
+				if (txtTeamName.getText().strip().matches("[a-zA-Z0-9]+")) {
 					if (text.length() >= 3 && text.length() <= 15) {
-						 validName = true;
+						setupComplete();
 					}
 				}
 				else {
 					String[] errorArg = {"Please enter a name with 3-15 characters."};
 					ErrorMessageGUI.main(errorArg);
 				}
-//				MainMenuGUI.main(null);
-				frame.dispose();
 			}
 		});
 		btnContinue.setFont(new Font("Tahoma", Font.PLAIN, 14));
