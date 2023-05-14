@@ -9,15 +9,22 @@ public class Match {
     private Team[] teams = new Team[2];
     public int[] playerTeamStats = new int[4];
     private int[] NPCTeamStats = new int[4];
+    private ArrayList<String> commentaryList = new ArrayList<String>();
     private int pointsToWin;
     private int moneyToWin;
     private int time;
 
+
+    ////////// Match Setup //////////
+
+
     /**
      * This is the constructor for the Match class.
-     * @param teams The teams playing in the match.
-     * @param stadium The stadium the match is being played in.
-     * @param time The time of the match.
+     * 
+     * @param playerTeam 	The player's team.
+     * @param NPCTeam 		The NPC's team.
+     * @param pointsToWin 	The points to win.
+     * @param moneyToWin 	The money to win.
      */
     public Match(Team playerTeam, Team NPCTeam, int pointsToWin, int moneyToWin) {
         this.teams[0] = playerTeam;
@@ -29,136 +36,11 @@ public class Match {
     }
 
     /**
-     * This is the getter for the points to win.
-     * @return The points to win.
+     * This method is used to find the overall stats of a team.
+     * 
+     * @param team 	The team to find the stats of.
+     * @return 		The overall stats of the team.
      */
-    public int getPointsToWin() {
-        return pointsToWin;
-    }
-
-    /**
-     * This is the getter for the money to win.
-     * @return The money to win.
-     */
-    public int getMoneyToWin() {
-        return moneyToWin;
-    }
-
-    /**
-     * This method is used to play a match between two teams.
-     * @return The score of the match.
-     */
-    public void playMatch(GameManager manager) {
-        time = 90;
-        Random random = new Random();
-        int teamWithBall;
-        int winningProbability = 0;
-        int random_chance = 0;
-
-        // List that stores both teams stats
-        List<int[]> teamStats = new ArrayList<int[]>();
-        teamStats.add(playerTeamStats);
-        teamStats.add(NPCTeamStats);
-
-        // Possetion team ball position (0 = Shooting, 1 = Attacking, 2 = Midfeild, 4 = Defense)
-        int ballPosition = 1;
-
-        // Random team starts with the ball
-        teamWithBall = random.nextInt(2);
-        manager.UI.showMessage(teams[teamWithBall].getName() + " starts with the ball.");
-
-        // Play the match
-        while (time > 0) {
-            // Wait 1 second
-            // try {
-            //     Thread.sleep(3000);
-            // } catch (InterruptedException e) {
-            //     e.printStackTrace();
-            // }
-
-            if (ballPosition == 0) {
-                // If the team is taking a shot on goal
-                winningProbability = teamStats.get(teamWithBall)[0] - teamStats.get((teamWithBall + 1) % 2)[3];
-                winningProbability = (winningProbability + 100) / 2;
-
-                random_chance = random.nextInt(100);
-
-                if (random_chance <= winningProbability) {
-                    // If the team scores
-                    manager.UI.showMessage("[" + (90 - time) + ":00]" + teams[teamWithBall].getName() + " scores!!!");
-                    score[teamWithBall]++;
-                    teamWithBall = (teamWithBall + 1) % 2;
-                    ballPosition = 2;
-                } else {
-                    // If the team misses
-                    manager.UI.showMessage("[" + (90 - time) + ":00]" + teams[teamWithBall].getName() + " misses.");
-                    teamWithBall = (teamWithBall + 1) % 2;
-                    ballPosition = 4;
-                }
-            }
-            else if (ballPosition == 1) {
-                // If the ball is with the striker
-                winningProbability = teamStats.get(teamWithBall)[0] - teamStats.get((teamWithBall + 1) % 2)[2];
-                winningProbability = (winningProbability + 100) / 2;
-
-                random_chance = random.nextInt(100);
-
-                if (random_chance <= winningProbability) {
-                    // If the striker gets a shot on goal
-                    manager.UI.showMessage("[" + (90 - time) + ":00]" + teams[teamWithBall].getName() + " striker gets a shot on goal.");
-                    ballPosition = 0;
-                } else {
-                    // If the striker loses the ball
-                    manager.UI.showMessage("[" + (90 - time) + ":00]" + teams[teamWithBall].getName() + " striker loses the ball.");
-                    teamWithBall = (teamWithBall + 1) % 2;
-                    ballPosition = 2;
-                }
-            }
-            else if (ballPosition == 2) {
-                // If the ball is with the midfield
-                winningProbability = teamStats.get(teamWithBall)[1] - teamStats.get((teamWithBall + 1) % 2)[1];
-                winningProbability = (winningProbability + 100) / 2;
-
-                random_chance = random.nextInt(100);
-
-                if (random_chance <= winningProbability) {
-                    // If the midfield gets ball to the striker
-                    manager.UI.showMessage("[" + (90 - time) + ":00]" + teams[teamWithBall].getName() + " midfield makes a pass to the strikers.");
-                    ballPosition = 1;
-                } else {
-                    // If the striker loses the ball
-                    manager.UI.showMessage("[" + (90 - time) + ":00]" + teams[teamWithBall].getName() + " midfield loses the ball.");
-                    teamWithBall = (teamWithBall + 1) % 2;
-                    ballPosition = 2;
-                }
-            }
-            else if (ballPosition == 4) {
-                // If the ball is with the defense
-                winningProbability = teamStats.get(teamWithBall)[2] - teamStats.get((teamWithBall + 1) % 2)[0];
-                winningProbability = (winningProbability + 100) / 2;
-
-                random_chance = random.nextInt(100);
-
-                if (random_chance <= winningProbability) {
-                    // If the defense gets ball to the midfield
-                    manager.UI.showMessage("[" + (90 - time) + ":00]" + teams[teamWithBall].getName() + " defense makes a pass to the midfield.");
-                    ballPosition = 2;
-                } else {
-                    // If the defense loses the ball
-                    manager.UI.showMessage("[" + (90 - time) + ":00]" + teams[teamWithBall].getName() + " defense loses the ball.");
-                    teamWithBall = (teamWithBall + 1) % 2;
-                    ballPosition = 1;
-                }
-            }
-            time -= 5;
-        }
-        manager.UI.showMessage("[" + (90 - time) + ":00]The match has ended.");
-        manager.UI.showMessage("The final score is " + teams[0].getName() + " " + score[0] + " - " + score[1] + " " + teams[1].getName() + ".");
-
-        // Update the points of the teams
-        onGameEnd(manager);
-    }
-
     private int[] findTeamStats(Team team) {
         // Initialize the stats
         int[] teamStats = {0, 0, 0, 0};
@@ -195,6 +77,208 @@ public class Match {
         return teamStats;
     }
 
+
+    ////////// Getters and Setters //////////
+
+    
+    /**
+     * This method is used to get the score of the match.
+     * 
+     * @return  The score of the match.
+     */
+    public int[] getScore() {
+        return score;
+    }
+
+    /**
+     * This method is used to get the points to win.
+     * @return  The points to win.
+     */
+    public int getPoints() {
+        return pointsToWin;
+    }
+
+    /**
+     * This method is used to get the money to win
+     * .
+     * @return  The money to win.
+     */
+    public int getMoney() {
+        return moneyToWin;
+    }
+
+    /**
+     * This method returns the opposing team.
+     * 
+     * @return  The opposing team.
+     */
+    public Team getOpposingTeam() {
+        return teams[1];
+    }
+
+    /**
+     * Get NPC team stats
+     * 
+     * @return  The NPC team stats.
+     */
+    public int[] getNPCTeamStats() {
+        return NPCTeamStats;
+    }
+
+    /**
+     * This is the getter for the points to win.
+     * 
+     * @return  The points to win.
+     */
+    public int getPointsToWin() {
+        return pointsToWin;
+    }
+
+    /**
+     * This is the getter for the money to win.
+     * 
+     * @return  The money to win.
+     */
+    public int getMoneyToWin() {
+        return moneyToWin;
+    }
+
+    /**
+     * This is the getter for the commentary list.
+     * 
+     * @return  The commentary list.
+     */
+    public ArrayList<String> getCommentaryList() {
+        return commentaryList;
+    }
+
+
+    ////////// Play Match //////////
+
+
+    /**
+     * This method is used to play the match.
+     * 
+     * @param manager 	The game manager.
+     */
+    public void playMatch(GameManager manager) {
+        setGameCommentary(manager);
+        onGameEnd(manager);
+    }
+
+    /**
+     * This method is used to set the commentary of the match.
+     * 
+     * @param manager 	The game manager.
+     */
+    private void setGameCommentary(GameManager manager) {
+        // Initialize the variables
+        time = 90;
+        Random random = new Random();
+        int teamWithBall;
+        int winningProbability = 0;
+        int random_chance = 0;
+
+        // List that stores both teams stats
+        List<int[]> teamStats = new ArrayList<int[]>();
+        teamStats.add(playerTeamStats);
+        teamStats.add(NPCTeamStats);
+
+        // Possetion team ball position (0 = Shooting, 1 = Attacking, 2 = Midfeild, 4 = Defense)
+        int ballPosition = 1;
+
+        // Random team starts with the ball
+        teamWithBall = random.nextInt(2);
+        commentaryList.add(teams[teamWithBall].getName() + " starts with the ball.");
+
+        // Play the match
+        while (time > 0) {
+
+            if (ballPosition == 0) {
+                // If the team is taking a shot on goal
+                winningProbability = teamStats.get(teamWithBall)[0] - teamStats.get((teamWithBall + 1) % 2)[3];
+                winningProbability = (winningProbability + 100) / 2;
+
+                random_chance = random.nextInt(100);
+
+                if (random_chance <= winningProbability) {
+                    // If the team scores
+                    commentaryList.add("[" + (90 - time) + ":00]" + teams[teamWithBall].getName() + " scores!!!");
+                    score[teamWithBall] += 1;
+                    teamWithBall = (teamWithBall + 1) % 2;
+                    ballPosition = 2;
+                } else {
+                    // If the team misses
+                    commentaryList.add("[" + (90 - time) + ":00]" + teams[teamWithBall].getName() + " misses.");
+                    teamWithBall = (teamWithBall + 1) % 2;
+                    ballPosition = 4;
+                }
+            }
+            else if (ballPosition == 1) {
+                // If the ball is with the striker
+                winningProbability = teamStats.get(teamWithBall)[0] - teamStats.get((teamWithBall + 1) % 2)[2];
+                winningProbability = (winningProbability + 100) / 2;
+
+                random_chance = random.nextInt(100);
+
+                if (random_chance <= winningProbability) {
+                    // If the striker gets a shot on goal
+                    commentaryList.add("[" + (90 - time) + ":00]" + teams[teamWithBall].getName() + " striker gets a shot on goal.");
+                    ballPosition = 0;
+                } else {
+                    // If the striker loses the ball
+                    commentaryList.add("[" + (90 - time) + ":00]" + teams[teamWithBall].getName() + " striker loses the ball.");
+                    teamWithBall = (teamWithBall + 1) % 2;
+                    ballPosition = 2;
+                }
+            }
+            else if (ballPosition == 2) {
+                // If the ball is with the midfield
+                winningProbability = teamStats.get(teamWithBall)[1] - teamStats.get((teamWithBall + 1) % 2)[1];
+                winningProbability = (winningProbability + 100) / 2;
+
+                random_chance = random.nextInt(100);
+
+                if (random_chance <= winningProbability) {
+                    // If the midfield gets ball to the striker
+                    commentaryList.add("[" + (90 - time) + ":00]" + teams[teamWithBall].getName() + " midfield makes a pass to the strikers.");
+                    ballPosition = 1;
+                } else {
+                    // If the striker loses the ball
+                    commentaryList.add("[" + (90 - time) + ":00]" + teams[teamWithBall].getName() + " midfield loses the ball.");
+                    teamWithBall = (teamWithBall + 1) % 2;
+                    ballPosition = 2;
+                }
+            }
+            else if (ballPosition == 4) {
+                // If the ball is with the defense
+                winningProbability = teamStats.get(teamWithBall)[2] - teamStats.get((teamWithBall + 1) % 2)[0];
+                winningProbability = (winningProbability + 100) / 2;
+
+                random_chance = random.nextInt(100);
+
+                if (random_chance <= winningProbability) {
+                    // If the defense gets ball to the midfield
+                    commentaryList.add("[" + (90 - time) + ":00]" + teams[teamWithBall].getName() + " defense makes a pass to the midfield.");
+                    ballPosition = 2;
+                } else {
+                    // If the defense loses the ball
+                    commentaryList.add("[" + (90 - time) + ":00]" + teams[teamWithBall].getName() + " defense loses the ball.");
+                    teamWithBall = (teamWithBall + 1) % 2;
+                    ballPosition = 1;
+                }
+            }
+            time -= 5; // Decrease the time by 5 minutes
+        }
+        commentaryList.add("[" + (90 - time) + ":00]The match has ended.");
+        commentaryList.add("The final score is " + teams[0].getName() + " " + score[0] + " - " + score[1] + " " + teams[1].getName() + ".");
+    }
+
+    /**
+     * This method is used to update the game after it has ended.
+     * 
+     * @param manager 	The game manager.
+     */
     private void onGameEnd(GameManager manager) {
         // Decrease the stamina of the players
         for (Player player : teams[0].getTeam()) {
@@ -217,44 +301,6 @@ public class Match {
             manager.UI.showMessage("The match has ended in a draw.");
             teams[1].setPoints(teams[0].getPoints() + (pointsToWin/2));
         }
-    }
-
-    /**
-     * This method is used to get the score of the match.
-     * @return The score of the match.
-     */
-    public int[] getScore() {
-        return score;
-    }
-
-    /**
-     * This method is used to get the points to win.
-     * @return The points to win.
-     */
-    public int getPoints() {
-        return pointsToWin;
-    }
-
-    /**
-     * This method is used to get the money to win.
-     * @return The money to win.
-     */
-    public int getMoney() {
-        return moneyToWin;
-    }
-
-    /**
-     * This method returns the opposing team.
-     */
-    public Team getOpposingTeam() {
-        return teams[1];
-    }
-
-    /**
-     * Get NPC team stats
-     */
-    public int[] getNPCTeamStats() {
-        return NPCTeamStats;
     }
 
     public static void main(String[] args) {

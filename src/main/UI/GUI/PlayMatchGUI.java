@@ -16,6 +16,7 @@ public class PlayMatchGUI {
 	private JFrame frame;
 	private JLabel commentaryString;
 	private int currentIndex = 0;
+	private String[] commentaryList;
 
 	/**
 	 * Launch the application.
@@ -70,11 +71,11 @@ public class PlayMatchGUI {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (currentIndex < stringList.length) {
-                	commentaryString.setText(stringList[currentIndex]);
+                if (currentIndex < commentaryList.length) {
+                	commentaryString.setText(commentaryList[currentIndex]);
                     currentIndex++;
                 } else {
-                    ((Timer)e.getSource()).stop(); // Stop the timer when all strings are displayed
+                    ((Timer)e.getSource()).stop();
                 }
             }
         });

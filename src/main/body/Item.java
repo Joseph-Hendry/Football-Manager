@@ -14,6 +14,7 @@ public class Item {
 
     /**
      * This is the constructor for the Item class.
+     * 
      * @param name		The name of the item.
      * @param price 	The price of the item.
      * @param stats 	The bonuses of the item.
@@ -28,8 +29,11 @@ public class Item {
 
     /**
 	 * Creates and returns a random Item with the given rarity.
-	 * @param rarity The rarity of the Item.
-	 * @return The random Item with the given rarity.
+     * 
+	 * @param rarity    The rarity of the Item.
+	 * @return          The random Item with the given rarity.
+     * 
+     * Using: Create a random item with the given rarity string.
 	 */
 	public static Item createRandomItem(String rarity) {
 
@@ -77,7 +81,7 @@ public class Item {
 
     /**
      * Returns a string representation of the Item.
-     * @return The string representation of the Item.
+     * @return  The string representation of the Item.
      */
     public String toString() {
         return this.name + " " + this.value + " " + this.stats[0] + " " + this.stats[1] + " " + this.stats[2];
@@ -85,7 +89,7 @@ public class Item {
 
     /**
      * This method is used to get the name of the item.
-     * @return The name of the item.
+     * @return  The name of the item.
      */
     public String getName() {
         return this.name;

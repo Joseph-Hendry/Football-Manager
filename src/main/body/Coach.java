@@ -11,10 +11,11 @@ public class Coach extends Person {
 
     /**
      * The constructor for the Coach object.
-     * @param name The name of the Coach.
-     * @param rarity The rarity of the Coach.
-     * @param value The value of the Coach.
-     * @param stats The statistics of the Coach of of 100 in order [passing, tackling, shooting].
+	 * 
+     * @param name 		The name of the Coach.
+     * @param rarity 	The rarity of the Coach.
+     * @param value 	The value of the Coach.
+     * @param stats 	The statistics of the Coach of of 100 in order [passing, tackling, shooting].
      */
     public Coach(String name, String rarity, int value, int[] stats) {
         super(name, rarity, value);
@@ -23,8 +24,9 @@ public class Coach extends Person {
 
     /**
 	 * Creates and returns a random coach with the given rarity.
-	 * @param rarity The rarity of the Coach.
-	 * @return The random Coach with the given rarity.
+	 * 
+	 * @param rarity 	The rarity of the Coach.
+	 * @return 			The random Coach with the given rarity.
 	 */
 	public static Coach createRandomCoach(String rarity) {
 
@@ -72,7 +74,8 @@ public class Coach extends Person {
 
     /**
 	 * Returns values of the Coach in a String format.
-	 * @return Coach values in string format.
+	 * 
+	 * @return 	Coach values in string format.
 	 */
 	public String toString() {
 		return this.name + " [" +stats[0]+ ", " +stats[1]+ ", " +stats[2]+ "]";
@@ -80,7 +83,8 @@ public class Coach extends Person {
 
     /**
      * This method is used to geth the stats of the Coach.
-     * @return The stats of the Coach.
+	 * 
+     * @return 	The stats of the Coach.
      */
     public int[] getStats() {
         return this.stats;
