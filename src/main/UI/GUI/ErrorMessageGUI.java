@@ -22,6 +22,10 @@ public class ErrorMessageGUI {
 		this.error = error;
 		initialize();
 	}
+	
+	public JFrame getFrame() {
+		return this.frame;
+	}
 
 	/**
 	 * Initialize the contents of the frame.

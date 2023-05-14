@@ -106,8 +106,9 @@ public class StartupMenuGUI {
 					}
 				}
 				else {
-					//String[] errorArg = {"Please enter a name with 3-15 characters."};
-					//ErrorMessageGUI.main(errorArg);
+					String errorMsg  = "Please enter a name with 3-15 characters.";
+					ErrorMessageGUI errorMsgGUI = new ErrorMessageGUI(errorMsg);
+					errorMsgGUI.getFrame().setVisible(true);
 				}
 			}
 		});
