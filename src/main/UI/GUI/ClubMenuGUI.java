@@ -2,6 +2,7 @@ package main.UI.GUI;
 
 import javax.swing.JFrame;
 
+import main.body.Coach;
 import main.body.GameManager;
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -61,13 +62,19 @@ public class ClubMenuGUI {
 		
 		JLabel lblTeamName = new JLabel("Team Name: " + getManager().getPlayerTeam().getName());
 		lblTeamName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTeamName.setBounds(10, 58, 177, 28);
+		lblTeamName.setBounds(10, 58, 186, 28);
 		frame.getContentPane().add(lblTeamName);
 		
 		JLabel lblTeamMoney = new JLabel("Team Money: " + getManager().getMoney());
 		lblTeamMoney.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTeamMoney.setBounds(222, 58, 177, 28);
+		lblTeamMoney.setBounds(431, 58, 193, 28);
 		frame.getContentPane().add(lblTeamMoney);
+		
+		Coach coach = getManager().getPlayerTeam().getCoach();
+		JLabel lblCoach = new JLabel("Coach: " + coach.getName() + " " + coach.getRarity() + " " + coach.getStats().toString());
+		lblCoach.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblCoach.setBounds(10, 97, 177, 28);
+		frame.getContentPane().add(lblCoach);
 		frame.setBounds(100, 100, 650, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
