@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import java.awt.EventQueue;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -12,6 +13,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
+import javax.swing.JList;
 
 import main.body.GameManager;
 import main.body.Match;
@@ -20,9 +22,10 @@ import main.body.Team;
 public class PlayMatchGUI {
 
 	private JFrame frame;
-	private JLabel commentaryString;
+	private JList<String> commentaryJList;
 	private int currentIndex = 0;
-	private ArrayList<String> commentaryList;
+	private ArrayList<String> commentaryList = new ArrayList<String>();
+	private DefaultListModel<String> activeList = new DefaultListModel<String>();
 	private GameManager manager;
 	private Match match;
 
@@ -77,11 +80,12 @@ public class PlayMatchGUI {
 		lblNewLabel.setBounds(38, 77, 132, 15);
 		frame.getContentPane().add(lblNewLabel);
 		
-		commentaryString = new JLabel("");
-		commentaryString.setHorizontalAlignment(SwingConstants.CENTER);
-		commentaryString.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		commentaryString.setBounds(10, 80, 800, 500);
-        frame.getContentPane().add(commentaryString);
+		DefaultListModel<String> activeList = new DefaultListModel<>();
+		commentaryJList = new JList<>(activeList);
+		//commentaryJList.setHorizontalAlignment(SwingConstants.CENTER);
+		commentaryJList.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		commentaryJList.setBounds(10, 80, 800, 500);
+        frame.getContentPane().add(commentaryJList);
     }
 
     private void startTimer() {
@@ -90,7 +94,8 @@ public class PlayMatchGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (currentIndex < commentaryList.size()) {
-                	commentaryString.setText(commentaryString.getText() + "<html>" + commentaryList.get(currentIndex) + "<br/>");
+					activeList.add(currentIndex, commentaryList.get(currentIndex));
+                	commentaryJList.setModel(activeList);
                     currentIndex++;
                 } else {
                     ((Timer)e.getSource()).stop();
