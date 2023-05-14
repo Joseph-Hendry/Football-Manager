@@ -2,20 +2,16 @@ package main.UI.GUI;
 import main.UI.GameManagerUI;
 import main.body.GameManager;
 import main.body.Team;
+import main.UI.GUI.*;
 
 public class GUI implements GameManagerUI {
 	GameManager manager;
 
 	@Override
 	public void setup(GameManager manager) {
-		this.manager = manager;
-		StartupMenuGUI startupMenu = new StartupMenuGUI(manager);
-		
-	}
-
-	@Override
-	public void mainMenu() {
-		// TODO Auto-generated method stub
+		StartupMenuGUI startup = new StartupMenuGUI();
+		startup.setManager(manager);
+		startup.getFrame().setVisible(true);
 		
 	}
 
