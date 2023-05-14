@@ -33,6 +33,10 @@ public class MainMenuGUI {
 	public JFrame getFrame() {
 		return this.frame;
 	}
+	
+	public GameManager getManager() {
+		return this.manager;
+	}
 
 	/**
 	 * Initialize the contents of the frame.
@@ -75,8 +79,8 @@ public class MainMenuGUI {
 
 		// Perform actions for each of these buttons redirecting to the appropriate GUI
 		btnClub.addActionListener(e -> {
-//			ClubGUI clubGUI = new ClubGUI();
-//			clubGUI.main(null);
+			getManager().onMainMenuFinish(0);
+			frame.dispose();
 		});
 		btnStadium.addActionListener(e -> {
 //			StadiumMenuGUI.StadiumMenuGUI(manager);
