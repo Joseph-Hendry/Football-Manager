@@ -1,10 +1,12 @@
 package main.UI.GUI;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 
 import main.body.GameManager;
+import java.awt.Color;
+import javax.swing.JLabel;
+import java.awt.Font;
+import javax.swing.SwingConstants;
 
 public class ClubMenuGUI {
 
@@ -40,7 +42,7 @@ public class ClubMenuGUI {
 	}
 	
 	public GameManager getManager() {
-		return this.getManager();
+		return this.manager;
 	}
 
 	/**
@@ -48,7 +50,25 @@ public class ClubMenuGUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
+		frame.getContentPane().setBackground(new Color(255, 255, 255));
+		frame.getContentPane().setLayout(null);
+		
+		JLabel lblTitle = new JLabel("Club Menu");
+		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblTitle.setBounds(264, 11, 93, 28);
+		frame.getContentPane().add(lblTitle);
+		
+		JLabel lblTeamName = new JLabel("Team Name: " + getManager().getPlayerTeam().getName());
+		lblTeamName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTeamName.setBounds(10, 58, 177, 28);
+		frame.getContentPane().add(lblTeamName);
+		
+		JLabel lblTeamMoney = new JLabel("Team Money: " + getManager().getMoney());
+		lblTeamMoney.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTeamMoney.setBounds(222, 58, 177, 28);
+		frame.getContentPane().add(lblTeamMoney);
+		frame.setBounds(100, 100, 650, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
 
