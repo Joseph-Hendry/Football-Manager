@@ -175,10 +175,10 @@ public class Stadium {
     private void byeStamina() {
         // Increase all player stamina
         for (Player player : playerTeam.getTeam()) {
-            player.incStamina(50);
+            player.incStamina(100);
         }
         for (Player player : playerTeam.getBench()) {
-            player.incStamina(50);
+            player.incStamina(100);
         }
     }
 
