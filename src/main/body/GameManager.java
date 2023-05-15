@@ -232,7 +232,6 @@ public class GameManager {
 		try {
 			match.playMatch(this);
 			UI.playMatch(match);
-			onMatchFinish();
 		} catch (Exception e) {
 			UI.showMessage(e.getMessage());
 		}
@@ -251,12 +250,19 @@ public class GameManager {
 		}
 	}
 
+
+	////////// Match //////////
+
+
 	/**
 	 * This method is used when a match is finished or a bye is taken.
 	 * It will increase the week by 1 and update the store and other teams.
 	 * If the season is over, it will end the game.
 	 */
 	public void onMatchFinish() {
+
+		// Random event
+		stadium.randomEvent(this);
 
 		// Increase the week by 1
 		this.week += 1;
@@ -282,7 +288,7 @@ public class GameManager {
 	 * 
 	 * @return The rarity int for the game.
 	 */
-	private int getRarityInt() {
+	public int getRarityInt() {
 		
 		// Integers to represent the progression of the player (0 - 100)
 		int playerProgression = (week / seasonLength) * 100;

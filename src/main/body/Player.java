@@ -26,6 +26,15 @@ enum AvailablePositions {
 				return "Unknown";
 		}
 	}
+
+	/**
+	 * Returns a random position.
+	 * @return A random position.
+	 */
+	public static AvailablePositions getRandomPosition() {
+		Random random = new Random();
+		return values()[random.nextInt(values().length)];
+	}
 }
 
 /**

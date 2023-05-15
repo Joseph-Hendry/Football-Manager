@@ -165,6 +165,19 @@ public class Team {
     }
 
     /**
+     * This method removes a player from the team.
+     * 
+     * @param player	The player.
+     */
+    public void removePlayer(int playerNum) {
+        this.onTeam.set(playerNum, null);
+    }
+
+    public void addPlayerToBench(Player player, int playerNum) {
+        this.onBench.set(playerNum, player);
+    }
+
+    /**
      * This method is used to get the players on the bench.
      * @return The players on the bench.
      */
@@ -235,7 +248,7 @@ public class Team {
         numPlayerOnTeam -= 1;
 		numPlayerOnBench -= 12;
         if (numPlayerOnTeam <= this.onTeam.size() && numPlayerOnBench <= this.onBench.size() && numPlayerOnTeam  >= 0 && numPlayerOnBench >= 0) {
-            if (this.onTeam.get(numPlayerOnTeam) != null || this.onBench.get(numPlayerOnBench) != null) {
+            if (this.onBench.get(numPlayerOnBench) != null) {
                 if (this.onTeam.get(numPlayerOnTeam).getPosition() == this.onBench.get(numPlayerOnBench).getPosition()) {
                     Player temp = this.onTeam.get(numPlayerOnTeam);
                     this.onTeam.set(numPlayerOnTeam, this.onBench.get(numPlayerOnBench));

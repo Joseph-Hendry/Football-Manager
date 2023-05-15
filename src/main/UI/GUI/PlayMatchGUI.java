@@ -12,10 +12,10 @@ import java.awt.event.ActionListener;
 import javax.swing.SwingConstants;
 import javax.swing.Timer;
 import javax.swing.JList;
+import javax.swing.JButton;
 
 import main.body.GameManager;
 import main.body.Match;
-import main.body.Team;
 
 public class PlayMatchGUI {
 
@@ -24,6 +24,7 @@ public class PlayMatchGUI {
 	private int currentIndex = 0;
 	private ArrayList<String> commentaryList = new ArrayList<String>();
 	private DefaultListModel<String> activeList = new DefaultListModel<String>();
+	private JButton btnContinue;
 	private GameManager manager;
 	private Match match;
 
@@ -67,6 +68,17 @@ public class PlayMatchGUI {
 		commentaryJList.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		commentaryJList.setBounds(10, 80, 800, 500);
         frame.getContentPane().add(commentaryJList);
+
+		btnContinue = new JButton("Continue");
+		btnContinue.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		btnContinue.setEnabled(false);
+		btnContinue.setBounds(800, 10, 100, 25);
+		btnContinue.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.dispose();
+				manager.onMatchFinish();
+			}
+		});
     }
 
     private void startTimer() {
@@ -80,6 +92,7 @@ public class PlayMatchGUI {
                     currentIndex++;
                 } else {
                     ((Timer)e.getSource()).stop();
+					btnContinue.setEnabled(true);
                 }
             }
         });

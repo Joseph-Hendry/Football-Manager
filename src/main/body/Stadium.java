@@ -134,7 +134,7 @@ public class Stadium {
     private void canPlayMatch() throws Exception {
         // Check if any of the players are injured
         for (Player player : playerTeam.getTeam()) {
-            if (player.isInjured()) {
+            if (player.isInjured() || player == null) {
                 throw new Exception("You cannot play a match as one of your players is injured.");
             }
         }
@@ -192,5 +192,93 @@ public class Stadium {
             Team opposingTeam = match.getOpposingTeam();
             opposingTeam.setPoints(opposingTeam.getPoints() + pointsToGive);
         }
+    }
+
+
+    ////////// Random Event //////////
+
+
+    /**
+     * This method is used to generate a random event.
+     * 
+     * @param manager   The GameManager that is being used.
+     */
+    public void randomEvent(GameManager manager) {
+        Random random = new Random();
+        int randomInt = random.nextInt(100);
+        if (randomInt < 10) {
+            randomPlayerStats(manager);
+        } else if (randomInt < 20) {
+            randomPlayerQuit(manager);
+        } else if (randomInt < 30) {
+            randomNewPlayer(manager);
+        }
+    }
+
+    /**
+     * This method is used to increase the stats of a random player.
+     * 
+     * @param manager   The GameManager that is being used.
+     */
+    private void randomPlayerStats(GameManager manager) {
+
+        // Find a random player on the team
+        Random random = new Random();
+        int randomPlayerNum = random.nextInt(11);
+        Player randomPlayer = playerTeam.getTeam().get(randomPlayerNum);
+
+        // Increase the stats of the player
+        int[] baseStats = randomPlayer.getStats();
+        int statsIncrease = manager.getRarityInt()/2;
+        for (int i = 0; i < 3; i++) {
+            baseStats[i] += statsIncrease;
+            if (baseStats[i] > 100) {
+                baseStats[i] = 100;
+            }
+        }
+        randomPlayer.setStats(baseStats);
+        manager.UI.showMessage("A player on your team has increased stats.");
+    }
+
+    /**
+     * This method is used to make a random player quit.
+     * 
+     * @param manager   The GameManager that is being used.
+     */
+    private void randomPlayerQuit(GameManager manager) {
+
+        // Find a random player number and remove them from the team
+        Random random = new Random();
+        int randomPlayerNum = random.nextInt(11);
+        playerTeam.removePlayer(randomPlayerNum);
+        manager.UI.showMessage("A player has quit your team.");
+    }
+
+    /**
+     * This method is used to add a random player to the team.
+     * 
+     * @param manager   The GameManager that is being used.
+     */
+    private void randomNewPlayer(GameManager manager) {
+
+        // Create a random player
+        Player randomPlayer = Player.createRandomPlayer(Team.getStrRarity((manager.getRarityInt() + 20)), AvailablePositions.getRandomPosition());
+
+        // If can find a empty spot on the bench, add the player to the bench
+        for (int i = 0; i < playerTeam.getBench().size(); i++) {
+            Player player = playerTeam.getBench().get(i);
+            if (player == null) {
+                playerTeam.addPlayerToBench(randomPlayer, i);
+                manager.UI.showMessage("A new player has joined your team.");
+            }
+        }
+
+        // Find a random player number
+        Random random = new Random();
+        int randomPlayerNum = random.nextInt(playerTeam.getBench().size() - 1);
+
+        // If can find a empty spot on the team, swap the player with the random player on the bench
+        playerTeam.addPlayerToBench(randomPlayer, randomPlayerNum);
+        manager.UI.showMessage("A new player has joined your team.");
     }
 }
