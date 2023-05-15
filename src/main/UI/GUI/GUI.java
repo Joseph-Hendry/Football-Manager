@@ -2,9 +2,6 @@ package main.UI.GUI;
 import main.UI.GameManagerUI;
 import main.body.GameManager;
 import main.body.Match;
-import main.body.Stadium;
-import main.body.Team;
-import main.UI.GUI.*;
 
 public class GUI implements GameManagerUI {
 	GameManager manager;
@@ -61,7 +58,7 @@ public class GUI implements GameManagerUI {
 
 	@Override
 	public void endGame() {
-		GameEndGUI end = new GameEndGUI();
+		GameEndGUI end = new GameEndGUI(manager);
 		end.getFrame().setVisible(true);
 	}
 

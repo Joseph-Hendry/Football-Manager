@@ -1,33 +1,19 @@
 package main.UI.GUI;
 
-import java.awt.EventQueue;
+import main.body.GameManager;
 
 import javax.swing.JFrame;
 
 public class GameEndGUI {
 
 	private JFrame frame;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GameEndGUI window = new GameEndGUI();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private GameManager manager;
 
 	/**
 	 * Create the application.
 	 */
-	public GameEndGUI() {
+	public GameEndGUI(GameManager manager) {
+		this.manager = manager;
 		initialize();
 	}
 
@@ -45,6 +31,7 @@ public class GameEndGUI {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
 
+		// TODO: Add game end GUI elements here
+	}
 }
