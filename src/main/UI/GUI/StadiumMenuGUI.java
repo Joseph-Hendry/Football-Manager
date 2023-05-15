@@ -7,15 +7,12 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
-import javax.swing.ListSelectionModel;
 
 import main.body.Match;
 
 import java.util.ArrayList;
 
 import main.body.GameManager;
-
-import javax.swing.JButton;
 
 public class StadiumMenuGUI {
 
@@ -24,7 +21,7 @@ public class StadiumMenuGUI {
 	private JButton btnPlayMatch;
 	private JButton btnBack;
 	private JButton btnTakeBye;
-	private JList list;
+	private JList<String> list;
 	private DefaultListModel<String> matchList = new DefaultListModel<String>();
 
 
@@ -58,7 +55,6 @@ public class StadiumMenuGUI {
 		lblMatchesToPlay.setBounds(51, 81, 126, 15);
 		frame.getContentPane().add(lblMatchesToPlay);
 		
-
 		list = new JList<>(matchList);
 		list.setBounds(51, 108, 204, 136);
 		frame.getContentPane().add(list);
@@ -84,7 +80,7 @@ public class StadiumMenuGUI {
 		// Add listeners
 		btnPlayMatch.addActionListener(e -> {
 			try {
-				manager.onStadiumMenuFinish(String.valueOf(list.getSelectedIndex()));
+				manager.onStadiumMenuFinish(String.valueOf(list.getSelectedIndex() + 1));
 				frame.dispose();
 			} catch (Exception e1) {
 				System.out.println(e1.getMessage());
