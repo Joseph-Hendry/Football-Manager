@@ -51,7 +51,7 @@ public class StartupMenuGUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.getContentPane().setBackground(new Color(255, 255, 255));
+		frame.getContentPane().setBackground(new Color(240, 240, 240));
 		frame.setBounds(100, 100, 640, 360);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);

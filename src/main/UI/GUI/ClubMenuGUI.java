@@ -65,7 +65,7 @@ public class ClubMenuGUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.getContentPane().setBackground(new Color(255, 255, 255));
+		frame.getContentPane().setBackground(new Color(240, 240, 240));
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblTitle = new JLabel("Club Menu");
@@ -182,6 +182,7 @@ public class ClubMenuGUI {
 		frame.getContentPane().add(separator_1);
 		
 		JTextArea textAreaCoach = new JTextArea();
+		textAreaCoach.setBackground(UIManager.getColor("Button.background"));
 		textAreaCoach.setEditable(false);
 		textAreaCoach.setWrapStyleWord(true);
 		textAreaCoach.setLineWrap(true);
