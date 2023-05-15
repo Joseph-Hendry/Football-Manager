@@ -50,8 +50,7 @@ public class GUI implements GameManagerUI {
 
 	@Override
 	public void showMessage(String message) {
-		// TODO Auto-generated method stub
-		
+		ShowMessage.showMessage(message);
 	}
 
 	@Override
