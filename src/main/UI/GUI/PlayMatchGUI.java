@@ -26,16 +26,14 @@ public class PlayMatchGUI {
 	private DefaultListModel<String> activeList = new DefaultListModel<String>();
 	private JButton btnContinue;
 	private GameManager manager;
-	private Match match;
 
 	/**
 	 * Create the application.
 	 */
 	public PlayMatchGUI(GameManager manager, Match match) {
 		this.manager = manager;
-		this.match = match;
 		match.playMatch(manager);
-		commentaryList = match.getCommentaryList();
+		this.commentaryList = match.getCommentaryList();
 		initialize();
 		startTimer();
 	}
