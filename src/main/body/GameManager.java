@@ -1,6 +1,5 @@
 package main.body;
 import main.UI.*;
-import main.UI.CLI.CmdLineUI;
 
 public class GameManager {
 
@@ -289,17 +288,18 @@ public class GameManager {
 	 * @return The rarity int for the game.
 	 */
 	public int getRarityInt() {
-		
+
 		// Integers to represent the progression of the player (0 - 100)
-		int playerProgression = (week / seasonLength) * 100;
+		float playerProgression = ((float) this.week / (float) this.seasonLength) * 100;
 
 		// Progression is then changed based on the difficulty
 		// Easy: (50 - 100) as progression goes from (0 - 100)
 		// Hard: (40 - 90)  as progression goes from (0 - 100)
 		if (difficulty == 0) {
-			return playerProgression / 2 + 50;
+			System.out.println((playerProgression / 2 + 50));
+			return (int) (playerProgression / 2 + 50);
 		} else {
-			return playerProgression / 2 + 40;
+			return (int) playerProgression / 2 + 40;
 		}
 	}
 
@@ -318,11 +318,5 @@ public class GameManager {
 	public void onGameFinish() {
 		// TODO: UI.endGame();
 		// TODO: UI.quit();
-	}
-
-	public static void main(String[] args) {
-		CmdLineUI ui = new CmdLineUI();
-		GameManager manager = new GameManager(ui);
-		ui.setup(manager);
 	}
 }
