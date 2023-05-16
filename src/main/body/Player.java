@@ -161,6 +161,7 @@ public class Player extends Person {
 
 	/**
 	 * Incriments the stamina of the player by the given amount.
+	 * @param	the stamina amount.
 	 */
 	public void incStamina(int amount) {
 		this.setStamina(this.stamina + amount);
@@ -168,6 +169,7 @@ public class Player extends Person {
 
 	/**
 	 * Decriments the stamina of the player by the given amount.
+	 * @param	the stamina amount
 	 */
 	public void decStamina(int amount) {
 		this.setStamina(this.stamina - amount);
