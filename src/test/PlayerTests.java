@@ -73,14 +73,55 @@ class PlayerTests {
 	void testSetStamina() {
 		int stamina = -1;
 		player.setStamina(stamina);
-		assertTrue(player.getStamina() == stamina);
+		assertTrue(player.getStamina() == 0);
 		assertTrue(player.isInjured() == true);
 		stamina = 10;
 		player.setStamina(stamina);
 		assertTrue(player.getStamina() == stamina);
-		assertTrue(player.isInjured() == true);
+		assertTrue(player.isInjured() == false);
+		stamina = 110;
+		player.setStamina(stamina);
+		assertTrue(player.getStamina() == 100);
+		assertTrue(player.isInjured() == false);
 	}
 	
+	@Test
+	void testIncStamina() {
+		player.setStamina(50);
+		player.incStamina(10);
+		assertTrue(player.getStamina() == 60);
+	}
+	
+	@Test
+	void testDecStamima() {
+		player.setStamina(50);
+		player.decStamina(10);
+		assertTrue(player.getStamina() == 40);
+	}
+	
+	@Test
+	void testGetStamina() {
+		int stamina = 10;
+		player.setStamina(stamina);
+		assertTrue(player.getStamina() == 10);
+	}
+	
+	@Test
+	void testSetInjured() {
+		player.setInjured(true);
+		assertTrue(player.isInjured() == true);
+		player.setInjured(false);
+		assertTrue(player.isInjured() == false);
+	}
+	
+	@Test
+	void testIsInjured()
+	{
+		player.setInjured(true);
+		assertTrue(player.isInjured() == true);
+		player.setInjured(false);
+		assertTrue(player.isInjured() == false);
+	}
 	
 	
 	
