@@ -52,21 +52,23 @@ public class Match {
         ArrayList<Player> teamList = team.getTeam();
         
         for (Player player : teamList) {
-                int[] playerStats = player.getStats();
-                AvailablePositions position = player.getPosition();
-                switch (position) {
-                    case DEFENCE:
-                        teamStats[0] += (playerStats[0] * 0.2 + playerStats[1] * 0.2 + playerStats[2] * 0.6);
-                        break;
-                    case MIDFIELD:
-                        teamStats[1] += (playerStats[0] * 0.2 + playerStats[1] * 0.6 + playerStats[2] * 0.2);
-                        break;
-                    case STRIKER:
-                        teamStats[2] += (playerStats[0] * 0.6 + playerStats[1] * 0.2 + playerStats[2] * 0.2);
-                        break;
-                    case GOALKEEPER:
-                        teamStats[3] += (playerStats[0] * 0.3 + playerStats[1] * 0.3 + playerStats[2] * 0.4);
-                        break;
+            if (player != null) {
+                    int[] playerStats = player.getStats();
+                    AvailablePositions position = player.getPosition();
+                    switch (position) {
+                        case DEFENCE:
+                            teamStats[0] += (playerStats[0] * 0.2 + playerStats[1] * 0.2 + playerStats[2] * 0.6);
+                            break;
+                        case MIDFIELD:
+                            teamStats[1] += (playerStats[0] * 0.2 + playerStats[1] * 0.6 + playerStats[2] * 0.2);
+                            break;
+                        case STRIKER:
+                            teamStats[2] += (playerStats[0] * 0.6 + playerStats[1] * 0.2 + playerStats[2] * 0.2);
+                            break;
+                        case GOALKEEPER:
+                            teamStats[3] += (playerStats[0] * 0.3 + playerStats[1] * 0.3 + playerStats[2] * 0.4);
+                            break;
+                    }
                 }
             }
         // Divide the stats by the number of players in each position
