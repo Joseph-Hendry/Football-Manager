@@ -2,6 +2,7 @@ package main.UI.GUI;
 
 import main.body.GameManager;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -52,5 +53,14 @@ public class GameEndGUI {
 		JLabel lblDifficulty = new JLabel("Difficulty: " + manager.getDifficulty());
 		lblDifficulty.setBounds(10, 111, 414, 14);
 		frame.getContentPane().add(lblDifficulty);
+
+		//Finish button
+		JButton lblFinish = new JLabel("Finish");
+		lblFinish.setBounds(10, 136, 414, 14);
+		frame.getContentPane().add(lblFinish);
+		lblFinish.addActionListener(e -> {
+			frame.dispose();
+			manager.onGameEnd();
+		}
 	}
 }
