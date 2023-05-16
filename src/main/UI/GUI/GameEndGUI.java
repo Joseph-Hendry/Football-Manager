@@ -55,12 +55,12 @@ public class GameEndGUI {
 		frame.getContentPane().add(lblDifficulty);
 
 		//Finish button
-		JButton lblFinish = new JLabel("Finish");
+		JButton lblFinish = new JButton("Finish");
 		lblFinish.setBounds(10, 136, 414, 14);
 		frame.getContentPane().add(lblFinish);
 		lblFinish.addActionListener(e -> {
 			frame.dispose();
-			manager.onGameEnd();
-		}
+			manager.onEndGameFinish();
+		});
 	}
 }

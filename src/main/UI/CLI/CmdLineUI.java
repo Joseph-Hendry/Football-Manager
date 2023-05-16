@@ -395,6 +395,10 @@ public class CmdLineUI implements GameManagerUI {
 		System.out.println(message);
 	}
 
+	public void quit() {
+		System.exit(0);
+	}
+
 	public static void main(String[] args) {
 		CmdLineUI ui = new CmdLineUI();
 		GameManager manager = new GameManager(ui);

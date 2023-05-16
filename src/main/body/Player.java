@@ -120,8 +120,8 @@ public class Player extends Person {
 	 * Returns values of the Player in a String format on one line all evenly spaced.
 	 * @return Player values in string format.
 	 */
-	public String toString(int i) {
-		return String.format("%-4s %-15s %-5s %-5s %-8s %-15s %-1s","("+i+")" ,this.nickname, this.stats[0], this.stats[1], this.stats[2], this.position, this.value);
+	public String toString() {
+		return String.format("%-10s %-2s %-2s %-8s %-8s %-12s %-4s", this.nickname, this.stats[0], this.stats[1], this.stats[2], this.stamina, this.position, this.value);
 	}
 	
 	/**

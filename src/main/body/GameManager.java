@@ -123,14 +123,13 @@ public class GameManager {
 	 * Using: When got values send them here. If they aren't valid, throw an exception.
 	 * If they are valid the function will deal with them.
 	 */
-	public void onClubMenuFinish(String redirect) throws IllegalArgumentException {
+	public void onClubMenuFinish(String redirect) throws Exception {
 
 		// If the player wants to change the nickname of a player
 		if (redirect.matches("[0-9]+ [a-zA-Z]+")) {
 			String[] splitInput = redirect.split(" ");
 			int playerNum = Integer.parseInt(splitInput[0]);
 			String nickname = splitInput[1].toString();
-			System.out.println(nickname);
 			setNickname(playerNum, nickname);
 		} else {
 			redirect = redirect.toLowerCase();
@@ -162,35 +161,24 @@ public class GameManager {
 	 * @param playerNum
 	 * @param nickname
 	 */
-	private void setNickname(int playerNum, String nickname) {
-		try {
-			this.playersTeam.setNickname(playerNum, nickname);
-			UI.showClub();
-			UI.showMessage("Players nickname has been changed.");
-		} catch (Exception e) {
-			UI.showMessage(e.getMessage());
-		}
+	private void setNickname(int playerNum, String nickname) throws Exception {
+		this.playersTeam.setNickname(playerNum, nickname);
+		UI.clubMenu();
+		UI.showMessage("Players nickname has been changed.");
 	}
 
-	private void sellPlayer(int playerNum) {
-		try {
-			playerNum -= 12;
-			this.playersTeam.sellPlayer(this, playerNum);
-			UI.showClub();
-			UI.showMessage("Player has been sold.");
-		} catch (Exception e) {
-			UI.showMessage(e.getMessage());
-		}
+	private void sellPlayer(int playerNum) throws Exception {
+		playerNum -= 12;
+		this.playersTeam.sellPlayer(this, playerNum);
+		UI.clubMenu();
+		UI.showMessage("Player has been sold.");
+
 	}
 
-	private void swapPlayers(int teamPlayerNum, int benchPlayerNum) {
-		try {
-			playersTeam.subPlayerSwap(teamPlayerNum, benchPlayerNum);
-			UI.showClub();
-			UI.showMessage("Players have been swapped.");
-		} catch (Exception e) {
-			UI.showMessage(e.getMessage());
-		}
+	private void swapPlayers(int teamPlayerNum, int benchPlayerNum) throws Exception {
+		playersTeam.subPlayerSwap(teamPlayerNum, benchPlayerNum);
+		UI.clubMenu();
+		UI.showMessage("Players have been swapped.");
 	}
 
 
@@ -296,7 +284,6 @@ public class GameManager {
 		// Easy: (50 - 100) as progression goes from (0 - 100)
 		// Hard: (40 - 90)  as progression goes from (0 - 100)
 		if (difficulty == 0) {
-			System.out.println((playerProgression / 2 + 50));
 			return (int) (playerProgression / 2 + 50);
 		} else {
 			return (int) playerProgression / 2 + 40;
@@ -315,8 +302,7 @@ public class GameManager {
 	////////// End Game //////////
 
 
-	public void onGameFinish() {
-		// TODO: UI.endGame();
-		// TODO: UI.quit();
+	public void onEndGameFinish() {
+		UI.quit();
 	}
 }

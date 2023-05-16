@@ -50,12 +50,15 @@ public class PlayMatchGUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setResizable(false);
+		frame.setBounds(100, 50, 560, 1000);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblMatch = new JLabel("Match: ");
 		lblMatch.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMatch.setFont(new Font("Dialog", Font.PLAIN, 18));
-		lblMatch.setBounds(64, 12, 287, 43);
+		lblMatch.setBounds(38, 10, 287, 43);
 		frame.getContentPane().add(lblMatch);
 		
 		JLabel lblNewLabel = new JLabel("Live Commentary:");
@@ -64,13 +67,14 @@ public class PlayMatchGUI {
 		
 		commentaryJList = new JList<>(activeList);
 		commentaryJList.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		commentaryJList.setBounds(10, 80, 800, 500);
+		commentaryJList.setBounds(38, 122, 483, 550);
         frame.getContentPane().add(commentaryJList);
 
 		btnContinue = new JButton("Continue");
 		btnContinue.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnContinue.setEnabled(false);
-		btnContinue.setBounds(800, 10, 100, 25);
+		btnContinue.setBounds(38, 700, 483, 80);
+		frame.getContentPane().add(btnContinue);
 		btnContinue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.dispose();
@@ -80,7 +84,7 @@ public class PlayMatchGUI {
     }
 
     private void startTimer() {
-        Timer timer = new Timer(500, new ActionListener() {
+        Timer timer = new Timer(1, new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -89,8 +93,8 @@ public class PlayMatchGUI {
                 	commentaryJList.setModel(activeList);
                     currentIndex++;
                 } else {
+                	btnContinue.setEnabled(true);
                     ((Timer)e.getSource()).stop();
-					btnContinue.setEnabled(true);
                 }
             }
         });

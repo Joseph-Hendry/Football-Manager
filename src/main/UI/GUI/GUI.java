@@ -62,13 +62,13 @@ public class GUI implements GameManagerUI {
 		end.getFrame().setVisible(true);
 	}
 
+	public void quit() {
+		System.exit(0);
+	}
+
 	public static void main(String[] args) {
 		GUI ui = new GUI();
 		GameManager manager = new GameManager(ui);
 		ui.setup(manager);
-		//ui.mainMenu();
-		//ui.clubMenu();
-		//ui.stadiumMenu();
-		//ui.playMatch(manager.getStadium().getOppositionTeam());
 	}
 }

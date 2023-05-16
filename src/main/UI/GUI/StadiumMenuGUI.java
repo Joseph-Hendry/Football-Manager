@@ -49,14 +49,17 @@ public class StadiumMenuGUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setResizable(false);
+		frame.setBounds(100, 100, 480, 270);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblMatchesToPlay = new JLabel("Matches to play:");
-		lblMatchesToPlay.setBounds(51, 81, 126, 15);
+		lblMatchesToPlay.setBounds(51, 40, 126, 15);
 		frame.getContentPane().add(lblMatchesToPlay);
 		
 		list = new JList<>(matchList);
-		list.setBounds(51, 108, 204, 136);
+		list.setBounds(51, 59, 371, 115);
 		frame.getContentPane().add(list);
 		
 		JLabel lblWelcomeMessage = new JLabel("Store Menu");
@@ -66,15 +69,15 @@ public class StadiumMenuGUI {
 		frame.getContentPane().add(lblWelcomeMessage);
 		
 		btnPlayMatch = new JButton("Play Match");
-		btnPlayMatch.setBounds(27, 303, 117, 25);
+		btnPlayMatch.setBounds(51, 184, 117, 25);
 		frame.getContentPane().add(btnPlayMatch);
 		
 		btnBack = new JButton("Back");
-		btnBack.setBounds(184, 303, 117, 25);
+		btnBack.setBounds(305, 184, 117, 25);
 		frame.getContentPane().add(btnBack);
 		
 		btnTakeBye = new JButton("Take Bye");
-		btnTakeBye.setBounds(37, 340, 117, 25);
+		btnTakeBye.setBounds(178, 184, 117, 25);
 		frame.getContentPane().add(btnTakeBye);
 
 		// Add listeners
@@ -82,28 +85,24 @@ public class StadiumMenuGUI {
 			try {
 				manager.onStadiumMenuFinish(String.valueOf(list.getSelectedIndex() + 1));
 				frame.dispose();
-			} catch (Exception e1) {
-				System.out.println(e1.getMessage());
-				System.out.println(list.getSelectedIndex());
-				//error.getFrame().setVisible(true);
+			} catch (Exception error) {
+				ShowMessage.showMessage(error.getMessage());
 			}
 		});
 		btnBack.addActionListener(e -> {
 			try {
 				manager.onStadiumMenuFinish("back");
 				frame.dispose();
-			} catch (Exception e1) {
-				System.out.println(e1.getMessage());
-				//error.getFrame().setVisible(true);
+			} catch (Exception error) {
+				ShowMessage.showMessage(error.getMessage());
 			}
 		});
 		btnTakeBye.addActionListener(e -> {
 			try {
 				manager.onStadiumMenuFinish("6");
 				frame.dispose();
-			} catch (Exception e1) {
-				System.out.println(e1.getMessage());
-				//error.getFrame().setVisible(true);
+			} catch (Exception error) {
+				ShowMessage.showMessage(error.getMessage());
 			}
 		});
 	}

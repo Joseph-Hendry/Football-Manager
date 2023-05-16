@@ -5,59 +5,64 @@ import javax.swing.JFrame;
 import main.body.Coach;
 import main.body.GameManager;
 import main.body.Player;
-import main.body.Team;
 
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.util.ArrayList;
-import java.util.List;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.SwingConstants;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
-import javax.swing.border.BevelBorder;
-import javax.swing.AbstractListModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.UIManager;
 import javax.swing.JSeparator;
 import javax.swing.JTextArea;
+
 
 public class ClubMenuGUI {
 
 	private JFrame frame;
 	private GameManager manager;
-
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					ClubMenuGUI window = new ClubMenuGUI();
-//					window.frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+	private DefaultListModel<String> reservesList = new DefaultListModel<String>();
+	private DefaultListModel<String> playerList = new DefaultListModel<String>();
+	private int recentSelectedPlayer = -1;
 
 	/**
 	 * Create the application.
 	 */
 	public ClubMenuGUI(GameManager manager) {
 		this.manager = manager;
+		for (Player player : manager.getPlayerTeam().getTeam()) {
+			try {
+				playerList.addElement(player.toString());
+			} catch (Exception e) {
+				playerList.addElement("Empty");
+			}
+		}
+		for (Player player : manager.getPlayerTeam().getBench()) {
+			try {
+				reservesList.addElement(player.toString());
+			} catch (Exception e) {
+				reservesList.addElement("Empty");
+			}
+		}
 		initialize();
-	}
-	
-	public JFrame getFrame() {
-		return this.frame;
 	}
 	
 	public GameManager getManager() {
 		return this.manager;
+	}
+
+	/**
+	 * Get the frame.
+	 */
+	public JFrame getFrame() {
+		return this.frame;
 	}
 
 	/**
@@ -79,20 +84,15 @@ public class ClubMenuGUI {
 		lblTeamNameDesc.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblTeamNameDesc.setBounds(10, 56, 239, 17);
 		frame.getContentPane().add(lblTeamNameDesc);
-	
-		String[] playersDisplay = getPlayersDisplay(getManager().getPlayerTeam().getTeam());
 		
-		JList listPlayers = new JList();
+		JList<String> listPlayers = new JList<String>(playerList);
 		listPlayers.setLayoutOrientation(JList.VERTICAL_WRAP);
-		listPlayers.setModel(new AbstractListModel() {
-			String[] values = playersDisplay;
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
+		listPlayers.addListSelectionListener(e -> {
+			if (listPlayers.getSelectedIndex() != -1) {
+				recentSelectedPlayer = listPlayers.getSelectedIndex() + 1;
 			}
 		});
+
 		listPlayers.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		listPlayers.setVisibleRowCount(11);
 		listPlayers.setFont(new Font("Monospaced", Font.PLAIN, 11));
@@ -101,22 +101,11 @@ public class ClubMenuGUI {
 		listPlayers.setBounds(10, 173, 353, 200);
 		frame.getContentPane().add(listPlayers);
 		
-		JLabel lblPlayerListDesc1 = new JLabel("Name                 Stats                   Position            Rarity            Value");
+		JLabel lblPlayerListDesc1 = new JLabel("Name             Stats                    Stamina     Position           Value");
 		lblPlayerListDesc1.setBounds(10, 157, 359, 14);
 		frame.getContentPane().add(lblPlayerListDesc1);
-		
-		String[] reservesDisplay = getPlayersDisplay(getManager().getPlayerTeam().getBench());
-		
-		JList listReserves = new JList();
-		listReserves.setModel(new AbstractListModel() {
-			String[] values = reservesDisplay;
-			public int getSize() {
-				return values.length;
-			}
-			public Object getElementAt(int index) {
-				return values[index];
-			}
-		});
+
+		JList<String> listReserves = new JList<String>(reservesList);
 		listReserves.setVisibleRowCount(11);
 		listReserves.setToolTipText("");
 		listReserves.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -125,8 +114,13 @@ public class ClubMenuGUI {
 		listReserves.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
 		listReserves.setBounds(371, 173, 353, 200);
 		frame.getContentPane().add(listReserves);
+		listReserves.addListSelectionListener(e -> {
+			if (listReserves.getSelectedIndex() != -1) {
+				recentSelectedPlayer = listReserves.getSelectedIndex() + 12;
+			}
+		});
 		
-		JLabel lblPlayerListDesc1_1 = new JLabel("Name                 Stats                   Position            Rarity            Value");
+		JLabel lblPlayerListDesc1_1 = new JLabel("Name             Stats                    Stamina     Position           Value");
 		lblPlayerListDesc1_1.setBounds(371, 157, 359, 14);
 		frame.getContentPane().add(lblPlayerListDesc1_1);
 		
@@ -192,20 +186,83 @@ public class ClubMenuGUI {
 		frame.getContentPane().add(textAreaCoach);
 		frame.setBounds(100, 100, 750, 500);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	}
 
-	/**
-	 * Takes in a list of players and returns a String[] array of , used to display in the JList of players.
-	 * @param playerList	The list of players.
-	 * @return				String[] of player names.
-	 */
-	public String[] getPlayersDisplay(ArrayList<Player> playerList) {
-		ArrayList<String> playerNames = new ArrayList<String>();
-		for (Player player : playerList) {
-			playerNames.add(player.toString());
-		}
-		String[] nameArray = playerNames.toArray(new String[playerNames.size()]);
-		return nameArray;
+		JButton renamePlayerButton = new JButton("Rename Player");
+		renamePlayerButton.setBounds(10, 383, 152, 39);
+		frame.getContentPane().add(renamePlayerButton);
+
+		JButton btnNewButton = new JButton("Back");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
+					frame.dispose();
+					manager.onClubMenuFinish("back");
+				} catch (Exception error) {
+					ShowMessage.showMessage(error.getMessage());
+				}
+			}
+		});
+		btnNewButton.setBounds(36, 388, 152, 39);
+		frame.getContentPane().add(btnNewButton);
+		
+		JButton btnSellPlayer = new JButton("Sell Player");
+		btnSellPlayer.setBounds(221, 383, 107, 39);
+		frame.getContentPane().add(btnSellPlayer);
+		btnSellPlayer.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (listReserves.getSelectedIndex() != -1) {
+					try {
+						String selectedPlayer = String.valueOf(listReserves.getSelectedIndex() + 12);
+						manager.onClubMenuFinish("sell " + selectedPlayer);
+						frame.dispose();
+					} catch (Exception error) {
+						ShowMessage.showMessage(error.getMessage());
+					}
+				}
+			}
+		});
+		
+		JButton btnNewButton_1_1 = new JButton("Substitute Player");
+		btnNewButton_1_1.setBounds(360, 383, 127, 44);
+		frame.getContentPane().add(btnNewButton_1_1);
+		frame.setBounds(100, 100, 750, 500);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		btnNewButton_1_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if (listPlayers.getSelectedIndex() != -1) {
+					try {
+						String selectedPlayer = String.valueOf(listPlayers.getSelectedIndex() + 1);
+						String selectedReserve = String.valueOf(listReserves.getSelectedIndex() + 12);
+						manager.onClubMenuFinish("swap " + selectedPlayer + " " + selectedReserve);
+						frame.dispose();
+					} catch (Exception error) {
+						ShowMessage.showMessage(error.getMessage());
+
+					}
+				}
+			}
+		});
+
+		// Assuming you have a button named "renamePlayerButton" in your main window
+		renamePlayerButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// Show an input dialog to get the new name from the player
+				String newName = JOptionPane.showInputDialog(frame, "Enter the new name for the player:", "Rename Player", JOptionPane.PLAIN_MESSAGE);
+				
+				// Handle the new name (you can implement your logic here)
+				if (recentSelectedPlayer != -1) {
+					try {
+						manager.onClubMenuFinish(recentSelectedPlayer  + " " + newName);
+						frame.dispose();
+					} catch (Exception error) {
+						ShowMessage.showMessage(error.getMessage());
+					}
+				} else {
+					JOptionPane.showMessageDialog(frame, "Please select a player to rename", "Player Not Selected", JOptionPane.ERROR_MESSAGE);
+				}
+			}
+		});
 	}
 }
 

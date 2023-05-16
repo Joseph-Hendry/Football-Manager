@@ -1,6 +1,5 @@
 package main.UI;
 import main.body.GameManager;
-import main.body.Team;
 import main.body.Match;
 
 public interface GameManagerUI {
@@ -46,4 +45,6 @@ public interface GameManagerUI {
 	public void showMessage(String message);
 
     public void endGame();
+
+	public void quit();
 }
