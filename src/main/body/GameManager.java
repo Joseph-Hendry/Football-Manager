@@ -294,8 +294,74 @@ public class GameManager {
 	////////// Store Menu //////////
 
 
-	public void onStoreMenuFinish() {
-		UI.clubMenu();
+	/**
+	 * This method is used when the store menu is finished.
+	 * @param redirect 		The input from the user.
+	 * @throws Exception 	If the input is invalid.
+	 */
+	public void onStoreMenuFinish(String redirect) throws Exception {
+
+		// If the player wants to buy a player
+		if (redirect.matches("buy [0-9]+ [a-z]+")) {
+
+			// Check valid number
+			Player player;
+			try {
+				player = store.getStorePlayers().get(Integer.parseInt(redirect.split(" ")[1]) - 1);
+			} catch (Exception e) {
+				throw new IllegalArgumentException("Please enter a valid input");
+			}
+
+			// Add to team or bench else throw exception
+			if (redirect.matches("buy [0-9]+ team")) {
+				playersTeam.addPlayerToTeam(player);
+				money -= player.getValue();
+				store.removePlayer(player);
+			} else if (redirect.matches("buy [0-9]+ bench")) {
+				playersTeam.addPlayerToBench(player);
+				money -= player.getValue();
+				store.removePlayer(player);
+
+			} else {
+				throw new IllegalArgumentException("Please enter a valid input");
+			} UI.storeMenu();
+
+		// Buy Coach
+		} else if (redirect.toLowerCase() == "buy coach") {
+			int temp = money - (playersTeam.getCoach().getValue() - store.getStoreCoach().getValue());
+			if (temp < 0) {
+				throw new Exception("You don't have enough money to buy this coach.");
+			} else {
+				money = temp;
+				playersTeam.setCoach(store.getStoreCoach());
+				UI.storeMenu();
+			}
+
+		// If the player wants to sell a player
+		} else if (redirect.matches("buy item [0-9]+")) {
+			int itemNum = Integer.parseInt(redirect.split(" ")[2]);
+			Item item;
+			try {
+				item = store.getStoreItems().get(itemNum - 1);
+			} catch (Exception e) {
+				throw new IllegalArgumentException("Please enter a valid input");
+			}
+			int temp = money - item.getValue();
+			if (temp < 0) {
+				throw new Exception("You don't have enough money to buy this item.");
+			} else {
+				money = temp;
+				playersTeam.addItem(item);
+				store.removeItem(item);
+				UI.storeMenu();
+			}
+		
+		// back
+		} else if (redirect.equals("back")) {
+			UI.mainMenu();
+		} else {
+			throw new IllegalArgumentException("Please enter a valid input");
+		}
 	}
 
 

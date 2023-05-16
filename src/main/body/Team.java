@@ -336,6 +336,27 @@ public class Team {
         }
         throw new Exception("Bench is full");
     }
+    
+    /**
+     * Adds a player onto the bench.
+     * @param player	The player.
+     */
+    public void addPlayerToTeam(Player player) throws Exception {
+        AvailablePositions position = player.getPosition();
+        int i = 0;
+        for (AvailablePositions pos : AvailablePositions.values()) {
+            if (pos == position) {
+                for (int j = 0; j < formation[i]; j++) {
+                    if (this.onTeam.get(j) == null) {
+                        this.onTeam.set(j, player);
+                        return;
+                    }
+                }
+            }
+            i++;
+        }
+        throw new Exception("No room in team for this players position.");
+    }
 
     /**
      * This method is used to sort the teamList based on ponits.

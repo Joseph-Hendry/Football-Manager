@@ -84,7 +84,7 @@ public class Item {
      * @return  The string representation of the Item.
      */
     public String toString() {
-        return this.name + " " + this.value + " " + this.stats[0] + " " + this.stats[1] + " " + this.stats[2];
+        return String.format("%-10s %-2s %-2s %-8s", this.name, this.stats[0], this.stats[1], this.stats[2], this.value);
     }
 
     /**

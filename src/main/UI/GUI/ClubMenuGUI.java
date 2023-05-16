@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import main.body.Coach;
 import main.body.GameManager;
 import main.body.Player;
+import main.body.Item;
 
 import java.awt.Color;
 import javax.swing.JLabel;
@@ -30,6 +31,7 @@ public class ClubMenuGUI {
 	private GameManager manager;
 	private DefaultListModel<String> reservesList = new DefaultListModel<String>();
 	private DefaultListModel<String> playerList = new DefaultListModel<String>();
+	private DefaultListModel<String> itemsList = new DefaultListModel<String>();
 	private int recentSelectedPlayer = -1;
 
 	/**
@@ -49,6 +51,13 @@ public class ClubMenuGUI {
 				reservesList.addElement(player.toString());
 			} catch (Exception e) {
 				reservesList.addElement("Empty");
+			}
+		}
+		for (Item item : manager.getPlayerTeam().getItems()) {
+			try {
+				itemsList.addElement(item.toString());
+			} catch (Exception e) {
+				itemsList.addElement("Empty");
 			}
 		}
 		initialize();
@@ -130,7 +139,7 @@ public class ClubMenuGUI {
 		lblTeamTitle.setBounds(161, 129, 46, 14);
 		frame.getContentPane().add(lblTeamTitle);
 		
-		JLabel lblReserveTitle = new JLabel("Reserves");
+		JLabel lblReserveTitle = new JLabel("Reserves (5 Max)");
 		lblReserveTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblReserveTitle.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblReserveTitle.setBounds(517, 129, 67, 14);
