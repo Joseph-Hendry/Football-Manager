@@ -155,6 +155,7 @@ public class Player extends Person {
 			this.stamina = 100;
 		} else {
 			this.stamina = stamina;
+			this.setInjured(false);
 		}		
 	}
 
