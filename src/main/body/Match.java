@@ -299,7 +299,9 @@ public class Match {
 
         // Increase the stamina of the players on bench
         for (Player player : teams[0].getBench()) {
-            player.incStamina(50);
+            if (player != null) {
+                player.incStamina(50);
+            }
         }
 
         // Update the points and money of the teams
@@ -312,22 +314,6 @@ public class Match {
         } else {
             //manager.UI.showMessage("The match has ended in a draw.");
             teams[1].setPoints(teams[0].getPoints() + (pointsToWin/2));
-        }
-    }
-
-    public static void main(String[] args) {
-        // Test team stats
-        Team team = Team.createRandomTeam(100, "Test1");
-        Team team2 = Team.createRandomTeam(100, "Test2");
-        Match match = new Match(team, team2, 3, 1000);
-        int[] teamStats = match.playerTeamStats;
-        System.out.println("Team 1 stats: " + teamStats[0] + " " + teamStats[1] + " " + teamStats[2] + " " + teamStats[3]);
-        // System.out.println("Team 2 stats: " + team2Stats[0] + " " + team2Stats[1] + " " + team2Stats[2] + " " + team2Stats[3]);
-
-        // Prints players in eam statistics
-        System.out.println("Team 1 players:");
-        for (Player player : team.getTeam()) {
-            System.out.println(player.getName() + " " + player.getPosition() + " " + player.getStats()[0] + " " + player.getStats()[1] + " " + player.getStats()[2]);
         }
     }
 }

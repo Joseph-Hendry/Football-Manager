@@ -32,7 +32,6 @@ public class PlayMatchGUI {
 	 */
 	public PlayMatchGUI(GameManager manager, Match match) {
 		this.manager = manager;
-		match.playMatch(manager);
 		this.commentaryList = match.getCommentaryList();
 		initialize();
 		startTimer();

@@ -127,7 +127,7 @@ public class DraftMenuGUI {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
                 ShowMessage.showMessage("You have drafted your team!");
-                manager.onDraftMenuFinish(selectedPlayers, selectedCoach);
+                manager.onDraftMenuFinish(selectedPlayers, selectedCoach, money);
             }
         });
 	}

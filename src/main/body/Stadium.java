@@ -11,7 +11,7 @@ import java.util.Random;
  * From the stadium the player can also take a bye.
  */
 public class Stadium {
-    private GameManager manage;
+    private GameManager manager;
     private Team playerTeam;
     private ArrayList<Match> possibleMatches = new ArrayList<Match>();
 
@@ -27,7 +27,7 @@ public class Stadium {
      * @param playerTeam    The team that the player is using.
      */
     public Stadium(GameManager manager, Team playerTeam) {
-        this.manage = manager;
+        this.manager = manager;
         this.playerTeam = playerTeam;
         generateNPCTeams(manager);
         setPossibleMatches();
@@ -56,7 +56,7 @@ public class Stadium {
         int moneyToWin;
 
         // Generate the possible matches
-        if (manage.getWeek() == 1) {
+        if (manager.getWeek() == 1) {
             for (int i = 0; i < teamListSize; i++) {
                 if (i != teamIndex) {
                     possibleMatches.add(new Match(playerTeam, teamList.get(i), 3, 1000));
@@ -122,7 +122,7 @@ public class Stadium {
      */
     public void playMatch(Match match) throws Exception {
         canPlayMatch();
-        match.playMatch(manage);
+        match.playMatch(manager);
         updateMatchPoints(match);
     }
 
@@ -175,10 +175,14 @@ public class Stadium {
     private void byeStamina() {
         // Increase all player stamina
         for (Player player : playerTeam.getTeam()) {
-            player.incStamina(100);
+            if (player != null) {
+                player.incStamina(100);
+            }
         }
         for (Player player : playerTeam.getBench()) {
-            player.incStamina(100);
+            if (player != null) {
+                player.incStamina(100);
+            }
         }
     }
 
@@ -270,6 +274,7 @@ public class Stadium {
             if (player == null) {
                 playerTeam.addPlayerToBench(randomPlayer, i);
                 manager.UI.showMessage("A new player has joined your team.");
+                return;
             }
         }
 

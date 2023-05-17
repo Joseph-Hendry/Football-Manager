@@ -69,7 +69,7 @@ public class GameManager {
 	}
 
 
-	////////// Setup //////////
+	////////// Setup & Draft //////////
 
 
 	/**
@@ -100,8 +100,15 @@ public class GameManager {
 		UI.draftMenu();
 	}
 
-	// On draft menu finish
-	public void onDraftMenuFinish(ArrayList<Player> onTeam, Coach coach) {
+	/**
+	 * This function is used when the draft menu is finished to create the players team.
+	 * 
+	 * @param onTeam	The players on the team.
+	 * @param coach		The coach.
+	 */
+	public void onDraftMenuFinish(ArrayList<Player> onTeam, Coach coach, int money) {
+		// Set money
+		this.money = money;
 
 		// Creat Empty Bench and Items
 		ArrayList<Player> onBench = new ArrayList<Player>(5);
@@ -241,7 +248,7 @@ public class GameManager {
 	 */
 	private void playMatch(Match match) {
 		try {
-			match.playMatch(this);
+			stadium.playMatch(match);
 			UI.playMatch(match);
 		} catch (Exception e) {
 			UI.showMessage(e.getMessage());
