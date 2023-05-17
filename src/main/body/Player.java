@@ -126,7 +126,7 @@ public class Player extends Person {
 		if (stats.length == 3) {
 			this.stats = stats;
 		} else {
-			System.out.println("Stats must be lenght 3");
+			System.out.println("Stats must be length 3");
 		}
 	}
 
