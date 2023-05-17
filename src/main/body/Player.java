@@ -123,11 +123,7 @@ public class Player extends Person {
 	 * @param stats The stats of the Player.
 	 */
 	public void setStats(int[] stats) {
-		if (stats.length == 3) {
-			this.stats = stats;
-		} else {
-			System.out.println("Stats must be lenght 3");
-		}
+		this.stats = stats;
 	}
 
 	/**
