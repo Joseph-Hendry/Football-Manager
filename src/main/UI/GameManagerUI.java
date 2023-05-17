@@ -8,6 +8,11 @@ public interface GameManagerUI {
 	 * Initializes the UI and allows the user to set up their team.
 	 */
 	public void setup(GameManager manager);
+
+	/**
+	 * Shows the draft menu screen.
+	 */
+	public void draftMenu();
 	
 	/**
 	 * Shows the main menu screen.

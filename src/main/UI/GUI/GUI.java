@@ -15,6 +15,12 @@ public class GUI implements GameManagerUI {
 	}
 
 	@Override
+	public void draftMenu() {
+		DraftMenuGUI draft = new DraftMenuGUI(manager);
+		draft.getFrame().setVisible(true);
+	}
+
+	@Override
 	public void clubMenu() {
 		ClubMenuGUI club = new ClubMenuGUI(manager);
 		club.getFrame().setVisible(true);

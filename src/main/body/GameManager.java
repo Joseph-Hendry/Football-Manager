@@ -1,4 +1,6 @@
 package main.body;
+import java.util.ArrayList;
+
 import main.UI.*;
 
 public class GameManager {
@@ -8,7 +10,9 @@ public class GameManager {
 	protected int seasonLength;
 	protected int money;
 	protected int week;
+	protected String teamName;
 	protected Team playersTeam;
+	protected Store drafStore;
 	protected Store store;
 	protected Stadium stadium;
 
@@ -52,6 +56,10 @@ public class GameManager {
 		return this.playersTeam;
 	}
 
+	public Store getDraftStore() {
+		return this.drafStore;
+	}
+
 	public Store getStore() {
 		return this.store;
 	}
@@ -79,16 +87,32 @@ public class GameManager {
 		this.week = 1;
 		this.difficulty = difficulty;
 		this.seasonLength = seasonLength;
-		this.store = Store.createStore();
 		this.money = 75000 - this.difficulty * 25000;
+		this.teamName = teamName;
 
-		// Create the players team
-		this.playersTeam = Team.createRandomTeam(getRarityInt(), teamName);
+		// Create the draft store
+		this.drafStore = Store.createDraftStore(getRarityInt());
 
-		// Create the stadium which will create the other teams
-		this.stadium = new Stadium(this, this.playersTeam); 
+		// Create the store
+		this.store = Store.createStore();
 
 		// Redirect to the main menu
+		UI.draftMenu();
+	}
+
+	// On draft menu finish
+	public void onDraftMenuFinish(ArrayList<Player> onTeam, Coach coach) {
+
+		// Creat Empty Bench and Items
+		ArrayList<Player> onBench = new ArrayList<Player>(5);
+		ArrayList<Item> items = new ArrayList<Item>();
+		for (int i = 0; i < 5; i++) {
+			onBench.add(null);
+		}
+
+		this.playersTeam = new Team(teamName, onTeam, onBench, items, coach, 0);
+		this.stadium = new Stadium(this, this.playersTeam);
+
 		UI.mainMenu();
 	}
 

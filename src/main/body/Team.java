@@ -10,6 +10,10 @@ import java.util.Random;
 public class Team {
 
     private final static int[] formation = {4, 3, 3, 1};
+    private final static AvailablePositions[] formationPostion = {AvailablePositions.DEFENCE, AvailablePositions.DEFENCE, AvailablePositions.DEFENCE, AvailablePositions.DEFENCE,
+                                                                AvailablePositions.MIDFIELD, AvailablePositions.MIDFIELD, AvailablePositions.MIDFIELD, 
+                                                                AvailablePositions.STRIKER, AvailablePositions.STRIKER, AvailablePositions.STRIKER, 
+                                                                AvailablePositions.GOALKEEPER};
     private final static String[] names = {"Arsenal", "Aston Villa", "Bournemouth", "Brighton", "Burnley"};
     private static ArrayList<Team> teamList = new ArrayList<Team>();
     private String name;
@@ -191,6 +195,13 @@ public class Team {
      */
     public void setBench(ArrayList<Player> onBench) {
         this.onBench = onBench;
+    }
+
+    /**
+     * Get the player position.
+     */
+    public static AvailablePositions[] getFormationPostion() {
+        return formationPostion;
     }
 
     /**
