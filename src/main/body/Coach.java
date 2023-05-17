@@ -82,7 +82,7 @@ public class Coach extends Person {
 	}
 
     /**
-     * This method is used to geth the stats of the Coach.
+     * This method is used to get the stats of the Coach.
 	 * 
      * @return 	The stats of the Coach.
      */
