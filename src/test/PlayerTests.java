@@ -39,6 +39,8 @@ class PlayerTests {
 	@Test
 	void testToString() {
 		assertTrue(player.toString().getClass() == String.class);
+		player.setName(null);
+		assertTrue(player.toString() == "Empty");
 	}
 	
 	@Test
