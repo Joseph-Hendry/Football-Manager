@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import main.body.GameManager;
 import main.body.Match;
 import main.body.Team;
 
@@ -12,10 +13,12 @@ import java.util.ArrayList;
 
 class MatchTests {
 	static Match match;
+	static GameManager manager;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 		match = new Match(Team.createRandomTeam(1, "Team1"), Team.createRandomTeam(1, "Team2"), 5, 1000);
+		manager = new GameManager(null);
 	}
 
 	@Test
@@ -58,12 +61,6 @@ class MatchTests {
 		assertTrue(match.getMoneyToWin() == 1000);
 	}
 	
-	@Test
-	void testGetCommentaryList() {
-		for (String commentary : match.getCommentaryList()) {
-			assertTrue(commentary.getClass() == String.class);
-		}
-	}
 	
 	@Test
 	void testToString() {
@@ -72,9 +69,16 @@ class MatchTests {
 	
 	@Test
 	void testPlayMatch() {
-		
+		match.playMatch(manager);
+		for (String commentary : match.getCommentaryList()) {
+			assertTrue(commentary.getClass() == String.class);
+		}
 	}
 	
-	
-
+	@Test
+	void testGetCommentaryList() {
+		for (String commentary : match.getCommentaryList()) {
+			assertTrue(commentary.getClass() == String.class);
+		}
+	}
 }
