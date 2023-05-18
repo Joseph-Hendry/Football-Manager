@@ -2,6 +2,7 @@ package test;
 
 import main.body.*;
 
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeAll;
@@ -50,11 +51,9 @@ class PlayerTests {
 	
 	@Test
 	void testSetStats() {
-		int[] oldStats = player.getStats();
 		int[] newStats = {100, 100, 100};
 		int[] badStats = {100};
-		player.setStats(badStats);
-		assertEquals(player.getStats(), oldStats);
+		assertThrows(IllegalArgumentException.class, () -> player.setStats(badStats));
 		player.setStats(newStats);
 		assertEquals(player.getStats(), newStats);
 	}
