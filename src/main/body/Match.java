@@ -71,11 +71,26 @@ public class Match {
                     }
                 }
             }
-        // Divide the stats by the number of players in each position
-        teamStats[0] /= formation[0];
-        teamStats[1] /= formation[1];
-        teamStats[2] /= formation[2];
-        teamStats[3] /= formation[3];
+        // Add the coach
+        for (int i = 0; i < 3; i++) {
+            teamStats[i] += team.getCoach().getStats()[i];
+        }
+        
+        // Add the items
+        ArrayList<Item> teamItems = team.getItems();
+        for (Item item : teamItems) {
+            if (item != null) {
+                teamStats[0] += item.getStats()[0];
+                teamStats[1] += item.getStats()[1];
+                teamStats[2] += item.getStats()[2];
+            }
+        }
+
+        // Divide the stats by the number of players in each position + 1 for the coach and items (excluding goalkeeper)
+        for (int i = 0; i < 3; i++) {
+            teamStats[i] /= (formation[i] + team.getBench().size() + 1);
+        }
+
         return teamStats;
     }
 
