@@ -76,6 +76,7 @@ public class StoreMenuGUI{
 		JList<String> listPlayers = new JList<>(Players);
 		listPlayers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listPlayers.setBounds(37, 83, 267, 135);
+		listPlayers.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		frame.getContentPane().add(listPlayers);
 
 		JLabel lblPlayersForSale = new JLabel("Players for sale:");
@@ -91,12 +92,15 @@ public class StoreMenuGUI{
 		frame.getContentPane().add(lblItemsForSale);
 		
 		JList<String> listCoach = new JList<>(Coaches);
+		listCoach.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listCoach.setBounds(331, 83, 233, 15);
+		listCoach.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		frame.getContentPane().add(listCoach);
 		
 		JList<String> listItems = new JList<String>(Items);
 		listItems.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		listItems.setBounds(332, 137, 233, 81);
+		listItems.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		frame.getContentPane().add(listItems);
 		
 		JButton btnBack = new JButton("Back");

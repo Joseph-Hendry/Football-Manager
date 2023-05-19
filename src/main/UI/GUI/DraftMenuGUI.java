@@ -95,9 +95,10 @@ public class DraftMenuGUI {
 		frame.getContentPane().add(lblPickStrikers);
 		
 		coachJList = new JList<>(coachList);
-		coachJList.setBounds(335, 102, 287, 69);
-		frame.getContentPane().add(coachJList);
         coachJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		coachJList.setBounds(335, 102, 287, 69);
+        coachJList.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		frame.getContentPane().add(coachJList);
         coachJList.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
                 handleCoachSelection();
@@ -105,9 +106,10 @@ public class DraftMenuGUI {
         });
 		
 		playerJList = new JList<>(playerList);
+        playerJList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		playerJList.setBounds(10, 102, 287, 350);
+        playerJList.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		frame.getContentPane().add(playerJList);
-        playerJList.setSelectionMode(2);
         playerJList.addListSelectionListener(new ListSelectionListener() {
             public void valueChanged(ListSelectionEvent e) {
                 handlePlayerSelection();
