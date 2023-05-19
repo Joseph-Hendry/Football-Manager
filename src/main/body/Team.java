@@ -205,47 +205,24 @@ public class Team {
     }
 
     /**
-     * This method sets a players nickname
-     * @param manager
-     * @param playerNum
-     * @throws Exception
-     */
-    public void setNickname(int playerNum, String nickname) throws Exception {
-        if (playerNum >= 0 && playerNum <= 11) {
-            playerNum -= 1;
-            if (this.onTeam.get(playerNum) != null) {
-                this.onTeam.get(playerNum).setNickname(nickname);
-            } else {
-                throw new IllegalArgumentException("Player does not exist");
-            }
-
-		} else if (playerNum >= 12 && playerNum <= 15) {
-            playerNum -= 12;
-            if (this.onBench.get(playerNum) != null) {
-                this.onBench.get(playerNum).setNickname(nickname);
-            } else {
-                throw new IllegalArgumentException("Player does not exist");
-            }
-
-        } else {
-            throw new IllegalArgumentException("Invalid Number");
-        }
-    }
-
-    /**
      * This method removes a player from the team.
      * Throws an exception if the player does not exist.
      */
-    public void sellPlayer(GameManager manager, int playerNum) throws Exception {
-        if (playerNum >= 0 && playerNum <= this.onBench.size()) {
-            if (this.onBench.get(playerNum) != null) {
-                manager.money += this.getBench().get(playerNum).getValue();
+    public void sellPlayer(GameManager manager, Player player) throws Exception {
+        if (player != null) {
+            if (this.onTeam.contains(player)) {
+                int playerNum = this.onTeam.indexOf(player);
+                this.onTeam.set(playerNum, null);
+                manager.incMoney(player.getValue());
+            } else if (this.onBench.contains(player)) {
+                int playerNum = this.onBench.indexOf(player);
                 this.onBench.set(playerNum, null);
+                manager.incMoney(player.getValue());
             } else {
-            throw new IllegalArgumentException("Player does not exist.");
+                throw new IllegalArgumentException("Player does not exist");
             }
         } else {
-            throw new IllegalArgumentException("Invalid Number");
+            throw new IllegalArgumentException("Player does not exist");
         }
     }
 
@@ -255,15 +232,14 @@ public class Team {
      * @param playerOnTeam This is the player on the team going onto bench.
      * @param playerOnBench This is the player on the bench going onto the team.
      */
-    public void subPlayerSwap(int numPlayerOnTeam, int numPlayerOnBench) throws Exception {
-        numPlayerOnTeam -= 1;
-		numPlayerOnBench -= 12;
-        if (numPlayerOnTeam <= this.onTeam.size() && numPlayerOnBench <= this.onBench.size() && numPlayerOnTeam  >= 0 && numPlayerOnBench >= 0) {
-            if (this.onBench.get(numPlayerOnBench) != null) {
-                if (this.onTeam.get(numPlayerOnTeam).getPosition() == this.onBench.get(numPlayerOnBench).getPosition()) {
-                    Player temp = this.onTeam.get(numPlayerOnTeam);
-                    this.onTeam.set(numPlayerOnTeam, this.onBench.get(numPlayerOnBench));
-                    this.onBench.set(numPlayerOnBench, temp);
+    public void subPlayerSwap(Player teamPlayer, Player benchPlayer) throws Exception {
+        if (this.onTeam.contains(teamPlayer) && this.onBench.contains(benchPlayer)) {
+            if (teamPlayer != null && benchPlayer != null) {
+                if (teamPlayer.getPosition() == benchPlayer.getPosition()) {
+                    int teamPlayerNum = this.onTeam.indexOf(teamPlayer);
+                    int benchPlayerNum = this.onBench.indexOf(benchPlayer);
+                    this.onTeam.set(teamPlayerNum, benchPlayer);
+                    this.onBench.set(benchPlayerNum, teamPlayer);
                 } else {
                 throw new IllegalArgumentException("Players must have the same position.");
                 }
@@ -272,6 +248,79 @@ public class Team {
             }
         } else {
             throw new IllegalArgumentException("Invalid Number");
+        }
+    }
+
+    public void sellItem(GameManager manager, Item item) throws IllegalArgumentException {
+        if (this.items.contains(item)) {
+            manager.incMoney(item.getValue());
+            this.items.remove(item);
+        } else {
+            throw new IllegalArgumentException("Item does not exist");
+        }
+    }
+
+    public void buyItem(GameManager manager, Item item) throws IllegalArgumentException {
+        if (this.items.size() >= 3) {
+            throw new IllegalArgumentException("You can only have 3 items.");
+        }
+        if (manager.getStore().getStoreItems().contains(item))
+            if (manager.getMoney() >= item.getValue()) {
+                manager.decMoney(item.getValue());
+                manager.getStore().removeItem(item);
+                this.items.add(item);
+            } else {
+                throw new IllegalArgumentException("You do not have enough money.");
+            }
+    }
+
+    public void buyPlayer(GameManager manager, Player player, String teamOrBench) throws IllegalArgumentException {
+        if (teamOrBench.toLowerCase() == "team") {
+            if (this.onTeam.size() >= 11) {
+                throw new IllegalArgumentException("You can only have 11 players on your team.");
+            }
+            if (manager.getStore().getStorePlayers().contains(player)) {
+                if (manager.getMoney() >= player.getValue()) {
+                    manager.decMoney(player.getValue());
+                    manager.getStore().removePlayer(player);
+                    this.onTeam.add(player);
+                } else {
+                    throw new IllegalArgumentException("You do not have enough money.");
+                }
+            } else {
+                throw new IllegalArgumentException("Player does not exist.");
+            }
+        } else if (teamOrBench.toLowerCase() == "bench") {
+            if (this.onBench.size() >= 5) {
+                throw new IllegalArgumentException("You can only have 5 players on your bench.");
+            }
+            if (manager.getStore().getStorePlayers().contains(player)) {
+                if (manager.getMoney() >= player.getValue()) {
+                    manager.decMoney(player.getValue());
+                    manager.getStore().removePlayer(player);
+                    this.onBench.add(player);
+                } else {
+                    throw new IllegalArgumentException("You do not have enough money.");
+                }
+            } else {
+                throw new IllegalArgumentException("Player does not exist.");
+            }
+        } else {
+            throw new IllegalArgumentException("Invalid input.");
+        }
+    }
+
+    public void buyCoach(GameManager manager, Coach coach) throws IllegalArgumentException {
+        if (manager.getStore().getStoreCoach() == coach) {
+            if (manager.getMoney() >= coach.getValue()) {
+                manager.decMoney(coach.getValue());
+                manager.getStore().setCoachAvailable(false);
+                this.coach = coach;
+            } else {
+                throw new IllegalArgumentException("You do not have enough money.");
+            }
+        } else {
+            throw new IllegalArgumentException("Coach does not exist.");
         }
     }
 

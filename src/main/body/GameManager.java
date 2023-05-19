@@ -48,6 +48,14 @@ public class GameManager {
 		this.money = amount;
 	}
 
+	public void incMoney (int amount) {
+		this.money += amount;
+	}
+
+	public void decMoney (int amount) {
+		this.money -= amount;
+	}
+
 	public int getWeek() {
 		return this.week;
 	}
@@ -137,8 +145,10 @@ public class GameManager {
 			UI.clubMenu();
 		} else if (redirect == 1) {
 			UI.stadiumMenu();
-		} else {
+		} else if (redirect == 3){
 			UI.storeMenu();
+		} else {
+			UI.endGame();
 		}
 	}
 
@@ -146,70 +156,49 @@ public class GameManager {
 	////////// Club Menu //////////
 
 
-	/**
-	 * This function is used when the club menu is finished.
-	 * 
-	 * @param redirect The input from the user.
-	 * 
-	 * Using: When got values send them here. If they aren't valid, throw an exception.
-	 * If they are valid the function will deal with them.
-	 */
-	public void onClubMenuFinish(String redirect) throws Exception {
+	public void onClubMenuFinish() {
+		UI.mainMenu();
+	}
 
-		// If the player wants to change the nickname of a player
-		if (redirect.matches("[0-9]+ [a-zA-Z]+")) {
-			String[] splitInput = redirect.split(" ");
-			int playerNum = Integer.parseInt(splitInput[0]);
-			String nickname = splitInput[1].toString();
-			setNickname(playerNum, nickname);
-		} else {
-			redirect = redirect.toLowerCase();
-
-			// If the player wants to swap players
-			if (redirect.matches("swap [0-9]+ [0-9]+")) {
-				String[] splitInput = redirect.split(" ");
-				swapPlayers(Integer.parseInt(splitInput[1]), Integer.parseInt(splitInput[2]));
-
-			// If the player wants to sell a player
-			} else if (redirect.matches("sell [0-9]+")) {
-				int playerNum = Integer.parseInt(redirect.split(" ")[1]);
-				sellPlayer(playerNum);
-
-			// If the player wants to go back
-			} else if (redirect.equals("back")) {
-				UI.mainMenu();
-
-			// If the input isn't valid
-			} else {
-				throw new IllegalArgumentException("Please enter a valid input");
-			}
+	public void setNickname(Player player, String nickname) {
+		try {
+			player.setNickname(nickname);
+			UI.clubMenu();
+			UI.showMessage("Players nickname has been changed.");
+		} catch (Exception e) {
+			UI.showMessage("Player does not exist.");
 		}
 	}
 
-	/**
-	 * This function is used when the player wants to set the nickname.
-	 * 
-	 * @param playerNum
-	 * @param nickname
-	 */
-	private void setNickname(int playerNum, String nickname) throws Exception {
-		this.playersTeam.setNickname(playerNum, nickname);
-		UI.clubMenu();
-		UI.showMessage("Players nickname has been changed.");
-	}
-
-	private void sellPlayer(int playerNum) throws Exception {
-		playerNum -= 12;
-		this.playersTeam.sellPlayer(this, playerNum);
-		UI.clubMenu();
-		UI.showMessage("Player has been sold.");
+	public void sellPlayer(Player player) {
+		try {
+			this.playersTeam.sellPlayer(this, player);
+			UI.clubMenu();
+			UI.showMessage("Player has been sold.");
+		} catch (Exception e) {
+			UI.showMessage(e.getMessage());
+		}
 
 	}
 
-	private void swapPlayers(int teamPlayerNum, int benchPlayerNum) throws Exception {
-		playersTeam.subPlayerSwap(teamPlayerNum, benchPlayerNum);
-		UI.clubMenu();
-		UI.showMessage("Players have been swapped.");
+	public void swapPlayers(Player teamPlayer, Player benchPlayer) {
+		try {
+			playersTeam.subPlayerSwap(teamPlayer, benchPlayer);
+			UI.clubMenu();
+			UI.showMessage("Players have been swapped.");
+		} catch (Exception e) {
+			UI.showMessage(e.getMessage());
+		}
+	}
+
+	public void sellItem(Item item) {
+		try {
+			this.playersTeam.sellItem(this, item);
+			UI.clubMenu();
+			UI.showMessage("Item has been sold.");
+		} catch (Exception e) {
+			UI.showMessage(e.getMessage());
+		}
 	}
 
 
@@ -224,21 +213,8 @@ public class GameManager {
 	 * Using: When got values send them here. If they aren't valid, throw an exception.
 	 * If they are valid the function will deal with them.
 	 */
-	public void onStadiumMenuFinish(String redirect) throws IllegalArgumentException {
-		if (redirect.equals("back")) {
-			UI.mainMenu();
-		}
-		else {
-			int redirectInt = Integer.parseInt(redirect);
-			if (redirectInt >= 1 && redirectInt <= stadium.getPossibleMatches().size()) {
-				playMatch(stadium.getPossibleMatches().get(redirectInt - 1));
-			} else if (redirectInt == stadium.getPossibleMatches().size() + 1) {
-				takeBye();
-				UI.clubMenu();
-			} else {
-				throw new IllegalArgumentException("Please enter a valid input");
-			}
-		}
+	public void onStadiumMenuBack() {
+		UI.mainMenu();
 	}
 
 	/**
@@ -246,7 +222,7 @@ public class GameManager {
 	 * 
 	 * @param match The match that is being played.
 	 */
-	private void playMatch(Match match) {
+	public void playMatch(Match match) {
 		try {
 			stadium.playMatch(match);
 			UI.playMatch(match);
@@ -259,7 +235,7 @@ public class GameManager {
 	 * This method is used to take a bye.
 	 * It will either redirect the user to the main menu or end the game.
 	 */
-	private void takeBye() {
+	public void takeBye() {
 		try {
 			this.stadium.takeBye();
 			UI.showMessage("You have taken a bye.");
@@ -330,69 +306,38 @@ public class GameManager {
 	 * @param redirect 		The input from the user.
 	 * @throws Exception 	If the input is invalid.
 	 */
-	public void onStoreMenuFinish(String redirect) throws Exception {
+	public void onStoreMenuFinish() {
+		UI.mainMenu();
+	}
 
-		// If the player wants to buy a player
-		if (redirect.matches("buy [0-9]+ [a-z]+")) {
 
-			// Check valid number
-			Player player;
-			try {
-				player = store.getStorePlayers().get(Integer.parseInt(redirect.split(" ")[1]) - 1);
-			} catch (Exception e) {
-				throw new IllegalArgumentException("Please enter a valid input");
-			}
+	public void buyPlayer(Player player, String teamOrBench) {
+		try {
+			this.playersTeam.buyPlayer(this, player, teamOrBench);
+			UI.clubMenu();
+			UI.showMessage("Player has been bought.");
+		} catch (Exception e) {
+			UI.showMessage(e.getMessage());
+		}
+	}
 
-			// Add to team or bench else throw exception
-			if (redirect.matches("buy [0-9]+ team")) {
-				playersTeam.addPlayerToTeam(player);
-				money -= player.getValue();
-				store.removePlayer(player);
-			} else if (redirect.matches("buy [0-9]+ bench")) {
-				playersTeam.addPlayerToBench(player);
-				money -= player.getValue();
-				store.removePlayer(player);
+	public void buyCoach(Coach coach) {
+		try {
+			this.playersTeam.buyCoach(this, coach);
+			UI.clubMenu();
+			UI.showMessage("Coach has been bought.");
+		} catch (Exception e) {
+			UI.showMessage(e.getMessage());
+		}
+	}
 
-			} else {
-				throw new IllegalArgumentException("Please enter a valid input");
-			} UI.storeMenu();
-
-		// Buy Coach
-		} else if (redirect.toLowerCase() == "buy coach") {
-			int temp = money - (playersTeam.getCoach().getValue() - store.getStoreCoach().getValue());
-			if (temp < 0) {
-				throw new Exception("You don't have enough money to buy this coach.");
-			} else {
-				money = temp;
-				playersTeam.setCoach(store.getStoreCoach());
-				store.setCoachAvailable(false);;
-				UI.storeMenu();
-			}
-
-		// If the player wants to sell a player
-		} else if (redirect.matches("buy item [0-9]+")) {
-			int itemNum = Integer.parseInt(redirect.split(" ")[2]);
-			Item item;
-			try {
-				item = store.getStoreItems().get(itemNum - 1);
-			} catch (Exception e) {
-				throw new IllegalArgumentException("Please enter a valid input");
-			}
-			int temp = money - item.getValue();
-			if (temp < 0) {
-				throw new Exception("You don't have enough money to buy this item.");
-			} else {
-				money = temp;
-				playersTeam.addItem(item);
-				store.removeItem(item);
-				UI.storeMenu();
-			}
-		
-		// back
-		} else if (redirect.equals("back")) {
-			UI.mainMenu();
-		} else {
-			throw new IllegalArgumentException("Please enter a valid input");
+	public void buyItem(Item item) {
+		try {
+			this.playersTeam.buyItem(this, item);
+			UI.clubMenu();
+			UI.showMessage("Item has been bought.");
+		} catch (Exception e) {
+			UI.showMessage(e.getMessage());
 		}
 	}
 
