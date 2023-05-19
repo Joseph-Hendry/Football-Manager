@@ -137,13 +137,29 @@ public class StoreMenuGUI{
 		btnStadium.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if (listPlayers.getSelectedIndex() != -1) {
-					try {
-						manager.onStoreMenuFinish("buy " + (listPlayers.getSelectedIndex() + 1) + " bench");
-						lblNewLabel.setText("Money: " + manager.getMoney());
-						Players.remove(listPlayers.getSelectedIndex());
-						frame.dispose();
-					} catch (Exception exception) {
-						ShowMessage.showMessage(exception.getMessage());
+					// Ask the user if they want the player on the bench or in the starting lineup
+					String question = "Would you like to put this player on the bench or in the starting lineup?";
+					String[] options = {"Bench", "Starting Lineup"};
+					int benchOrLineup = JOptionPane.showOptionDialog(frame, question, "Player Position", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, options, "Bench");
+					System.out.println(benchOrLineup);
+					if (benchOrLineup == 0) {
+						try {
+							manager.onStoreMenuFinish("buy " + (listPlayers.getSelectedIndex() + 1) + " bench");
+							lblNewLabel.setText("Money: " + manager.getMoney());
+							Players.remove(listPlayers.getSelectedIndex());
+							frame.dispose();
+						} catch (Exception exception) {
+							ShowMessage.showMessage(exception.getMessage());
+						}
+					} else {
+						try {
+							manager.onStoreMenuFinish("buy " + (listPlayers.getSelectedIndex() + 1) + " team");
+							lblNewLabel.setText("Money: " + manager.getMoney());
+							Players.remove(listPlayers.getSelectedIndex());
+							frame.dispose();
+						} catch (Exception exception) {
+							ShowMessage.showMessage(exception.getMessage());
+						}
 					}
 				} else if (listItems.getSelectedIndex() != -1) {
 					try {
