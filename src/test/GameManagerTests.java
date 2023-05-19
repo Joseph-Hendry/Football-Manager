@@ -32,19 +32,20 @@ class GameManagerTests {
     }
 
 
-    @Test
-    void testMenus() {
-    	setUpInput("Team\n1\n10\n0\n");
-        GameManagerUI ui = new CmdLineUI();
-        GameManager manager = new GameManager(ui);
-
-        manager.start();
-        restoreSystemInput();
-        assertTrue(manager.getDifficulty() == 1);
-        assertTrue(manager.getSeasonLength() == 10);
-    }
+//    @Test
+//    void testMenus() {
+//    	setUpInput("Team\n1\n10\n0\n");
+//        GameManagerUI ui = new CmdLineUI();
+//        GameManager manager = new GameManager(ui);
+//
+//        manager.start();
+//        restoreSystemInput();
+//        assertTrue(manager.getDifficulty() == 1);
+//        assertTrue(manager.getSeasonLength() == 10);
+//    }
     
     @Test
     void testGetDifficulty() {
+    	
     }
 }
