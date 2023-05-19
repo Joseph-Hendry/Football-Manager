@@ -146,14 +146,14 @@ public class CmdLineUI implements GameManagerUI {
 
 		int i = 0;
 		for (i = 0; i < manager.getPlayerTeam().getTeam().size(); i++) {
-			System.out.println(manager.getPlayerTeam().getTeam().get(i).toString(i + 1));
+			System.out.println(manager.getPlayerTeam().getTeam().get(i).toString() + (i+1));
 		}
 
 		System.out.println("\n\nPlayers On Bench: \nNum  Name           [ATK,  MID,  DEF]     Position");
 
 		for (int j = 0; j < 4; j++) {
 			try {
-				System.out.println(manager.getPlayerTeam().getBench().get(j).toString(j + i + 1));
+				System.out.println(manager.getPlayerTeam().getBench().get(j).toString() + (i+j+1));
 			} catch (Exception e) {
 				System.out.println("(" + (j + i + 1) + ")" + " Empty");
 			}
@@ -403,5 +403,11 @@ public class CmdLineUI implements GameManagerUI {
 		CmdLineUI ui = new CmdLineUI();
 		GameManager manager = new GameManager(ui);
 		ui.setup(manager);
+	}
+
+	@Override
+	public void draftMenu() {
+		// TODO Write draft menu
+		mainMenu();
 	}
 }

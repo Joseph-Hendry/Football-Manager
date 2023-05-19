@@ -122,11 +122,12 @@ public class Player extends Person {
 	 * Sets the stats of the Player.
 	 * @param stats The stats of the Player.
 	 */
-	public void setStats(int[] stats) {
+	public void setStats(int[] stats) throws IllegalArgumentException {
+		this.stats = stats;
 		if (stats.length == 3) {
 			this.stats = stats;
 		} else {
-			System.out.println("Stats must be length 3");
+			throw new IllegalArgumentException("Stats must be length 3");
 		}
 	}
 
