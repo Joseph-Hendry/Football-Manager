@@ -88,7 +88,7 @@ public class Match {
 
         // Divide the stats by the number of players in each position + 1 for the coach and items (excluding goalkeeper)
         for (int i = 0; i < 3; i++) {
-            teamStats[i] /= (formation[i] + team.getBench().size() + 1);
+            teamStats[i] /= (formation[i] + teamItems.size() + 1);
         }
 
         return teamStats;
