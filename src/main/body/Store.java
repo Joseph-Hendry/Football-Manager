@@ -196,48 +196,34 @@ public class Store {
      * 
      * @return  A random basic store.
      */
-    public static Store createStore() {
-    	String rarity;
-    	
+    public static Store createStore(int intRarity) {
+    	Random random = new Random();
+        int variety;
+        int rarity;
+
+    	Coach storeCoach;
         ArrayList<Player> storePlayers = new ArrayList<Player>();
-        Coach storeCoach;
         ArrayList<Item> storeItems = new ArrayList<Item>();
 
         // Creates a onTeam of random players including position.
         for (AvailablePositions position : AvailablePositions.values()) {
-        	rarity = randomRarity();
-            Player teamPlayer = Player.createRandomPlayer(rarity, position);
+        	variety = random.nextInt(20) - 10; 
+        	rarity = intRarity + variety;
+            Player teamPlayer = Player.createRandomPlayer(Team.getStrRarity(rarity), position);
             storePlayers.add(teamPlayer);
         }
     
-        storeCoach = Coach.createRandomCoach(randomRarity());
+        variety = random.nextInt(20) - 10; 
+        rarity = intRarity + variety;
+        storeCoach = Coach.createRandomCoach(Team.getStrRarity(rarity));
             
         for (int i = 0; i < 5; i++) {
-            Item item = Item.createRandomItem(randomRarity());
+            variety = random.nextInt(20) - 10; 
+        	rarity = intRarity + variety;
+            Item item = Item.createRandomItem(Team.getStrRarity(rarity));
             storeItems.add(item);
         }
 
         return new Store(storePlayers, storeCoach, storeItems, null);
-    }
-
-    /**
-     * This function creates a random rarity to be used when creating new objects that have rarity.
-     * 
-     * @return  A random rarity.
-     */
-    private static String randomRarity() {
-    	String rarity;
-    	Random  random = new Random();
-    	int rarityPercent = random.nextInt(100);
-    	if (rarityPercent <= 50) {
-    		rarity = "Bronze";
-    	} else if (50 < rarityPercent && rarityPercent <= 80) {
-    		rarity = "Silver";
-    	} else if (80 < rarityPercent && rarityPercent <= 95) {
-    		rarity = "Gold";
-    	} else {
-    		rarity = "Platinum";
-    	}
-    	return rarity;
     }
 }
