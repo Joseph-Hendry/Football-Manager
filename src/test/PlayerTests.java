@@ -124,6 +124,25 @@ class PlayerTests {
 		assertTrue(player.isInjured() == false);
 	}
 	
+	@Test
+	void testGetName() {
+		String newName = "Lez";
+		player.setName(newName);
+		assertTrue(player.getName() == newName);
+	}
+	
+	@Test
+	void testGetRarity() {
+		assertTrue(player.getRarity() == "Bronze");
+	}
+	
+	@Test
+	void testSetValue() {
+		int newValue = 100;
+		player.setValue(newValue);
+		assertTrue(player.getValue() == newValue);
+	}
+	
 	
 	
 
