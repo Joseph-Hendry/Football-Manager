@@ -94,7 +94,7 @@ public class GameManager {
 		this.drafStore = Store.createDraftStore(getRarityInt());
 
 		// Create the store
-		this.store = Store.createStore();
+		this.store = Store.createStore(getRarityInt());
 
 		// Redirect to the main menu
 		UI.draftMenu();
