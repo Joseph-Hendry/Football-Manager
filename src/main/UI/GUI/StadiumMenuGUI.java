@@ -3,6 +3,8 @@ package main.UI.GUI;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.ListSelectionModel;
+
 import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.DefaultListModel;
@@ -59,10 +61,12 @@ public class StadiumMenuGUI {
 		frame.getContentPane().add(lblMatchesToPlay);
 		
 		list = new JList<>(matchList);
+		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setBounds(51, 59, 371, 115);
+		list.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		frame.getContentPane().add(list);
 		
-		JLabel lblWelcomeMessage = new JLabel("Store Menu");
+		JLabel lblWelcomeMessage = new JLabel("Stadium Menu");
 		lblWelcomeMessage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWelcomeMessage.setFont(new Font("Dialog", Font.PLAIN, 18));
 		lblWelcomeMessage.setBounds(63, 12, 287, 43);
@@ -80,7 +84,6 @@ public class StadiumMenuGUI {
 		btnTakeBye.setBounds(178, 184, 117, 25);
 		frame.getContentPane().add(btnTakeBye);
 
-		// Add listeners
 		btnPlayMatch.addActionListener(e -> {
 			try {
 				manager.onStadiumMenuFinish(String.valueOf(list.getSelectedIndex() + 1));

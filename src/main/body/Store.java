@@ -179,6 +179,7 @@ public class Store {
         variety = random.nextInt(20) - 10;
         int coahcrarity = intRarity + variety;
         storeCoach = Coach.createRandomCoach(Team.getStrRarity(coahcrarity));
+        this.coachAvailability = true;
 
         storeItems.clear();
         for (int i = 0; i < 5; i++) {

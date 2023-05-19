@@ -96,7 +96,7 @@ public class DraftMenuGUI {
 		
 		coachJList = new JList<>(coachList);
         coachJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		coachJList.setBounds(335, 102, 287, 69);
+		coachJList.setBounds(350, 102, 200, 80);
         coachJList.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		frame.getContentPane().add(coachJList);
         coachJList.addListSelectionListener(new ListSelectionListener() {
@@ -107,7 +107,7 @@ public class DraftMenuGUI {
 		
 		playerJList = new JList<>(playerList);
         playerJList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		playerJList.setBounds(10, 102, 287, 350);
+		playerJList.setBounds(10, 102, 340, 310);
         playerJList.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		frame.getContentPane().add(playerJList);
         playerJList.addListSelectionListener(new ListSelectionListener() {

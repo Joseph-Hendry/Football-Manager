@@ -365,6 +365,7 @@ public class GameManager {
 			} else {
 				money = temp;
 				playersTeam.setCoach(store.getStoreCoach());
+				store.setCoachAvailable(false);;
 				UI.storeMenu();
 			}
 

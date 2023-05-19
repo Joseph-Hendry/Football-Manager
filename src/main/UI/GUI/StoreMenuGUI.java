@@ -30,7 +30,9 @@ public class StoreMenuGUI{
 		for (Player player : manager.getStore().getStorePlayers()) {
 			Players.addElement(player.toString());
 		}
-		Coaches.addElement(manager.getStore().getStoreCoach().toString());
+		if (manager.getStore().getcoachAvailable()) {
+			Coaches.addElement(manager.getStore().getStoreCoach().toString());
+		}
 		for (Item item : manager.getStore().getStoreItems()) {
 			Items.addElement(item.toString());
 		}

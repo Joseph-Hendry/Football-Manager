@@ -78,7 +78,7 @@ public class Coach extends Person {
 	 * @return 	Coach values in string format.
 	 */
 	public String toString() {
-		return this.name + " [" +stats[0]+ ", " +stats[1]+ ", " +stats[2]+ "]";
+		return String.format("%-10s %-2s %-2s %-5s %-4s", this.name, this.stats[0], this.stats[1], this.stats[2], this.value);
 	}
 
     /**
