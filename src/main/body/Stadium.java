@@ -40,7 +40,7 @@ public class Stadium {
      * @param manager   The GameManager that is being used.
      */
     private void generateNPCTeams(GameManager manager) {
-        Team.createNPCTeams(manager.getDifficulty());
+        Team.createNPCTeams(manager.getRarityInt());
     }
 
     /**
