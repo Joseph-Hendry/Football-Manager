@@ -23,11 +23,6 @@ public interface GameManagerUI {
 	 * Shows the club page to manage their team.
 	 */
 	public void clubMenu();
-
-	/**
-	 * Shows the players team.
-	 */
-	public void showClub();
 	
 	/**
 	 * Shows the stadium menu which allows them to play a match.
@@ -50,6 +45,8 @@ public interface GameManagerUI {
 	public void showMessage(String message);
 
     public void endGame();
+
+	public boolean confirmQuit();
 
 	public void quit();
 }

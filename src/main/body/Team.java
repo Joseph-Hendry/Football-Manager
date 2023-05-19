@@ -274,9 +274,9 @@ public class Team {
             }
     }
 
-    public void buyPlayer(GameManager manager, Player player, String teamOrBench) throws IllegalArgumentException {
-        if (teamOrBench.toLowerCase() == "team") {
-            if (this.onTeam.size() >= 11) {
+    public void buyPlayer(GameManager manager, Player player, int teamOrBench) throws IllegalArgumentException {
+        if (teamOrBench == 0) {
+            if (this.onTeam.size() >= 1) {
                 throw new IllegalArgumentException("You can only have 11 players on your team.");
             }
             if (manager.getStore().getStorePlayers().contains(player)) {
@@ -290,8 +290,8 @@ public class Team {
             } else {
                 throw new IllegalArgumentException("Player does not exist.");
             }
-        } else if (teamOrBench.toLowerCase() == "bench") {
-            if (this.onBench.size() >= 5) {
+        } else if (teamOrBench == 0) {
+            if (this.onBench.size() >= 1) {
                 throw new IllegalArgumentException("You can only have 5 players on your bench.");
             }
             if (manager.getStore().getStorePlayers().contains(player)) {

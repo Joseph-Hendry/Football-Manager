@@ -9,37 +9,25 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-public class MainMenuGUI {
+public class MainMenuGUI extends Window {
 
-	JFrame frame;
 	private JButton btnClub;
 	private JButton btnStadium;
 	private JButton btnStore;
 
-	private GameManager manager;
-
-
 	/**
 	 * Create the application.
 	 */
+
 	public MainMenuGUI(GameManager manager) {
-		this.manager = manager;
-		initialize();
-	}
-	
-	public JFrame getFrame() {
-		return this.frame;
-	}
-	
-	public GameManager getManager() {
-		return this.manager;
+		super("Main Menu", manager);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		frame = new JFrame();
+	@Override
+	protected void initialise(JFrame frame) {
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 399, 365);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,11 +39,11 @@ public class MainMenuGUI {
 		lblWelcomeMessage.setBounds(66, 12, 287, 43);
 		frame.getContentPane().add(lblWelcomeMessage);
 		
-		JLabel lblMoney = new JLabel("Money: " + manager.getMoney());
+		JLabel lblMoney = new JLabel("Money: " + getManager().getMoney());
 		lblMoney.setBounds(272, 57, 81, 15);
 		frame.getContentPane().add(lblMoney);
 		
-		JLabel lblWeek = new JLabel("Week: " + manager.getWeek() + "/" + manager.getSeasonLength());
+		JLabel lblWeek = new JLabel("Week: " + getManager().getWeek() + "/" + getManager().getSeasonLength());
 		lblWeek.setBounds(59, 57, 70, 15);
 		frame.getContentPane().add(lblWeek);
 		
@@ -77,15 +65,12 @@ public class MainMenuGUI {
 		// Perform actions for each of these buttons redirecting to the appropriate GUI
 		btnClub.addActionListener(e -> {
 			getManager().onMainMenuFinish(0);
-			frame.dispose();
 		});
 		btnStadium.addActionListener(e -> {
 			getManager().onMainMenuFinish(1);
-			frame.dispose();
 		});
 		btnStore.addActionListener(e -> {
 			getManager().onMainMenuFinish(2);
-			frame.dispose();
 		});
 	}
 }

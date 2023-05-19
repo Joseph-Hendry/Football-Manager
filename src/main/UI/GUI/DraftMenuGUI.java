@@ -22,14 +22,12 @@ import javax.swing.ListSelectionModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
-public class DraftMenuGUI {
+public class DraftMenuGUI extends Window {
 
-	private JFrame frame;
-    private final GameManager manager;
     private int initialMoney;
     private int money;
-    private DefaultListModel<Player> playerList = new DefaultListModel<Player>();
-    private DefaultListModel<Coach> coachList = new DefaultListModel<Coach>();
+    //private DefaultListModel<Player> playerList = new DefaultListModel<Player>();
+    //private DefaultListModel<Coach> coachList = new DefaultListModel<Coach>();
     private JList<Player> playerJList;
     private JList<Coach> coachJList;
     private JButton btnStartGame;
@@ -45,35 +43,16 @@ public class DraftMenuGUI {
 	 * Create the application.
 	 */
 	public DraftMenuGUI(GameManager manager) {
-        this.manager = manager;
+        super("Draft Menu", manager);
         this.initialMoney = manager.getMoney();
         this.money = initialMoney;
-
-        // Create the player list
-        for (Player player : manager.getDraftStore().getStorePlayers()) {
-            playerList.addElement(player);
-        }
-
-        // Creat the coach list
-        for (Coach coach : manager.getDraftStore().getDraftCoaches()) {
-            coachList.addElement(coach);
-        }
-
-		initialize();
 	}
-
-    /**
-     * Get the frame.
-     */
-    public JFrame getFrame() {
-        return this.frame;
-    }
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		frame = new JFrame();
+    @Override
+	protected void initialise(JFrame frame) {
 		frame.setBounds(100, 100, 640, 360);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
@@ -93,6 +72,17 @@ public class DraftMenuGUI {
 		lblPickStrikers.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblPickStrikers.setBounds(10, 63, 161, 29);
 		frame.getContentPane().add(lblPickStrikers);
+        DefaultListModel<Player> playerList = new DefaultListModel<Player>();
+        // Create the player list
+        for (Player player : getManager().getDraftStore().getStorePlayers()) {
+            playerList.addElement(player);
+        }
+        DefaultListModel<Coach> coachList = new DefaultListModel<Coach>();
+        
+                // Creat the coach list
+        for (Coach coach : getManager().getDraftStore().getDraftCoaches()) {
+            coachList.addElement(coach);
+        }
 		
 		coachJList = new JList<>(coachList);
         coachJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -131,7 +121,7 @@ public class DraftMenuGUI {
             public void actionPerformed(ActionEvent e) {
                 frame.dispose();
                 ShowMessage.showMessage("You have drafted your team!");
-                manager.onDraftMenuFinish(selectedPlayers, selectedCoach, money);
+                getManager().onDraftMenuFinish(selectedPlayers, selectedCoach, money);
             }
         });
 	}

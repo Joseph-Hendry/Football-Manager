@@ -12,45 +12,27 @@ import javax.swing.JButton;
 
 import main.body.Match;
 
-import java.util.ArrayList;
-
 import main.body.GameManager;
 
-public class StadiumMenuGUI {
+public class StadiumMenuGUI extends Window {
 
-	private JFrame frame;
-	private final GameManager manager;
 	private JButton btnPlayMatch;
 	private JButton btnBack;
 	private JButton btnTakeBye;
-	private JList<String> list;
-	private DefaultListModel<String> matchList = new DefaultListModel<String>();
-
+	private JList<Match> list;
 
 	/**
 	 * Create the application.
 	 */
 	public StadiumMenuGUI(GameManager manager) {
-		this.manager = manager;
-		ArrayList<Match> matches = manager.getStadium().getPossibleMatches();
-		for (Match match : matches) {
-			matchList.addElement(match.toString());
-		}
-		initialize();
-	}
-
-	/**
-	 * Get the frame.
-	 */
-	public JFrame getFrame() {
-		return this.frame;
+		super("Stadium Menu", manager);
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		frame = new JFrame();
+	@Override
+	protected void initialise(JFrame frame) {
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 480, 270);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -60,6 +42,11 @@ public class StadiumMenuGUI {
 		lblMatchesToPlay.setBounds(51, 40, 126, 15);
 		frame.getContentPane().add(lblMatchesToPlay);
 		
+		DefaultListModel<Match> matchList = new DefaultListModel<>();
+		for (Match match : getManager().getStadium().getPossibleMatches()) {
+			matchList.addElement(match);
+		}
+
 		list = new JList<>(matchList);
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setBounds(51, 59, 371, 115);
@@ -85,28 +72,13 @@ public class StadiumMenuGUI {
 		frame.getContentPane().add(btnTakeBye);
 
 		btnPlayMatch.addActionListener(e -> {
-			try {
-				manager.onStadiumMenuFinish(String.valueOf(list.getSelectedIndex() + 1));
-				frame.dispose();
-			} catch (Exception error) {
-				ShowMessage.showMessage(error.getMessage());
-			}
+			getManager().playMatch(list.getSelectedValue());
 		});
 		btnBack.addActionListener(e -> {
-			try {
-				manager.onStadiumMenuFinish("back");
-				frame.dispose();
-			} catch (Exception error) {
-				ShowMessage.showMessage(error.getMessage());
-			}
+			getManager().onStadiumMenuBack();
 		});
 		btnTakeBye.addActionListener(e -> {
-			try {
-				manager.onStadiumMenuFinish("6");
-				frame.dispose();
-			} catch (Exception error) {
-				ShowMessage.showMessage(error.getMessage());
-			}
+			getManager().takeBye();
 		});
 	}
 }

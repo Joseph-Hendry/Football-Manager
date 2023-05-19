@@ -6,51 +6,41 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-public class GameEndGUI {
-
-	private JFrame frame;
-	private GameManager manager;
+public class GameEndGUI extends Window {
 
 	/**
 	 * Create the application.
 	 */
 	public GameEndGUI(GameManager manager) {
-		this.manager = manager;
-		initialize();
+		super("Game End", manager);
 	}
 
-	/**
-	 * Get the frame.
-	 */
-	public JFrame getFrame() {
-		return this.frame;
-	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		frame = new JFrame();
+	@Override
+	protected void initialise(JFrame frame) {
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		JLabel lblTeamName = new JLabel("Team Name: " + manager.getPlayerTeam().getName());
+		JLabel lblTeamName = new JLabel("Team Name: " + getManager().getPlayerTeam().getName());
 		lblTeamName.setBounds(10, 11, 414, 14);
 		frame.getContentPane().add(lblTeamName);
 
-		JLabel lblSeasonLength = new JLabel("Season Length: " + manager.getSeasonLength());
+		JLabel lblSeasonLength = new JLabel("Season Length: " + getManager().getSeasonLength());
 		lblSeasonLength.setBounds(10, 36, 414, 14);
 		frame.getContentPane().add(lblSeasonLength);
 
-		JLabel lblMoney = new JLabel("Money: " + manager.getMoney());
+		JLabel lblMoney = new JLabel("Money: " + getManager().getMoney());
 		lblMoney.setBounds(10, 61, 414, 14);
 		frame.getContentPane().add(lblMoney);
 
-		JLabel lblPoints = new JLabel("Points: " + manager.getPlayerTeam().getPoints());
+		JLabel lblPoints = new JLabel("Points: " + getManager().getPlayerTeam().getPoints());
 		lblPoints.setBounds(10, 86, 414, 14);
 		frame.getContentPane().add(lblPoints);
 
-		JLabel lblDifficulty = new JLabel("Difficulty: " + manager.getDifficulty());
+		JLabel lblDifficulty = new JLabel("Difficulty: " + getManager().getDifficulty());
 		lblDifficulty.setBounds(10, 111, 414, 14);
 		frame.getContentPane().add(lblDifficulty);
 
@@ -60,7 +50,7 @@ public class GameEndGUI {
 		frame.getContentPane().add(lblFinish);
 		lblFinish.addActionListener(e -> {
 			frame.dispose();
-			manager.onEndGameFinish();
+			getManager().onEndGameFinish();
 		});
 	}
 }

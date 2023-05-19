@@ -5,49 +5,50 @@ import main.body.Match;
 
 public class GUI implements GameManagerUI {
 	GameManager manager;
+	Window window;
 
 	@Override
 	public void setup(GameManager manager) {
 		this.manager = manager;
-		StartupMenuGUI startup = new StartupMenuGUI(manager);
-		startup.getFrame().setVisible(true);
+		window = new StartupMenuGUI(manager);
+		window.show();
 		
 	}
 
 	@Override
 	public void draftMenu() {
-		DraftMenuGUI draft = new DraftMenuGUI(manager);
-		draft.getFrame().setVisible(true);
+		window.quit();
+		window = new DraftMenuGUI(manager);
+		window.show();;
 	}
 
 	@Override
 	public void clubMenu() {
-		ClubMenuGUI club = new ClubMenuGUI(manager);
-		club.getFrame().setVisible(true);
-	}
-
-	@Override
-	public void showClub() {
-		// TODO Auto-generated method stub
+		window.quit();
+		window = new ClubMenuGUI(manager);
+		window.show();
 	}
 
 	@Override
 	public void stadiumMenu() {
-		StadiumMenuGUI stadium = new StadiumMenuGUI(manager);
-		stadium.getFrame().setVisible(true);
+		window.quit();
+		window = new StadiumMenuGUI(manager);
+		window.show();
 	}
 
 	@Override
 	public void playMatch(Match match) {
-		PlayMatchGUI playMatch = new PlayMatchGUI(manager, match);
-		playMatch.getFrame().setVisible(true);
+		window.quit();
+		window = new PlayMatchGUI(manager, match);
+		window.show();
 		
 	}
 
 	@Override
 	public void storeMenu() {
-		StoreMenuGUI store = new StoreMenuGUI(manager);
-		store.getFrame().setVisible(true);
+		window.quit();
+		window = new StoreMenuGUI(manager);
+		window.show();
 		
 	}
 
@@ -58,19 +59,27 @@ public class GUI implements GameManagerUI {
 
 	@Override
 	public void mainMenu() {
-		MainMenuGUI menu = new MainMenuGUI(manager);
-		menu.getFrame().setVisible(true);
+		window.quit();
+		window = new MainMenuGUI(manager);
+		window.show();
 	}
 
 	@Override
 	public void endGame() {
-		GameEndGUI end = new GameEndGUI(manager);
-		end.getFrame().setVisible(true);
+		window.quit();
+		window = new GameEndGUI(manager);
+		window.show();
 	}
 
-	public void quit() {
-		System.exit(0);
-	}
+    @Override
+    public boolean confirmQuit() {
+        return window.confirmQuit();
+    }
+
+    @Override
+    public void quit() {
+        window.quit();
+    }
 
 	public static void main(String[] args) {
 		GUI ui = new GUI();

@@ -16,11 +16,9 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class StartupMenuGUI {
+public class StartupMenuGUI extends Window {
 
-	private JFrame frame;
 	private JTextField txtTeamName;
-	private GameManager manager;
 	private JSpinner spnrSeasonLength;
 	private JComboBox<String> comboDifficulty;
     private JButton btnContinue;
@@ -29,27 +27,22 @@ public class StartupMenuGUI {
 	 * Create the application.
 	 */
 	public StartupMenuGUI(GameManager manager) {
-		this.manager = manager;
-		initialize();
+		super("Startup Menu", manager);
 	}
 		
 	/**
 	 * Completes the setup of {@link GameManager}.
 	 */
 	private void setupComplete() {
-		manager.onSetupFinish(txtTeamName.getText(), comboDifficulty.getSelectedIndex(), (int) spnrSeasonLength.getValue());
-		frame.dispose();
+		getManager().onSetupFinish(txtTeamName.getText(), comboDifficulty.getSelectedIndex(), (int) spnrSeasonLength.getValue());
 	}
-	
-	public JFrame getFrame() {
-		return this.frame;
-	}
+
 	
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		frame = new JFrame();
+	@Override
+	protected void initialise(JFrame frame) {
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 640, 360);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -96,17 +89,8 @@ public class StartupMenuGUI {
 		
 		btnContinue = new JButton("Continue");
 		btnContinue.addActionListener(new ActionListener() {
-			
 			public void actionPerformed(ActionEvent e) {
-				String text = txtTeamName.getText().strip();
-				if (txtTeamName.getText().strip().matches("[a-zA-Z0-9]+")) {
-					if (text.length() >= 3 && text.length() <= 15) {
-						setupComplete();
-					}
-				}
-				else {
-					ShowMessage.showMessage("Please enter a name with 3-15 characters.");
-				}
+				setupComplete();
 			}
 		});
 		btnContinue.setFont(new Font("Tahoma", Font.PLAIN, 14));

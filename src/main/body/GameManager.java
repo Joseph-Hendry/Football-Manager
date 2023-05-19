@@ -90,13 +90,34 @@ public class GameManager {
 	 * Using: When got values send them here. If they aren't valid, throw an exception.
 	 */
 	public void onSetupFinish(String teamName, int difficulty, int seasonLength) {
-
 		// Set up the game variables
 		this.week = 1;
-		this.difficulty = difficulty;
-		this.seasonLength = seasonLength;
-		this.money = 75000 - this.difficulty * 25000;
-		this.teamName = teamName;
+
+		// Check the difficulty is valid
+		if (difficulty == 0 || difficulty == 1) {
+			this.difficulty = difficulty;
+			this.money = 75000 - this.difficulty * 25000;
+		}
+		else {
+			UI.showMessage("Please enter a valid difficulty.");
+		}
+		
+		// Check the season length is valid
+		if (seasonLength >= 5 && seasonLength <= 15) {
+			this.seasonLength = seasonLength;
+		} else {
+			UI.showMessage("Please enter a season length between 5 and 15.");
+		}
+
+		// Check the team name is valid
+		if (teamName.strip().matches("[a-zA-Z0-9]+")) {
+			if (teamName.length() >= 3 && teamName.length() <= 15) {
+				this.teamName = teamName;
+			}
+		}
+		else {
+			UI.showMessage("Please enter a name with 3-15 characters, using only letters and numbers.");
+		}
 
 		// Create the draft store
 		this.drafStore = Store.createDraftStore(getRarityInt());
@@ -145,7 +166,7 @@ public class GameManager {
 			UI.clubMenu();
 		} else if (redirect == 1) {
 			UI.stadiumMenu();
-		} else if (redirect == 3){
+		} else if (redirect == 2){
 			UI.storeMenu();
 		} else {
 			UI.endGame();
@@ -156,7 +177,7 @@ public class GameManager {
 	////////// Club Menu //////////
 
 
-	public void onClubMenuFinish() {
+	public void onClubMenuBack() {
 		UI.mainMenu();
 	}
 
@@ -306,12 +327,12 @@ public class GameManager {
 	 * @param redirect 		The input from the user.
 	 * @throws Exception 	If the input is invalid.
 	 */
-	public void onStoreMenuFinish() {
+	public void onStoreMenuBack() {
 		UI.mainMenu();
 	}
 
 
-	public void buyPlayer(Player player, String teamOrBench) {
+	public void buyPlayer(Player player, int teamOrBench) {
 		try {
 			this.playersTeam.buyPlayer(this, player, teamOrBench);
 			UI.clubMenu();
@@ -343,6 +364,14 @@ public class GameManager {
 
 
 	////////// End Game //////////
+
+	public void quit() {
+		if (UI.confirmQuit()) {
+			// If we had any clean up to do before quitting we should do it here before telling
+			// the ui to quit.
+			UI.quit();
+		}
+	}
 
 
 	public void onEndGameFinish() {

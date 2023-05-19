@@ -17,9 +17,8 @@ import javax.swing.JButton;
 import main.body.GameManager;
 import main.body.Match;
 
-public class PlayMatchGUI {
+public class PlayMatchGUI extends Window {
 
-	private JFrame frame;
 	private JList<String> commentaryJList;
 	private int currentIndex = 0;
 	private ArrayList<String> commentaryList = new ArrayList<String>();
@@ -31,24 +30,15 @@ public class PlayMatchGUI {
 	 * Create the application.
 	 */
 	public PlayMatchGUI(GameManager manager, Match match) {
-		this.manager = manager;
+		super("Play Match", manager);
 		this.commentaryList = match.getCommentaryList();
-		initialize();
 		startTimer();
-	}
-
-	/**
-	 * Get the frame.
-	 */
-	public JFrame getFrame() {
-		return this.frame;
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
-		frame = new JFrame();
+	protected void initialise(JFrame frame) {
 		frame.setResizable(false);
 		frame.setBounds(100, 50, 560, 1000);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
