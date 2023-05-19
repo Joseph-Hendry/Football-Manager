@@ -132,8 +132,10 @@ class PlayerTests {
 	}
 	
 	@Test
-	void testGetRarity() {
-		assertTrue(player.getRarity() == "Bronze");
+	void testSetRarity() {
+		String newRarity = "Gold";
+		player.setRarity(newRarity);
+		assertTrue(player.getRarity() == newRarity);
 	}
 	
 	@Test
@@ -142,8 +144,5 @@ class PlayerTests {
 		player.setValue(newValue);
 		assertTrue(player.getValue() == newValue);
 	}
-	
-	
-	
 
 }
