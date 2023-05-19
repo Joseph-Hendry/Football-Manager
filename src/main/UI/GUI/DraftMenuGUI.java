@@ -74,6 +74,8 @@ public class DraftMenuGUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		frame.setBounds(100, 100, 640, 360);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblDraftYourTeam = new JLabel("Draft Your Team");

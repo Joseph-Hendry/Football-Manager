@@ -7,7 +7,6 @@ import javax.swing.SwingConstants;
 
 import main.body.GameManager;
 
-import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
@@ -51,7 +50,7 @@ public class StartupMenuGUI {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.getContentPane().setBackground(new Color(240, 240, 240));
+		frame.setResizable(false);
 		frame.setBounds(100, 100, 640, 360);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
