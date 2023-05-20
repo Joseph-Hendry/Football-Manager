@@ -275,15 +275,18 @@ public class Team {
     }
 
     public void buyPlayer(GameManager manager, Player player, int teamOrBench) throws IllegalArgumentException {
-        if (teamOrBench == 0) {
-            if (this.onTeam.size() >= 1) {
-                throw new IllegalArgumentException("You can only have 11 players on your team.");
-            }
+        if (teamOrBench == 1) {
             if (manager.getStore().getStorePlayers().contains(player)) {
                 if (manager.getMoney() >= player.getValue()) {
-                    manager.decMoney(player.getValue());
-                    manager.getStore().removePlayer(player);
-                    this.onTeam.add(player);
+                    for (int i = 0; i < this.onTeam.size(); i++) {
+                        if (this.onTeam.get(i) == null) {
+                            manager.decMoney(player.getValue());
+                            manager.getStore().removePlayer(player);
+                            this.onTeam.set(i, player);
+                            return;
+                        }
+                    }
+                    throw new IllegalArgumentException("Team is full");
                 } else {
                     throw new IllegalArgumentException("You do not have enough money.");
                 }
@@ -291,14 +294,17 @@ public class Team {
                 throw new IllegalArgumentException("Player does not exist.");
             }
         } else if (teamOrBench == 0) {
-            if (this.onBench.size() >= 1) {
-                throw new IllegalArgumentException("You can only have 5 players on your bench.");
-            }
             if (manager.getStore().getStorePlayers().contains(player)) {
                 if (manager.getMoney() >= player.getValue()) {
-                    manager.decMoney(player.getValue());
-                    manager.getStore().removePlayer(player);
-                    this.onBench.add(player);
+                    for (int i = 0; i < this.onBench.size(); i++) {
+                        if (this.onBench.get(i) == null) {
+                            manager.decMoney(player.getValue());
+                            manager.getStore().removePlayer(player);
+                            this.onBench.set(i, player);
+                            return;
+                        }
+                    }
+                    throw new IllegalArgumentException("Bench is full");
                 } else {
                     throw new IllegalArgumentException("You do not have enough money.");
                 }
