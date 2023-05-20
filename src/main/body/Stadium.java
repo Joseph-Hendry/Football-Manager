@@ -163,10 +163,30 @@ public class Stadium {
 
     /**
      * This method is used to take a bye.
+     * 
+     * @param playerToTrain The player that is being trained.
      */
-    public void takeBye() {
+    public void takeBye(Player playerToTrain) {
+        trainPlayer(playerToTrain);
         byeStamina();
         updateByePoints();
+    }
+
+    /**
+     * This method is used to train a player when a bye is taken.
+     * 
+     * @param playerToTrain The player that is being trained.
+     */
+    private void trainPlayer(Player playerToTrain) {
+        int[] baseStats = playerToTrain.getStats();
+        int statsIncrease = manager.getRarityInt()/2;
+        for (int i = 0; i < 3; i++) {
+            baseStats[i] += statsIncrease;
+            if (baseStats[i] > 100) {
+                baseStats[i] = 100;
+            }
+        }
+        playerToTrain.setStats(baseStats);
     }
 
     /**

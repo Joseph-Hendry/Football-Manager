@@ -255,14 +255,12 @@ public class GameManager {
 	/**
 	 * This method is used to take a bye.
 	 * It will either redirect the user to the main menu or end the game.
+	 * 
+	 * @param playerToTrain The player that is being trained.
 	 */
-	public void takeBye() {
-		try {
-			this.stadium.takeBye();
-			UI.showMessage("You have taken a bye.");
-		} catch (Exception e) {
-			UI.showMessage(e.getMessage());
-		}
+	public void takeBye(Player playerToTrain) {
+		this.stadium.takeBye(playerToTrain);
+		UI.showMessage("You have taken a bye.");
 	}
 
 

@@ -3,15 +3,18 @@ package main.UI.GUI;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 
 import java.awt.Font;
+import java.util.ArrayList;
+
 import javax.swing.SwingConstants;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
 import main.body.Match;
-
+import main.body.Player;
 import main.body.GameManager;
 
 /**
@@ -111,7 +114,15 @@ public class StadiumMenuGUI extends Window {
 		btnTakeBye.setBounds(178, 184, 117, 25);
 		frame.getContentPane().add(btnTakeBye);
 		btnTakeBye.addActionListener(e -> {
-			getManager().takeBye();
+			// Ask the user what player they would like to train
+			ArrayList<Player> players = new ArrayList<>();
+			players.addAll(getManager().getPlayerTeam().getTeam());
+			players.addAll(getManager().getPlayerTeam().getBench());
+
+			Player playerToTrain = (Player) JOptionPane.showInputDialog(frame, "Which player would you like to train?",
+					"Train Player", JOptionPane.QUESTION_MESSAGE, null, getManager().getPlayerTeam().getTeam().toArray(), null);
+			
+			getManager().takeBye(playerToTrain);
 		});
 
 		// Create the back button
