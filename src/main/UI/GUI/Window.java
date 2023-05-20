@@ -5,27 +5,26 @@ import main.body.GameManager;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-import java.awt.Component;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 
 /**
- * Defines common behaviour supported by a gui screen.
+ * Abstract class for all the menu windows.
  */
 public abstract class Window {
 
-    // The frame for this screen
+    // The frame for this window
     private JFrame frame;
 
-    // The rocket manager that this screen interacts with
+    // The manager for this window
     private final GameManager manager;
 
     /**
-     * Creates this screen.
+     * Creates this window.
      *
-     * @param title The title for the screen
-     * @param manager The {@link RocketManager} that this screen interacts with
+     * @param title The title for the window
+     * @param manager The manager for the windows {@link GameManager}
      */
     protected Window(final String title, final GameManager manager) {
         this.manager = manager;
@@ -34,17 +33,12 @@ public abstract class Window {
     }
 
     /**
-     * Initialises this screen's UI.
+     * Initialises the window.
      */
     private void initialise(final String title) {
         frame = new JFrame();
         frame.setTitle(title);
-
-        // Prevent the frame from closing immediately when the user clicks the close button.
-        // Instead we add a WindowListener so we can tell our rocket manager that the user
-        // has requested to quit. This allows the rocket manager to perform actions that may
-        // be required before quitting E.g. Confirming the user really wants to quit,
-        // saving state etc.
+        frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
@@ -54,38 +48,28 @@ public abstract class Window {
 
         initialise(frame);
 
-        // We set the location of our frame relative to null. This causes the frame to be placed
-        // in the centre of the screen.
+        // Centre the window in middle of screen
         frame.setLocationRelativeTo(null);
     }
 
     /**
-     * Creates and adds the required graphical components to the given container.
+     * Creates the abstract method initialise for setting up the window.
      *
-     * @param fame The container to add content to
+     * @param fame The frame to add the content to
      */
     protected abstract void initialise(JFrame frame);
 
     /**
-     * Gets the top level component of this screen.
+     * Gets the windows {@link GameManager}.
      *
-     * @return The top level component
-     */
-    protected Component getParentComponent() {
-        return frame;
-    }
-
-    /**
-     * Gets the {@link GameManager} that this window supports.
-     *
-     * @return The manager for this window
+     * @return The game manager
      */
     protected GameManager getManager() {
         return manager;
     }
 
     /**
-     * Shows this screen by making it visible.
+     * Shows the window.
      */
     protected void show() {
         frame.setVisible(true);
@@ -107,7 +91,7 @@ public abstract class Window {
     }
 
     /**
-     * Quits this screen. This should dispose of the screen as necessary.
+     * Quits this instance of the window.
      */
     void quit() {
         frame.dispose();
