@@ -9,14 +9,21 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
+/**
+ * The GUI for the main menu.
+ * Used to display the main menu and allow the user to choose where to go.
+ */
 public class MainMenuGUI extends Window {
 
+	// Setup JButtons
 	private JButton btnClub;
 	private JButton btnStadium;
 	private JButton btnStore;
 
 	/**
 	 * Create the application.
+	 * 
+	 * @param manager The {@link GameManager} instance.
 	 */
 
 	public MainMenuGUI(GameManager manager) {
@@ -25,14 +32,27 @@ public class MainMenuGUI extends Window {
 
 	/**
 	 * Initialize the contents of the frame.
+	 * 
+	 * @param frame The frame to add the contents to.
 	 */
 	@Override
 	protected void initialise(JFrame frame) {
-		frame.setResizable(false);
 		frame.setBounds(100, 100, 399, 365);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		frame.setResizable(false);
+
+		addLabels(frame);
+		addButtons(frame);
+	}
+
+	/**
+	 * Adds the labels to the frame.
+	 * 
+	 * @param frame The frame to add the labels to.
+	 */
+	private void addLabels(JFrame frame) {
 		
+		// Create the windows labels
 		JLabel lblWelcomeMessage = new JLabel("Main Menu");
 		lblWelcomeMessage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWelcomeMessage.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -46,29 +66,34 @@ public class MainMenuGUI extends Window {
 		JLabel lblWeek = new JLabel("Week: " + getManager().getWeek() + "/" + getManager().getSeasonLength());
 		lblWeek.setBounds(59, 57, 70, 15);
 		frame.getContentPane().add(lblWeek);
-		
+	}
+
+	/**
+	 * Adds the buttons to the frame.
+	 * 
+	 * @param frame The frame to add the buttons to.
+	 */
+	private void addButtons(JFrame frame) {
 		btnClub = new JButton("Club");
 		btnClub.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnClub.setBounds(59, 77, 294, 63);
 		frame.getContentPane().add(btnClub);
+		btnClub.addActionListener(e -> {
+			getManager().onMainMenuFinish(0);
+		});
 		
 		btnStadium = new JButton("Stadium");
 		btnStadium.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnStadium.setBounds(59, 152, 294, 63);
 		frame.getContentPane().add(btnStadium);
+		btnStadium.addActionListener(e -> {
+			getManager().onMainMenuFinish(1);
+		});
 		
 		btnStore = new JButton("Store");
 		btnStore.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnStore.setBounds(59, 227, 294, 63);
 		frame.getContentPane().add(btnStore);
-
-		// Perform actions for each of these buttons redirecting to the appropriate GUI
-		btnClub.addActionListener(e -> {
-			getManager().onMainMenuFinish(0);
-		});
-		btnStadium.addActionListener(e -> {
-			getManager().onMainMenuFinish(1);
-		});
 		btnStore.addActionListener(e -> {
 			getManager().onMainMenuFinish(2);
 		});

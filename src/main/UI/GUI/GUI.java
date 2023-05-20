@@ -3,8 +3,15 @@ import main.UI.GameManagerUI;
 import main.body.GameManager;
 import main.body.Match;
 
+/**
+ *  The GUI interface for th {@link GameManager}.
+ */
 public class GUI implements GameManagerUI {
+
+	// The game manager and window.
 	GameManager manager;
+
+	// The window to display.
 	Window window;
 
 	@Override
@@ -12,7 +19,6 @@ public class GUI implements GameManagerUI {
 		this.manager = manager;
 		window = new StartupMenuGUI(manager);
 		window.show();
-		
 	}
 
 	@Override
@@ -20,6 +26,13 @@ public class GUI implements GameManagerUI {
 		window.quit();
 		window = new DraftMenuGUI(manager);
 		window.show();;
+	}
+	
+	@Override
+	public void mainMenu() {
+		window.quit();
+		window = new MainMenuGUI(manager);
+		window.show();
 	}
 
 	@Override
@@ -55,13 +68,6 @@ public class GUI implements GameManagerUI {
 	@Override
 	public void showMessage(String message) {
 		ShowMessage.showMessage(message);
-	}
-
-	@Override
-	public void mainMenu() {
-		window.quit();
-		window = new MainMenuGUI(manager);
-		window.show();
 	}
 
 	@Override

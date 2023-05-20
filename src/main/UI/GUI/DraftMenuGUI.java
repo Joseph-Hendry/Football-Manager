@@ -22,12 +22,15 @@ import javax.swing.ListSelectionModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 
+/**
+ * The GUI for the draft menu.
+ * Used to display the draft menu and allow the user to interact with it.
+ */
 public class DraftMenuGUI extends Window {
 
+    // Setup varlables
     private int initialMoney;
     private int money;
-    //private DefaultListModel<Player> playerList = new DefaultListModel<Player>();
-    //private DefaultListModel<Coach> coachList = new DefaultListModel<Coach>();
     private JList<Player> playerJList;
     private JList<Coach> coachJList;
     private JButton btnStartGame;
@@ -38,13 +41,14 @@ public class DraftMenuGUI extends Window {
     private JLabel lblMoney;
     private int previousCoachValue = 0;
 
-
 	/**
 	 * Create the application.
+     * 
+     * @param manager The {@link GameManager} instance.
 	 */
 	public DraftMenuGUI(GameManager manager) {
         super("Draft Menu", manager);
-        this.initialMoney = manager.getMoney();
+        this.initialMoney = getManager().getMoney();
         this.money = initialMoney;
 	}
 
@@ -54,10 +58,22 @@ public class DraftMenuGUI extends Window {
     @Override
 	protected void initialise(JFrame frame) {
 		frame.setBounds(100, 100, 640, 360);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
-		
-		JLabel lblDraftYourTeam = new JLabel("Draft Your Team");
+
+        addLabels(frame);
+		addLists(frame);
+		addButtons(frame);
+	}
+
+    /**
+     * Adds the labels to the frame.
+     * 
+     * @param frame The frame to add the labels to.
+     */
+    private void addLabels(JFrame frame) {
+
+        // Create the windows labels
+        JLabel lblDraftYourTeam = new JLabel("Draft Your Team");
 		lblDraftYourTeam.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDraftYourTeam.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		lblDraftYourTeam.setBounds(179, 10, 287, 43);
@@ -72,30 +88,33 @@ public class DraftMenuGUI extends Window {
 		lblPickStrikers.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblPickStrikers.setBounds(10, 63, 161, 29);
 		frame.getContentPane().add(lblPickStrikers);
+
+        lblMoney = new JLabel();
+        lblMoney.setText("Money: " + getManager().getMoney());
+		lblMoney.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblMoney.setBounds(335, 207, 161, 29);
+		frame.getContentPane().add(lblMoney);
+    }
+
+    /**
+     * Adds the lists to the frame.
+     * 
+     * @param frame The frame to add the lists to.
+     */
+    private void addLists(JFrame frame) {
+
+        // Set up the player and coach lists
         DefaultListModel<Player> playerList = new DefaultListModel<Player>();
-        // Create the player list
+        DefaultListModel<Coach> coachList = new DefaultListModel<Coach>();
         for (Player player : getManager().getDraftStore().getStorePlayers()) {
             playerList.addElement(player);
         }
-        DefaultListModel<Coach> coachList = new DefaultListModel<Coach>();
-        
-                // Creat the coach list
         for (Coach coach : getManager().getDraftStore().getDraftCoaches()) {
             coachList.addElement(coach);
         }
-		
-		coachJList = new JList<>(coachList);
-        coachJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		coachJList.setBounds(350, 102, 200, 80);
-        coachJList.setFont(new Font("Monospaced", Font.PLAIN, 11));
-		frame.getContentPane().add(coachJList);
-        coachJList.addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent e) {
-                handleCoachSelection();
-            }
-        });
-		
-		playerJList = new JList<>(playerList);
+
+        // Create the players JList
+        playerJList = new JList<>(playerList);
         playerJList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		playerJList.setBounds(10, 102, 340, 310);
         playerJList.setFont(new Font("Monospaced", Font.PLAIN, 11));
@@ -106,38 +125,61 @@ public class DraftMenuGUI extends Window {
             }
         });
 		
-		lblMoney = new JLabel();
-        lblMoney.setText("Money: " + money);
-		lblMoney.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblMoney.setBounds(335, 207, 161, 29);
-		frame.getContentPane().add(lblMoney);
-		
-		btnStartGame = new JButton("Start Game");
+        // Create the coaches JList
+		coachJList = new JList<>(coachList);
+        coachJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		coachJList.setBounds(350, 102, 200, 80);
+        coachJList.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		frame.getContentPane().add(coachJList);
+        coachJList.addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent e) {
+                handleCoachSelection();
+            }
+        });
+    }
+
+    /**
+     * Adds the button to the frame.
+     * 
+     * @param frame The frame to add the button too.
+     */
+    private void addButtons(JFrame frame) {
+        // Create the back button
+        btnStartGame = new JButton("Start Game");
 		btnStartGame.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnStartGame.setBounds(335, 358, 287, 63);
         btnStartGame.setEnabled(false);
 		frame.getContentPane().add(btnStartGame);
         btnStartGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                frame.dispose();
-                ShowMessage.showMessage("You have drafted your team!");
                 getManager().onDraftMenuFinish(selectedPlayers, selectedCoach, money);
             }
         });
-	}
+    }
 
+    /**
+     * Handles the player selection.
+     * Checks if the player has selected 11 players with the correct positions.
+     * If it is, and the player has enough money it runs {@link #checkValid()}
+     */
     private void handlePlayerSelection() {
+        // Add the value of the previous players back to the money
         for (Player player : selectedPlayers) {
             money += player.getValue();
         }
+
         selectedPlayers.clear();
+
+        // Add the value of the new players to the money and add them to the selected players list.
         for (Player player : playerJList.getSelectedValuesList()) {
             selectedPlayers.add(player);
             money -= player.getValue();
         }
+
+        // Update the money label
         lblMoney.setText("Money: " + money);
 
-        // Check that the right players are in the right positions
+        // Check if the players are in the correct positions
         for (int i = 0; i < selectedPlayers.size(); i++) {
             Player player = selectedPlayers.get(i);
             if (player.getPosition() != Team.getFormationPostion()[i]) {
@@ -146,6 +188,8 @@ public class DraftMenuGUI extends Window {
                 return;
             }
         }
+
+        // Check if the player has selected 11 players
         if (selectedPlayers.size() == 11) {
             playersValid = true;
             checkValid();
@@ -155,6 +199,11 @@ public class DraftMenuGUI extends Window {
         }
     }
 
+    /**
+     * Handles the coach selection.
+     * Checks if the player has selected a coach.
+     * If they have it updates the money label and runs {@link #checkValid()}
+     */
     private void handleCoachSelection() {
         if (coachJList.getSelectedValue() != null) {
             money += previousCoachValue;
@@ -173,6 +222,10 @@ public class DraftMenuGUI extends Window {
         }
     }
 
+    /**
+     * Checks if the players and coach are valid and if the player has enough money.
+     * If they are it enables the start game button.
+     */
     private void checkValid() {
         if (playersValid && coachValid && money >= 0) {
             btnStartGame.setEnabled(true);

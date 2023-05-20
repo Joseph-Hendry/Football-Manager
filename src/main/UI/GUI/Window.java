@@ -2,10 +2,13 @@ package main.UI.GUI;
 
 import main.body.GameManager;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+import java.awt.Component;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
 
 /**
  * Defines common behaviour supported by a gui screen.
@@ -107,7 +110,6 @@ public abstract class Window {
      * Quits this screen. This should dispose of the screen as necessary.
      */
     void quit() {
-        System.out.println("Quitting " + frame.getTitle());
         frame.dispose();
     }
 }
