@@ -121,7 +121,7 @@ public class Stadium {
      * @param match The match that is being played.
      */
     public void playMatch(Match match) throws Exception {
-        canPlayMatch();
+        canPlayMatch(match);
         match.playMatch(manager);
         updateMatchPoints(match);
     }
@@ -131,12 +131,16 @@ public class Stadium {
      * 
      * @return  If the player can play a match.
      */
-    private void canPlayMatch() throws Exception {
+    private void canPlayMatch(Match match) throws Exception {
         // Check if any of the players are injured
-        for (Player player : playerTeam.getTeam()) {
-            if (player.isInjured() || player == null) {
-                throw new Exception("You cannot play a match as one of your players is injured.");
+        if (match != null) {
+            for (Player player : playerTeam.getTeam()) {
+                if (player.isInjured() || player == null) {
+                    throw new Exception("You cannot play a match as one of your players is injured.");
+                }
             }
+        } else {
+            throw new Exception("Please select a match.");
         }
     }
 
