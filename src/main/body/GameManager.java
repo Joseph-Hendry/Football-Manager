@@ -365,16 +365,14 @@ public class GameManager {
 
 	////////// End Game //////////
 
-	public void quit() {
-		if (UI.confirmQuit()) {
-			// If we had any clean up to do before quitting we should do it here before telling
-			// the ui to quit.
-			UI.quit();
-		}
-	}
-
 
 	public void onEndGameFinish() {
 		UI.quit();
 	}
+
+	public void quit() {
+		if (UI.confirmQuit()) {
+			UI.quit();
+		} 
+	}	
 }

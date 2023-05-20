@@ -97,13 +97,17 @@ public abstract class Window {
         int selection = JOptionPane.showConfirmDialog(frame, "Are you sure you want to quit?",
                 "Quit?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
 
-        return selection == JOptionPane.YES_OPTION;
+        if (selection == JOptionPane.YES_OPTION) {
+            return true;
+        }
+        return false;
     }
 
     /**
      * Quits this screen. This should dispose of the screen as necessary.
      */
     void quit() {
+        System.out.println("Quitting " + frame.getTitle());
         frame.dispose();
     }
 }
