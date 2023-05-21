@@ -307,9 +307,9 @@ public class Team {
      * 
      * @param playerOnTeam This is the player on the team going onto bench.
      * @param playerOnBench This is the player on the bench going onto the team.
-     * @throws Exception If players cannot be swapped.
+     * @throws IllegalArgumentException If players cannot be swapped.
      */
-    public void subPlayerSwap(Player teamPlayer, Player benchPlayer) throws Exception {
+    public void subPlayerSwap(Player teamPlayer, Player benchPlayer) throws IllegalArgumentException {
         if (this.onTeam.contains(teamPlayer) && this.onBench.contains(benchPlayer)) {
             if (teamPlayer != null && benchPlayer != null) {
                 if (teamPlayer.getPosition() == benchPlayer.getPosition()) {

@@ -273,7 +273,7 @@ public class GameManager {
 			player.setNickname(nickname);
 			UI.clubMenu();
 			UI.showMessage("Players nickname has been changed.");
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			UI.showMessage("Player does not exist.");
 		}
 	}
@@ -288,7 +288,7 @@ public class GameManager {
 			this.playersTeam.sellPlayer(this, player);
 			UI.clubMenu();
 			UI.showMessage("Player has been sold.");
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			UI.showMessage(e.getMessage());
 		}
 
@@ -305,7 +305,7 @@ public class GameManager {
 			playersTeam.subPlayerSwap(teamPlayer, benchPlayer);
 			UI.clubMenu();
 			UI.showMessage("Players have been swapped.");
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			UI.showMessage(e.getMessage());
 		}
 	}
@@ -320,7 +320,7 @@ public class GameManager {
 			this.playersTeam.sellItem(this, item);
 			UI.clubMenu();
 			UI.showMessage("Item has been sold.");
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			UI.showMessage(e.getMessage());
 		}
 	}
@@ -345,7 +345,7 @@ public class GameManager {
 		try {
 			stadium.playMatch(match);
 			UI.playMatch(match);
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			UI.showMessage(e.getMessage());
 		}
 	}
@@ -435,7 +435,7 @@ public class GameManager {
 			this.playersTeam.buyPlayer(this, player, teamOrBench);
 			UI.clubMenu();
 			UI.showMessage("Player has been bought.");
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			UI.showMessage(e.getMessage());
 		}
 	}
@@ -450,7 +450,7 @@ public class GameManager {
 			this.playersTeam.buyCoach(this, coach);
 			UI.clubMenu();
 			UI.showMessage("Coach has been bought.");
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			UI.showMessage(e.getMessage());
 		}
 	}
@@ -465,7 +465,7 @@ public class GameManager {
 			this.playersTeam.buyItem(this, item);
 			UI.clubMenu();
 			UI.showMessage("Item has been bought.");
-		} catch (Exception e) {
+		} catch (IllegalArgumentException e) {
 			UI.showMessage(e.getMessage());
 		}
 	}

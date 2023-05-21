@@ -130,7 +130,7 @@ public class Stadium {
      * 
      * @param match The match that is being played.
      */
-    public void playMatch(Match match) throws Exception {
+    public void playMatch(Match match) throws IllegalArgumentException {
         canPlayMatch(match);
         match.playMatch(manager);
         updateMatchPoints(match);
