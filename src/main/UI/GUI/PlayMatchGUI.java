@@ -121,7 +121,7 @@ public class PlayMatchGUI extends Window {
 	 * Starts the timer to display the commentary.
 	 */
     private void startTimer() {
-        Timer timer = new Timer(2000, new ActionListener() {
+        Timer timer = new Timer(750, new ActionListener() {
 			ArrayList<String> commentaryList = match.getCommentaryList();
 			DefaultListModel<String> activeList = new DefaultListModel<String>();
 
@@ -137,6 +137,6 @@ public class PlayMatchGUI extends Window {
                 }
             }
         });
-        timer.start();
+		timer.start();
     }
 }
