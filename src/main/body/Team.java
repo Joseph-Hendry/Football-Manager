@@ -286,8 +286,10 @@ public class Team {
  	 * @param intRarity	The int value of the rarity.
  	 * @return The string rarity.
  	 */
- 	public static String getStrRarity(int intRarity) {
- 	if (intRarity <= 50) {
+ 	public static String getStrRarity(int intRarity) throws IllegalArgumentException {
+ 	if (intRarity < 0 || intRarity > 100) {
+ 		throw new IllegalArgumentException("The integer rarity value must be between 0 and 100 (inclusive).");
+ 	} else if (intRarity <= 50) {
  		return "Bronze";
  	} else if (intRarity <= 80) {
  		return "Silver";
@@ -320,8 +322,6 @@ public class Team {
                 } else {
                 throw new IllegalArgumentException("Players must have the same position.");
                 }
-            } else {
-            throw new IllegalArgumentException("Player does not exist.");
             }
         } else {
             throw new IllegalArgumentException("Invalid Number");
@@ -514,8 +514,12 @@ public class Team {
      * 
      * @param item The removed item.
      */
-    public void removeItem(Item item) {
-        this.items.remove(item);
+    public void removeItem(Item item) throws IllegalArgumentException {
+    	if (this.getItems().contains(item)) {
+    		this.items.remove(item);
+    	} else {
+    		throw new IllegalArgumentException("This item is not in the team's inventory");
+    	}
     }
         
     /**

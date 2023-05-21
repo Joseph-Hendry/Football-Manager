@@ -17,7 +17,7 @@ class MatchTests {
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
-		match = new Match(Team.createRandomTeam(1, "Team1"), Team.createRandomTeam(1, "Team2"), 5, 1000);
+		match = new Match(Team.createRandomTeam(50, "Team1"), Team.createRandomTeam(50, "Team2"), 5, 1000);
 		manager = new GameManager(null);
 	}
 

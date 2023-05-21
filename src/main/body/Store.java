@@ -157,7 +157,7 @@ public class Store {
         for (AvailablePositions position : AvailablePositions.values()) {
             for (int j = 0; j < Team.getFormation()[i] + 2; j++) {
                 variety = random.nextInt(30) - 15; 
-                rarity = intRarity + variety;
+                rarity = intRarity + variety >= 0 ? intRarity + variety : 0;
                 Player teamPlayer = Player.createRandomPlayer(Team.getStrRarity(rarity), position);
                 storePlayers.add(teamPlayer);
             }
@@ -167,8 +167,13 @@ public class Store {
         // Creates 5 random coaches
         for (int j = 0; j < 5; j++) {
             variety = random.nextInt(30) - 15;
+<<<<<<< Updated upstream
             coachRarity = intRarity + variety;
             draftCoaches.add(Coach.createRandomCoach(Team.getStrRarity(coachRarity)));
+=======
+            coahcrarity = intRarity + variety >= 0 ? intRarity + variety : 0;
+            draftCoaches.add(Coach.createRandomCoach(Team.getStrRarity(coahcrarity)));
+>>>>>>> Stashed changes
         }
 
         // Returns the store
@@ -191,22 +196,27 @@ public class Store {
         // Creates a onTeam of random players for each position.
         for (AvailablePositions position : AvailablePositions.values()) {
             variety = random.nextInt(20) - 10; 
-        	rarity = intRarity + variety;
+        	rarity = intRarity + variety >= 0 ? intRarity + variety : 0;
             Player teamPlayer = Player.createRandomPlayer(Team.getStrRarity(rarity), position);
             storePlayers.add(teamPlayer);
         }
 
         // Creates a random coach
         variety = random.nextInt(20) - 10;
+<<<<<<< Updated upstream
         int coachRarity= intRarity + variety;
         storeCoach = Coach.createRandomCoach(Team.getStrRarity(coachRarity));
+=======
+        int coahcrarity = intRarity + variety >= 0 ? intRarity + variety : 0;
+        storeCoach = Coach.createRandomCoach(Team.getStrRarity(coahcrarity));
+>>>>>>> Stashed changes
         this.coachAvailability = true;
 
         // Creates 5 random items
         storeItems.clear();
         for (int i = 0; i < 5; i++) {
             variety = random.nextInt(20) - 10;
-            rarity = intRarity + variety;
+            rarity = intRarity + variety >= 0 ? intRarity + variety : 0;
             Item item = Item.createRandomItem(Team.getStrRarity(rarity));
             storeItems.add(item);
         }
@@ -230,20 +240,21 @@ public class Store {
         // Creates a onTeam of random players including position.
         for (AvailablePositions position : AvailablePositions.values()) {
         	variety = random.nextInt(20) - 10; 
-        	rarity = intRarity + variety;
+        	rarity = intRarity + variety >= 0 ? intRarity + variety : 0;
             Player teamPlayer = Player.createRandomPlayer(Team.getStrRarity(rarity), position);
             storePlayers.add(teamPlayer);
         }
     
         // Creates a random coach
         variety = random.nextInt(20) - 10; 
-        rarity = intRarity + variety;
+        
+        rarity = intRarity + variety >= 0 ? intRarity + variety : 0;
         storeCoach = Coach.createRandomCoach(Team.getStrRarity(rarity));
         
         // Creates 5 random items
         for (int i = 0; i < 5; i++) {
             variety = random.nextInt(20) - 10; 
-        	rarity = intRarity + variety;
+        	rarity = intRarity + variety >= 0 ? intRarity + variety : 0;
             Item item = Item.createRandomItem(Team.getStrRarity(rarity));
             storeItems.add(item);
         }
