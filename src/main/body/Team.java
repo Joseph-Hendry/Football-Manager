@@ -364,7 +364,7 @@ public class Team {
                 if (manager.getMoney() >= player.getValue()) {
                     // Check for an empty spot on the team
                     for (int i = 0; i < this.onTeam.size(); i++) {
-                        if (this.onTeam.get(i) == null) {
+                        if (this.onTeam.get(i) == null && player.getPosition() == formationPostion[i]) {
                             manager.decMoney(player.getValue());
                             manager.getStore().removePlayer(player);
                             this.onTeam.set(i, player);

@@ -487,6 +487,7 @@ public class GameManager {
 	public void quit() {
 		if (UI.confirmQuit()) {
 			UI.quit();
+			System.exit(0);
 		} 
 	}	
 }

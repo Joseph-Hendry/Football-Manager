@@ -247,8 +247,8 @@ public class ClubMenuGUI extends Window{
 		frame.getContentPane().add(btnSellPlayer);
 		btnSellPlayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (listReserves.getSelectedValue() != null) {
-					getManager().sellPlayer(listReserves.getSelectedValue());
+				if (selectedPlayer != null) {
+					getManager().sellPlayer(selectedPlayer);
 				}
 			}
 		});
