@@ -82,12 +82,12 @@ public class StartupMenuGUI extends Window {
 		lblWelcomeMessage.setBounds(168, 11, 287, 43);
 		frame.getContentPane().add(lblWelcomeMessage);
 		
-		JLabel lblChooseName = new JLabel("Please choose a name for your team (3-15 characters):");
+		JLabel lblChooseName = new JLabel("Please choose a team name (3-15 characters):");
 		lblChooseName.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblChooseName.setBounds(10, 81, 347, 29);
 		frame.getContentPane().add(lblChooseName);
 		
-		JLabel lblSeasonLength = new JLabel("Choose how long your season should last (5-15 weeks):");
+		JLabel lblSeasonLength = new JLabel("Choose a season length (5-15 weeks):");
 		lblSeasonLength.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblSeasonLength.setBounds(10, 134, 347, 29);
 		frame.getContentPane().add(lblSeasonLength);
