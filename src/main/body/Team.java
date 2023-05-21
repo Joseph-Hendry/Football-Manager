@@ -61,6 +61,139 @@ public class Team {
         teamList.add(this);
     }
 
+
+    ////////// Getters and Setters //////////
+
+
+    /**
+     * This method is used to get the teamList.
+     * 
+     * @return The teamList.
+     */
+    public static ArrayList<Team> getTeamList() {
+        return teamList;
+    }
+    
+    /**
+     * This method is used to get the name of the team.
+     * 
+     * @return The name of the team.
+     */
+    public String getName() {
+        return this.name;
+    }
+
+    /**
+     * This method is used to set the name of the team.
+     * 
+     * @param name The name of the team.
+     */
+    public void setName(String name) {
+    	this.name = name;
+    }
+
+    /**
+     * This method is used to get the players on the team.
+     * 
+     * @return The players on the team.
+     */
+    public ArrayList<Player> getTeam() {
+        return this.onTeam;
+    }
+
+    /**
+     * This method is used to set the players on the team.
+     * 
+     * @param onTeam The players on the team.
+     */
+     public void setTeam(ArrayList<Player> onTeam) {
+        this.onTeam = onTeam;
+    }
+
+    /**
+     * This method is used to get the players on the bench.
+     * 
+     * @return The players on the bench.
+     */
+    public ArrayList<Player> getBench() {
+        return this.onBench;
+    }
+    
+    /**
+     * This method is used to set the players on the bench.
+     * @param onBench The players on the bench.
+     */
+    public void setBench(ArrayList<Player> onBench) {
+        this.onBench = onBench;
+    }
+
+    /**
+     * This method is used to get the coach of the team.
+     * 
+     * @return The coach of the team.
+     */
+    public Coach getCoach() {
+        return this.coach;
+    }
+
+    /**
+     * This method is used to set the coach of the team.
+     * 
+     * @param coach The coach of the team.
+     */
+    public void setCoach(Coach coach) {
+        this.coach = coach;
+    }
+
+    /** 
+     * This method is used to get the points of the team.
+     * 
+     * @return The points of the team.
+     */
+    public int getPoints() {
+        return this.points;
+    }
+
+    /**
+     * This method is used to set the rank of the team.
+     * 
+     * @param rank The rank of the team.
+     */
+    public void setPoints(int points) {
+        this.points = points;
+    }
+    
+    /**
+     * This method is used to get the teams items.
+     * 
+     * @return The teams items.
+     */
+    public ArrayList<Item> getItems() {
+        return this.items;
+    }
+
+    
+    /**
+     * This method return the formation of the team.
+     * 
+     * @return The formation of the team.
+     */
+    public static int[] getFormation() {
+        return formation;
+    }
+
+    /**
+     * Get the player position.
+     */
+    public static AvailablePositions[] getFormationPostion() {
+        return formationPostion;
+    }
+
+
+
+    ////////// Team Generators //////////
+
+
     /**
      * This method is used to create a random team.
      * 
@@ -70,40 +203,6 @@ public class Team {
     public static void createNPCTeams(int intRarity) {
         for (int i = 0; i < names.length; i++) {
             createRandomTeam(intRarity, names[i]);
-        }
-    }
-
-    /**
-     * This method is used to reset the NPC teams to make them harder.
-     * 
-     * @param intRarity The difficulty of the team.
-     */
-    public void resetNPCTeams(int intRarity) {
-        // Reset the NPC teams
-        for (Team temp : teamList) {
-            if (temp != this) {
-                Coach tempCoach = Coach.createRandomCoach(getStrRarity(intRarity));
-                temp.setCoach(tempCoach);
-
-                ArrayList<Player> tempOnTeam = new ArrayList<Player>();
-                ArrayList<Player> tempOnBench = new ArrayList<Player>();
-
-                int i = 0;
-                for (AvailablePositions position : AvailablePositions.values()) {
-                    for (int j = 0; j < formation[i]; j++) {
-                        Player teamPlayer = Player.createRandomPlayer(getStrRarity(intRarity), position);
-                        tempOnTeam.add(teamPlayer);
-                    }
-                    int benchVariety = new Random().nextInt(20) - 10; 
-                	int benchRarity = intRarity + benchVariety;
-                    Player benchPlayer = Player.createRandomPlayer(getStrRarity(benchRarity), position);
-                    tempOnBench.add(benchPlayer);
-                    i++;
-                }
-
-                temp.setTeam(tempOnTeam);
-                temp.setBench(tempOnBench);
-            }
         }
     }
 
@@ -146,6 +245,40 @@ public class Team {
         Team team = new Team(name, onTeam, onBench, items, coach, 0);
         return team;
     }
+
+    /**
+     * This method is used to reset the NPC teams to make them harder.
+     * 
+     * @param intRarity The difficulty of the team.
+     */
+    public void resetNPCTeams(int intRarity) {
+        // Reset the NPC teams
+        for (Team temp : teamList) {
+            if (temp != this) {
+                Coach tempCoach = Coach.createRandomCoach(getStrRarity(intRarity));
+                temp.setCoach(tempCoach);
+
+                ArrayList<Player> tempOnTeam = new ArrayList<Player>();
+                ArrayList<Player> tempOnBench = new ArrayList<Player>();
+
+                int i = 0;
+                for (AvailablePositions position : AvailablePositions.values()) {
+                    for (int j = 0; j < formation[i]; j++) {
+                        Player teamPlayer = Player.createRandomPlayer(getStrRarity(intRarity), position);
+                        tempOnTeam.add(teamPlayer);
+                    }
+                    int benchVariety = new Random().nextInt(20) - 10; 
+                	int benchRarity = intRarity + benchVariety;
+                    Player benchPlayer = Player.createRandomPlayer(getStrRarity(benchRarity), position);
+                    tempOnBench.add(benchPlayer);
+                    i++;
+                }
+
+                temp.setTeam(tempOnTeam);
+                temp.setBench(tempOnBench);
+            }
+        }
+    }
      
  	/**
  	 * Converts a range of 0-100 into its rarity type.
@@ -165,109 +298,10 @@ public class Team {
  		}
  	}
 
-    /**
-     * This method is used to get the name of the team.
-     * 
-     * @return The name of the team.
-     */
-    public String getName() {
-        return this.name;
-    }
 
-    /**
-     * This method is used to set the name of the team.
-     * 
-     * @param name The name of the team.
-     */
-    public void setName(String name) {
-    	this.name = name;
-    }
+    ////////// Team Methods //////////
 
-    /**
-     * This method is used to get the players on the team.
-     * 
-     * @return The players on the team.
-     */
-    public ArrayList<Player> getTeam() {
-        return this.onTeam;
-    }
-
-    /**
-     * This method is used to set the players on the team.
-     * 
-     * @param onTeam The players on the team.
-     */
-     public void setTeam(ArrayList<Player> onTeam) {
-        this.onTeam = onTeam;
-    }
-
-    /**
-     * This method removes a player from the team.
-     * 
-     * @param player The player.
-     */
-    public void removePlayer(int playerNum) {
-        this.onTeam.set(playerNum, null);
-    }
-
-    /**
-     * This method is used to add a player to the team.
-     * 
-     * @param player The player.
-     */
-    public void addPlayerToBench(Player player, int playerNum) {
-        this.onBench.set(playerNum, player);
-    }
-
-    /**
-     * This method is used to get the players on the bench.
-     * 
-     * @return The players on the bench.
-     */
-    public ArrayList<Player> getBench() {
-        return this.onBench;
-    }
-
-    /**
-     * This method is used to set the players on the bench.
-     * @param onBench The players on the bench.
-     */
-    public void setBench(ArrayList<Player> onBench) {
-        this.onBench = onBench;
-    }
-
-    /**
-     * Get the player position.
-     */
-    public static AvailablePositions[] getFormationPostion() {
-        return formationPostion;
-    }
-
-    /**
-     * This method removes a player from the team.
-     * 
-     * @param manager The game manager.
-     * @param player The player.
-     * @throws IllegalArgumentException If the player does not exist.
-     */
-    public void sellPlayer(GameManager manager, Player player) throws IllegalArgumentException {
-        if (player != null) {
-            if (this.onTeam.contains(player)) {
-                int playerNum = this.onTeam.indexOf(player);
-                this.onTeam.set(playerNum, null);
-                manager.incMoney(player.getValue());
-            } else if (this.onBench.contains(player)) {
-                int playerNum = this.onBench.indexOf(player);
-                this.onBench.set(playerNum, null);
-                manager.incMoney(player.getValue());
-            } else {
-                throw new IllegalArgumentException("Player does not exist");
-            }
-        } else {
-            throw new IllegalArgumentException("Player does not exist");
-        }
-    }
-
+    
     /**
      * This method is used to sub two players.
      * 
@@ -295,40 +329,24 @@ public class Team {
     }
 
     /**
-     * This method is used to sell and item.
+     * This method is used to buy a coach.
      * 
      * @param manager The game manager.
-     * @param item The item.
-     * @throws IllegalArgumentException If the item does not exist.
+     * @param coach The coach being bought.
+     * @throws IllegalArgumentException If the coach cannot be bought.
      */
-    public void sellItem(GameManager manager, Item item) throws IllegalArgumentException {
-        if (this.items.contains(item)) {
-            manager.incMoney(item.getValue());
-            this.items.remove(item);
-        } else {
-            throw new IllegalArgumentException("Item does not exist");
-        }
-    }
-
-    /**
-     * This method is used to buy an item.
-     * 
-     * @param manager The game manager.
-     * @param item The item being bought.
-     * @throws IllegalArgumentException
-     */
-    public void buyItem(GameManager manager, Item item) throws IllegalArgumentException {
-        if (this.items.size() >= 3) {
-            throw new IllegalArgumentException("You can only have 3 items.");
-        }
-        if (manager.getStore().getStoreItems().contains(item))
-            if (manager.getMoney() >= item.getValue()) {
-                manager.decMoney(item.getValue());
-                manager.getStore().removeItem(item);
-                this.items.add(item);
+    public void buyCoach(GameManager manager, Coach coach) throws IllegalArgumentException {
+        if (manager.getStore().getStoreCoach() == coach) {
+            if (manager.getMoney() >= coach.getValue()) {
+                manager.decMoney(coach.getValue());
+                manager.getStore().setCoachAvailable(false);
+                this.coach = coach;
             } else {
                 throw new IllegalArgumentException("You do not have enough money.");
             }
+        } else {
+            throw new IllegalArgumentException("Coach does not exist.");
+        }
     }
 
     /**
@@ -384,35 +402,83 @@ public class Team {
             throw new IllegalArgumentException("Invalid input.");
         }
     }
-
+    
     /**
-     * This method is used to buy a coach.
+     * This method removes a player from the team.
      * 
      * @param manager The game manager.
-     * @param coach The coach being bought.
-     * @throws IllegalArgumentException If the coach cannot be bought.
+     * @param player The player.
+     * @throws IllegalArgumentException If the player does not exist.
      */
-    public void buyCoach(GameManager manager, Coach coach) throws IllegalArgumentException {
-        if (manager.getStore().getStoreCoach() == coach) {
-            if (manager.getMoney() >= coach.getValue()) {
-                manager.decMoney(coach.getValue());
-                manager.getStore().setCoachAvailable(false);
-                this.coach = coach;
+    public void sellPlayer(GameManager manager, Player player) throws IllegalArgumentException {
+        if (player != null) {
+            if (this.onTeam.contains(player)) {
+                int playerNum = this.onTeam.indexOf(player);
+                this.onTeam.set(playerNum, null);
+                manager.incMoney(player.getValue());
+            } else if (this.onBench.contains(player)) {
+                int playerNum = this.onBench.indexOf(player);
+                this.onBench.set(playerNum, null);
+                manager.incMoney(player.getValue());
             } else {
-                throw new IllegalArgumentException("You do not have enough money.");
+                throw new IllegalArgumentException("Player does not exist");
             }
         } else {
-            throw new IllegalArgumentException("Coach does not exist.");
+            throw new IllegalArgumentException("Player does not exist");
         }
     }
 
     /**
-     * This method is used to get the teams items.
+     * This method is used to buy an item.
      * 
-     * @return The teams items.
+     * @param manager The game manager.
+     * @param item The item being bought.
+     * @throws IllegalArgumentException
      */
-    public ArrayList<Item> getItems() {
-        return this.items;
+    public void buyItem(GameManager manager, Item item) throws IllegalArgumentException {
+        if (this.items.size() >= 3) {
+            throw new IllegalArgumentException("You can only have 3 items.");
+        }
+        if (manager.getStore().getStoreItems().contains(item)) {
+            if (manager.getMoney() >= item.getValue()) {
+                manager.decMoney(item.getValue());
+                manager.getStore().removeItem(item);
+                this.items.add(item);
+            } else {
+                throw new IllegalArgumentException("You do not have enough money.");
+            }
+        } else {
+            throw new IllegalArgumentException("Item does not exist.");
+        }
+    }
+
+    /**
+     * This method is used to sell and item.
+     * 
+     * @param manager The game manager.
+     * @param item The item.
+     * @throws IllegalArgumentException If the item does not exist.
+     */
+    public void sellItem(GameManager manager, Item item) throws IllegalArgumentException {
+        if (this.items.contains(item)) {
+            manager.incMoney(item.getValue());
+            this.items.remove(item);
+        } else {
+            throw new IllegalArgumentException("Item does not exist");
+        }
+    }
+
+
+    ////////// Adders and Removers //////////
+
+
+    /**
+     * This method removes a player from the team.
+     * 
+     * @param player The player.
+     */
+    public void removePlayer(int playerNum) {
+        this.onTeam.set(playerNum, null);
     }
 
     /**
@@ -435,59 +501,7 @@ public class Team {
     public void removeItem(Item item) {
         this.items.remove(item);
     }
-
-    /**
-     * This method is used to get the coach of the team.
-     * 
-     * @return The coach of the team.
-     */
-    public Coach getCoach() {
-        return this.coach;
-    }
-
-    /**
-     * This method is used to set the coach of the team.
-     * 
-     * @param coach The coach of the team.
-     */
-    public void setCoach(Coach coach) {
-        this.coach = coach;
-    }
-
-    /** 
-     * This method is used to get the points of the team.
-     * 
-     * @return The points of the team.
-     */
-    public int getPoints() {
-        return this.points;
-    }
-
-    /**
-     * This method is used to set the rank of the team.
-     * 
-     * @param rank The rank of the team.
-     */
-    public void setPoints(int points) {
-        this.points = points;
-    }
-    
-    /**
-     * Adds a player onto the bench.
-     * 
-     * @param player The player.
-     * @throws IllegalArgumentException If the bench is full.
-     */
-    public void addPlayerToBench(Player player) throws IllegalArgumentException {
-        for (int i = 0; i < this.onBench.size(); i++) {
-            if (this.onBench.get(i) == null) {
-                this.onBench.set(i, player);
-                return;
-            }
-        }
-        throw new IllegalArgumentException("Bench is full");
-    }
-    
+        
     /**
      * Adds a player onto the bench.
      * 
@@ -510,29 +524,36 @@ public class Team {
         }
         throw new IllegalArgumentException("No room in team for this players position.");
     }
+    
+    /**
+     * Adds a player onto the bench.
+     * 
+     * @param player The player.
+     * @throws IllegalArgumentException If the bench is full.
+     */
+    public void addPlayerToBench(Player player) throws IllegalArgumentException {
+        for (int i = 0; i < this.onBench.size(); i++) {
+            if (this.onBench.get(i) == null) {
+                this.onBench.set(i, player);
+                return;
+            }
+        }
+        throw new IllegalArgumentException("Bench is full");
+    }
+
+    /**
+     * This method is used to add a player to the team.
+     * 
+     * @param player The player.
+     */
+    public void addPlayerToBench(Player player, int playerNum) {
+        this.onBench.set(playerNum, player);
+    }
 
     /**
      * This method is used to sort the teamList based on ponits.
      */
     public static void sortTeamList() {
         teamList.sort((team1, team2) -> team2.getPoints() - team1.getPoints());
-    }
-
-    /**
-     * This method is used to get the teamList.
-     * 
-     * @return The teamList.
-     */
-    public static ArrayList<Team> getTeamList() {
-        return teamList;
-    }
-
-    /**
-     * This method return the formation of the team.
-     * 
-     * @return The formation of the team.
-     */
-    public static int[] getFormation() {
-        return formation;
     }
 }
