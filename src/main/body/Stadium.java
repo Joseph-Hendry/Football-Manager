@@ -292,10 +292,29 @@ public class Stadium {
      */
     private void randomPlayerQuit(GameManager manager) {
 
-        // Find a random player number and remove them from the team
+        // Find a random player number based on how many tims the player has been injured
+        ArrayList<Player> quitPlayerPool = new ArrayList<Player>();
+
+        for (Player player : playerTeam.getTeam()) {
+            if (player != null) {
+                for (int i = 0; i < player.getInjuryCount(); i++) {
+                    quitPlayerPool.add(player);
+                }
+            }
+        }
+
+        for (Player player : playerTeam.getBench()) {
+            if (player != null) {
+                for (int i = 0; i < player.getInjuryCount(); i++) {
+                    quitPlayerPool.add(player);
+                }
+            }
+        }
+
+        // Remove a random player from the team useing the random player number
         Random random = new Random();
-        int randomPlayerNum = random.nextInt(11);
-        playerTeam.removePlayer(randomPlayerNum);
+        playerTeam.removePlayer(quitPlayerPool.get(random.nextInt(quitPlayerPool.size() - 1)));
+
         manager.UI.showMessage("A player has quit your team.");
     }
 

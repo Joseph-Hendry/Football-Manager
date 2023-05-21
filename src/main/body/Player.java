@@ -24,8 +24,12 @@ public class Player extends Person {
 	// The injury status of the Player
 	private boolean injured;
 
+	// The amount of times the player has been injured
+	private int injuryCount = 1;
+
 	/**
 	 * The constructor for the Player object.
+	 * 
 	 * @param name The name of the Player.
 	 * @param rarity The rarity of the Plater.
 	 * @param value	The value of the Player.
@@ -94,6 +98,7 @@ public class Player extends Person {
 
 	/**
 	 * Returns values of the Player in a String format on one line all evenly spaced.
+	 * 
 	 * @return Player values in string format.
 	 */
 	public String toString() {
@@ -106,6 +111,7 @@ public class Player extends Person {
 	
 	/**
 	 * Returns the nickname of the Player.
+	 * 
 	 * @return The nickname of the Player.
 	 */
 	public String getNickname() {
@@ -114,6 +120,7 @@ public class Player extends Person {
 	
 	/**
 	 * Sets the nickname of the Player.
+	 * 
 	 * @param nickname The nickname of the Player.
 	 */
 	public void setNickname(String nickname) {
@@ -122,6 +129,7 @@ public class Player extends Person {
 	
 	/**
 	 * Returns the stats of the Player.
+	 * 
 	 * @return The stats of the Player.
 	 */
 	public int[] getStats() {
@@ -130,6 +138,7 @@ public class Player extends Person {
 
 	/**
 	 * Sets the stats of the Player.
+	 * 
 	 * @param stats The stats of the Player.
 	 */
 	public void setStats(int[] stats) throws IllegalArgumentException {
@@ -143,6 +152,7 @@ public class Player extends Person {
 
 	/**
 	 * Returns the position that the Player plays in. 
+	 * 
 	 * @return the position that the Player plays in.
 	 */
 	public AvailablePositions getPosition() {
@@ -159,6 +169,7 @@ public class Player extends Person {
 	/**
 	 * Sets the stamina of the player. If it is equal to or below 0 it is set to zero and the 
 	 * player is injured.
+	 * 
 	 * @param stamina	The stamina value to give to the player.
 	 */
 	public void setStamina(int stamina) {
@@ -176,7 +187,8 @@ public class Player extends Person {
 
 	/**
 	 * Incriments the stamina of the player by the given amount.
-	 * @param	the stamina amount.
+	 * 
+	 * @param amount the amount of stamina to add.
 	 */
 	public void incStamina(int amount) {
 		this.setStamina(this.stamina + amount);
@@ -184,7 +196,8 @@ public class Player extends Person {
 
 	/**
 	 * Decriments the stamina of the player by the given amount.
-	 * @param	the stamina amount
+	 * 
+	 * @param amount the amount of stamina to remove.
 	 */
 	public void decStamina(int amount) {
 		this.setStamina(this.stamina - amount);
@@ -192,6 +205,7 @@ public class Player extends Person {
 	
 	/**
 	 * Returns the stamina of the player.
+	 * 
 	 * @return	The stamina of the player.
 	 */
 	public int getStamina() {
@@ -200,17 +214,31 @@ public class Player extends Person {
 	
 	/**
 	 * Sets whether the player is injured or not.
-	 * @param injured	The injury status (true or false).
+	 * 
+	 * @param injured The injury status (true or false).
 	 */
 	public void setInjured(boolean injured) {
+		if (injured) {
+			this.injuryCount++;
+		}
 		this.injured = injured;
 	}
 	
 	/**
 	 * Returns whether the playter is injured or not.
-	 * @return	Bool the injury status.
+	 * 
+	 * @return Bool the injury status.
 	 */
 	public boolean isInjured() {
 		return this.injured;
+	}
+
+	/**
+	 * Getter for injuryCount.
+	 * 
+	 * @return The amount of times the player has been injured.
+	 */
+	public int getInjuryCount() {
+		return this.injuryCount;
 	}
 }

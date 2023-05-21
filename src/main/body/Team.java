@@ -487,8 +487,14 @@ public class Team {
      * 
      * @param player The player.
      */
-    public void removePlayer(int playerNum) {
-        this.onTeam.set(playerNum, null);
+    public void removePlayer(Player player) {
+        if (this.onTeam.contains(player)) {
+            int playerNum = this.onTeam.indexOf(player);
+            this.onTeam.set(playerNum, null);
+        } else if (this.onBench.contains(player)) {
+            int playerNum = this.onBench.indexOf(player);
+            this.onBench.set(playerNum, null);
+        }
     }
 
     /**
