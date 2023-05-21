@@ -3,27 +3,52 @@ import java.util.ArrayList;
 
 import main.UI.*;
 
+/**
+ * This class is used to create a game manager object.
+ * 
+ * The {@link GameManager} is the main class of the game.
+ * This class acts as a facade for the {@link GameManagerUI}.
+ */
 public class GameManager {
 
+	// The UI interface for the {@link GameManager}.
 	protected final GameManagerUI UI;
+
+	// The game variables
 	protected int difficulty;
 	protected int seasonLength;
 	protected int money;
 	protected int week;
 	protected String teamName;
+
+	// The players team
 	protected Team playersTeam;
+
+	// The games draft store
 	protected Store drafStore;
+
+	// The games store
 	protected Store store;
+
+	// The games stadium
 	protected Stadium stadium;
 
 
 	////////// Constructor //////////
 
 
+	/**
+	 * This is the constructor for the {@link GameManager} class.
+	 * 
+	 * @param ui The UI interface for the game.
+	 */
 	public GameManager(GameManagerUI ui) {
 		this.UI = ui;
 	}
 
+	/**
+	 * This method is used to start the game.
+	 */
 	public void start() {
 		UI.setup(this);
 	}
@@ -32,46 +57,101 @@ public class GameManager {
 	////////// Getters and Setters //////////
 
 
+	/**
+	 * This method is used to get the difficulty of the game.
+	 * 
+	 * @return The difficulty of the game.
+	 */
 	public int getDifficulty() {
 		return this.difficulty;
 	}
 	
+	/**
+	 * This method is used to get the length of the season.
+	 * 
+	 * @return The length of the season.
+	 */
 	public int getSeasonLength() {
 		return this.seasonLength;
 	}
 
+	/**
+	 * This method is used to get the money of the game.
+	 * 
+	 * @return The money of the game.
+	 */
 	public int getMoney() {
 		return this.money;
 	}
 	
+	/**
+	 * This method is used to set the money of the game.
+	 * 
+	 * @param amount The amount of money to set.
+	 */
 	public void setMoney(int amount) {
 		this.money = amount;
 	}
 
+	/**
+	 * This method is used for incriment the money of the game.
+	 * 
+	 * @param amount The amount of money to incriment by.
+	 */
 	public void incMoney (int amount) {
 		this.money += amount;
 	}
 
+	/**
+	 * This method is used for decriment the money of the game.
+	 * 
+	 * @param amount The amount of money to decriment by.
+	 */
 	public void decMoney (int amount) {
 		this.money -= amount;
 	}
 
+	/**
+	 * This method is used to get the week of the game.
+	 * 
+	 * @return The week of the game.
+	 */
 	public int getWeek() {
 		return this.week;
 	}
 
+	/**
+	 * This method is used to get the player team.
+	 * 
+	 * @return The players team.
+	 */
 	public Team getPlayerTeam() {
 		return this.playersTeam;
 	}
 
+	/**
+	 * This method is used to get the draft store.
+	 * 
+	 * @return The draft store.
+	 */
 	public Store getDraftStore() {
 		return this.drafStore;
 	}
 
+	/**
+	 * This method is used to get the store.
+	 * 
+	 * @return The store.
+	 */
 	public Store getStore() {
 		return this.store;
 	}
 
+	/**
+	 * This method is used to get the stadium.
+	 * 
+	 * @return The stadium.
+	 */
 	public Stadium getStadium() {
 		return this.stadium;
 	}
@@ -86,8 +166,6 @@ public class GameManager {
 	 * @param teamName The name of the players team.
 	 * @param difficulty The difficulty of the game.
 	 * @param seasonLength The length of the season.
-	 * 
-	 * Using: When got values send them here. If they aren't valid, throw an exception.
 	 */
 	public void onSetupFinish(String teamName, int difficulty, int seasonLength) {
 		// Set up the game variables
@@ -132,8 +210,8 @@ public class GameManager {
 	/**
 	 * This function is used when the draft menu is finished to create the players team.
 	 * 
-	 * @param onTeam	The players on the team.
-	 * @param coach		The coach.
+	 * @param onTeam The players on the team.
+	 * @param coach	The coach.
 	 */
 	public void onDraftMenuFinish(ArrayList<Player> onTeam, Coach coach, int money) {
 		// Set money
@@ -177,10 +255,19 @@ public class GameManager {
 	////////// Club Menu //////////
 
 
+	/**
+	 * This function is used when the club menu is finished.
+	 */
 	public void onClubMenuBack() {
 		UI.mainMenu();
 	}
 
+	/**
+	 * This function is used to set a players nickname.
+	 * 
+	 * @param player The player to set the nickname of.
+	 * @param nickname The nickname to set.
+	 */
 	public void setNickname(Player player, String nickname) {
 		try {
 			player.setNickname(nickname);
@@ -191,6 +278,11 @@ public class GameManager {
 		}
 	}
 
+	/**
+	 * This function is used to sell a player
+	 * 
+	 * @param player The player to sell.
+	 */
 	public void sellPlayer(Player player) {
 		try {
 			this.playersTeam.sellPlayer(this, player);
@@ -202,6 +294,12 @@ public class GameManager {
 
 	}
 
+	/**
+	 * This method is used to swap players.
+	 *
+	 * @param teamPlayer The player on the team.
+	 * @param benchPlayer The player on the bench.
+	 */
 	public void swapPlayers(Player teamPlayer, Player benchPlayer) {
 		try {
 			playersTeam.subPlayerSwap(teamPlayer, benchPlayer);
@@ -212,6 +310,11 @@ public class GameManager {
 		}
 	}
 
+	/**
+	 * This method is used to sell an item.
+	 * 
+	 * @param item The item being sold.
+	 */
 	public void sellItem(Item item) {
 		try {
 			this.playersTeam.sellItem(this, item);
@@ -227,12 +330,7 @@ public class GameManager {
 
 
 	/**
-	 * This function is used when the stadium menu is finished.
-	 * 
-	 * @param redirect
-	 * 
-	 * Using: When got values send them here. If they aren't valid, throw an exception.
-	 * If they are valid the function will deal with them.
+	 * This method is used when the stadium menu is finished.
 	 */
 	public void onStadiumMenuBack() {
 		UI.mainMenu();
@@ -254,7 +352,6 @@ public class GameManager {
 
 	/**
 	 * This method is used to take a bye.
-	 * It will either redirect the user to the main menu or end the game.
 	 * 
 	 * @param playerToTrain The player that is being trained.
 	 */
@@ -322,14 +419,17 @@ public class GameManager {
 
 	/**
 	 * This method is used when the store menu is finished.
-	 * @param redirect 		The input from the user.
-	 * @throws Exception 	If the input is invalid.
 	 */
 	public void onStoreMenuBack() {
 		UI.mainMenu();
 	}
 
-
+	/**
+	 * This method is used to buy a player.
+	 * 
+	 * @param player The player being bought.
+	 * @param teamOrBench Where the player is being added to.
+	 */
 	public void buyPlayer(Player player, int teamOrBench) {
 		try {
 			this.playersTeam.buyPlayer(this, player, teamOrBench);
@@ -340,6 +440,11 @@ public class GameManager {
 		}
 	}
 
+	/**
+	 * This method is used to buy a coach.
+	 * 
+	 * @param coach The coach being bought.
+	 */
 	public void buyCoach(Coach coach) {
 		try {
 			this.playersTeam.buyCoach(this, coach);
@@ -350,6 +455,11 @@ public class GameManager {
 		}
 	}
 
+	/**
+	 * This method is used to buy an item.
+	 * 
+	 * @param item The item being bought.
+	 */
 	public void buyItem(Item item) {
 		try {
 			this.playersTeam.buyItem(this, item);
@@ -364,10 +474,16 @@ public class GameManager {
 	////////// End Game //////////
 
 
+	/**
+	 * This method is used when the end game menu is finished.
+	 */
 	public void onEndGameFinish() {
 		UI.quit();
 	}
 
+	/**
+	 * This method is used to quit the game.
+	 */
 	public void quit() {
 		if (UI.confirmQuit()) {
 			UI.quit();

@@ -2,6 +2,9 @@ package main.body;
 
 import java.util.Random;
 
+/**
+ * An enumeration of the positions that a Player can play in.
+ */
 public enum AvailablePositions {
 	/**
 	 * An enumeration of the positions that a Player can play in.
@@ -10,6 +13,7 @@ public enum AvailablePositions {
 
 	/**
 	 * Returns the position in a String format.
+	 * 
 	 * @return The position in a String format.
 	 */
 	public String toString() {
@@ -29,6 +33,7 @@ public enum AvailablePositions {
 
 	/**
 	 * Returns a random position.
+	 * 
 	 * @return A random position.
 	 */
 	public static AvailablePositions getRandomPosition() {

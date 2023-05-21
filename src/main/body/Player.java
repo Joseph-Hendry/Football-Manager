@@ -5,23 +5,33 @@ import java.util.Random;
 
 /**
  *	This class implements the Players the are in the Teams in the game.
- *  It inherits from the Person class.
+ *  Extends the {@link Person} class.
  */
 public class Player extends Person {
+
+	// The nickname of the Player
 	private String nickname;
+
+	// The stats of the Player
 	private int[] stats;
+
+	// The position of the Player
 	private AvailablePositions position;
+
+	// The stamina of the Player
 	private int stamina;
+
+	// The injury status of the Player
 	private boolean injured;
 
 	/**
 	 * The constructor for the Player object.
-	 * @param name		The name of the Player.
-	 * @param rarity	The rarity of the Plater.
-	 * @param value		The value of the Player.
-	 * @param nickname	The nickname of the Player.
-	 * @param stats		The statistics of the player of of 100 in order [passing, tackling, shooting].
-	 * @param position	The position that the Player plays in.
+	 * @param name The name of the Player.
+	 * @param rarity The rarity of the Plater.
+	 * @param value	The value of the Player.
+	 * @param nickname The nickname of the Player.
+	 * @param stats	The statistics of the player of of 100 in order [passing, tackling, shooting].
+	 * @param position The position that the Player plays in.
 	 */
 	public Player(String name, String rarity, int value, String nickname, int[] stats, AvailablePositions position) {
 		super(name, rarity, value);

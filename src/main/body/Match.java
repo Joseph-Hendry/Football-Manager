@@ -21,10 +21,10 @@ public class Match {
     /**
      * This is the constructor for the Match class.
      * 
-     * @param playerTeam 	The player's team.
-     * @param NPCTeam 		The NPC's team.
-     * @param pointsToWin 	The points to win.
-     * @param moneyToWin 	The money to win.
+     * @param playerTeam The player's team.
+     * @param NPCTeam The NPC's team.
+     * @param pointsToWin The points to win.
+     * @param moneyToWin The money to win.
      */
     public Match(Team playerTeam, Team NPCTeam, int pointsToWin, int moneyToWin) {
         this.teams[0] = playerTeam;
@@ -38,8 +38,8 @@ public class Match {
     /**
      * This method is used to find the overall stats of a team.
      * 
-     * @param team 	The team to find the stats of.
-     * @return 		The overall stats of the team.
+     * @param team The team to find the stats of.
+     * @return The overall stats of the team.
      */
     private int[] findTeamStats(Team team) {
         // Initialize the stats
@@ -101,7 +101,7 @@ public class Match {
     /**
      * This method is used to get the score of the match.
      * 
-     * @return  The score of the match.
+     * @return The score of the match.
      */
     public int[] getScore() {
         return score;
@@ -109,7 +109,8 @@ public class Match {
 
     /**
      * This method is used to get the points to win.
-     * @return  The points to win.
+     * 
+     * @return The points to win.
      */
     public int getPoints() {
         return pointsToWin;
@@ -118,7 +119,7 @@ public class Match {
     /**
      * This method is used to get the money to win
      * .
-     * @return  The money to win.
+     * @return The money to win.
      */
     public int getMoney() {
         return moneyToWin;
@@ -127,7 +128,7 @@ public class Match {
     /**
      * This method returns the opposing team.
      * 
-     * @return  The opposing team.
+     * @return The opposing team.
      */
     public Team getOpposingTeam() {
         return teams[1];
@@ -136,7 +137,7 @@ public class Match {
     /**
      * Get NPC team stats
      * 
-     * @return  The NPC team stats.
+     * @return The NPC team stats.
      */
     public int[] getNPCTeamStats() {
         return NPCTeamStats;
@@ -145,7 +146,7 @@ public class Match {
     /**
      * This is the getter for the points to win.
      * 
-     * @return  The points to win.
+     * @return The points to win.
      */
     public int getPointsToWin() {
         return pointsToWin;
@@ -154,7 +155,7 @@ public class Match {
     /**
      * This is the getter for the money to win.
      * 
-     * @return  The money to win.
+     * @return The money to win.
      */
     public int getMoneyToWin() {
         return moneyToWin;
@@ -163,7 +164,7 @@ public class Match {
     /**
      * This is the getter for the commentary list.
      * 
-     * @return  The commentary list.
+     * @return The commentary list.
      */
     public ArrayList<String> getCommentaryList() {
         return commentaryList;
@@ -172,7 +173,7 @@ public class Match {
     /**
      * To string method for the match.
      * 
-     * @return  The string representation of the match.
+     * @return The string representation of the match.
      */
     public String toString() {
         int[] stats = getNPCTeamStats();
@@ -186,17 +187,21 @@ public class Match {
     /**
      * This method is used to play the match.
      * 
-     * @param manager 	The game manager.
+     * @param manager The game manager.
      */
     public void playMatch(GameManager manager) {
+
+        // Set the commentary
         setGameCommentary(manager);
+
+        // Update the game
         onGameEnd(manager);
     }
 
     /**
      * This method is used to set the commentary of the match.
      * 
-     * @param manager 	The game manager.
+     * @param manager The game manager.
      */
     private void setGameCommentary(GameManager manager) {
         // Initialize the variables
@@ -304,7 +309,7 @@ public class Match {
     /**
      * This method is used to update the game after it has ended.
      * 
-     * @param manager 	The game manager.
+     * @param manager The game manager.
      */
     private void onGameEnd(GameManager manager) {
         // Decrease the stamina of the players

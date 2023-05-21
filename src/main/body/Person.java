@@ -2,18 +2,25 @@ package main.body;
 
 /**
  * This class implements a Person that stores a name, rarity and value.
- * The Person class is used in the Player and Coach classes.
+ * The Person class is the parent class of {@link Player} and {@link Coach}.
  */
 public class Person {
+
+	// The name of the Person
 	protected String name;
+
+	// The rarity of the Person
 	protected String rarity;
+
+	// The value of the Person
 	protected int value;
 
 	/**
 	 * Constructor for the Person object.
-	 * @param theName	The name of the Person.
+	 * 
+	 * @param theName The name of the Person.
 	 * @param theRarity	The rarity of the Person.
-	 * @param theValue	The value of the Person.
+	 * @param theValue The value of the Person.
 	 */
 	public Person(String name, String rarity, int value) {
 		this.name = name;
@@ -23,6 +30,7 @@ public class Person {
 	
 	/**
 	 * Returns the name of the Person.
+	 * 
 	 * @return The name of the Person.
 	 */
 	public String getName() {
@@ -31,6 +39,7 @@ public class Person {
 	
 	/**
 	 * Sets the name of the person.
+	 * 
 	 * @param name The name being given to the Person.
 	 */
 	public void setName(String name) {
@@ -39,6 +48,7 @@ public class Person {
 	
 	/**
 	 * Returns the rarity of the Person.
+	 * 
 	 * @return the rarity of the Person.
 	 */
 	public String getRarity() {
@@ -47,6 +57,7 @@ public class Person {
 	
 	/**
 	 * Sets the rarity of the person.
+	 * 
 	 * @param rarity The rarity given to the Person.
 	 */
 	public void setRarity(String rarity) {
@@ -55,6 +66,7 @@ public class Person {
 	
 	/**
 	 * Returns the name of the Person.
+	 * 
 	 * @return the name of the Person.
 	 */
 	public int getValue() {
@@ -63,6 +75,7 @@ public class Person {
 	
 	/**
 	 * Sets the value of the Person in dollars.
+	 * 
 	 * @param value The value of the person in dollars.
 	 */
 	public void setValue(int value) {

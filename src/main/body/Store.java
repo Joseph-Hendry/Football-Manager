@@ -8,10 +8,20 @@ import java.util.Random;
  * It contains the players, coach, and items in the store.
  */
 public class Store {
+
+    // The players in the store
     private ArrayList<Player> storePlayers = new ArrayList<Player>();
+
+    // The coach in the store
     private Coach storeCoach;
+
+    // The items in the store
     private ArrayList<Item> storeItems = new ArrayList<Item>();
+
+    // The draft coaches
     private ArrayList<Coach> draftCoaches = new ArrayList<Coach>();
+
+    // The availability of the coach
     private boolean coachAvailability;
 
 
@@ -22,8 +32,8 @@ public class Store {
      * This is the constructor for the Store class.
      * 
      * @param storePlayers The players in the store.
-     * @param storeCoach   The coach in the store.
-     * @param storeItems   The items in the store.
+     * @param storeCoach The coach in the store.
+     * @param storeItems The items in the store.
      */
     public Store(ArrayList<Player> storePlayers, Coach storeCoach, ArrayList<Item> storeItems, ArrayList<Coach> draftCoaches) {
         this.storePlayers = storePlayers;
@@ -49,7 +59,7 @@ public class Store {
     /**
      * This method is used to get the coach.
      * 
-     * @return  The coach.
+     * @return The coach.
      */
     public Coach getStoreCoach() {
         return storeCoach;
@@ -58,7 +68,7 @@ public class Store {
     /**
      * This method is used to get the items in the store.
      * 
-     * @return  The items in the store.
+     * @return The items in the store.
      */
     public ArrayList<Item> getStoreItems() {
         return storeItems;
@@ -67,7 +77,7 @@ public class Store {
     /**
      * Returns whether the coach is available to sell or not.
      * 
-     * @return	bool.
+     * @return Bool of whether the coach can be bought.
      */
     public boolean getcoachAvailable() {
     	return this.coachAvailability;
@@ -85,7 +95,7 @@ public class Store {
     /**
      * Get the draft coaches.
      * 
-     * @return  The draft coaches.
+     * @return The draft coaches.
      */
     public ArrayList<Coach> getDraftCoaches() {
         return draftCoaches;
@@ -98,7 +108,8 @@ public class Store {
     /**
      * Removes a player from the store.
      * 
-     * @param player    The player to be removed.
+     * @param player The player to be removed.
+     * @throws IllegalArgumentException If the player is not in the store.
      */
     public void removePlayer(Player player) throws IllegalArgumentException {
     	if (this.getStorePlayers().contains(player)) {
@@ -112,6 +123,7 @@ public class Store {
      * Removes and item from the items available in the shop if the item is in the shop.
      * 
      * @param item  The item you want to remove.
+     * @throws IllegalArgumentException If the item is not in the store.
      */
     public void removeItem(Item item) throws IllegalArgumentException {
     	if (this.storeItems.contains(item)) {
@@ -127,7 +139,8 @@ public class Store {
 
     /**
      * This method is used to create a random draft store.
-     * @param intRarity
+     * 
+     * @param intRarity The rarity of the items in the store.
      */
     public static Store createDraftStore(int intRarity) {
         Random random = new Random();
@@ -135,9 +148,11 @@ public class Store {
         int rarity;
         int coahcrarity;
 
+        // Creates epmty lists
         ArrayList<Player> storePlayers = new ArrayList<Player>();
         ArrayList<Coach> draftCoaches = new ArrayList<Coach>();
 
+        // Creates a onTeam of random players for each position.
         int i = 0;
         for (AvailablePositions position : AvailablePositions.values()) {
             for (int j = 0; j < Team.getFormation()[i] + 2; j++) {
@@ -149,12 +164,14 @@ public class Store {
             i++;
         }
 
+        // Creates 5 random coaches
         for (int j = 0; j < 5; j++) {
             variety = random.nextInt(30) - 15;
             coahcrarity = intRarity + variety;
             draftCoaches.add(Coach.createRandomCoach(Team.getStrRarity(coahcrarity)));
         }
 
+        // Returns the store
         return new Store(storePlayers, null, null, draftCoaches);
     }
 
@@ -168,7 +185,10 @@ public class Store {
         int variety;
         int rarity;
 
+        // Clear the store
         storePlayers.clear();
+
+        // Creates a onTeam of random players for each position.
         for (AvailablePositions position : AvailablePositions.values()) {
             variety = random.nextInt(20) - 10; 
         	rarity = intRarity + variety;
@@ -176,11 +196,13 @@ public class Store {
             storePlayers.add(teamPlayer);
         }
 
+        // Creates a random coach
         variety = random.nextInt(20) - 10;
         int coahcrarity = intRarity + variety;
         storeCoach = Coach.createRandomCoach(Team.getStrRarity(coahcrarity));
         this.coachAvailability = true;
 
+        // Creates 5 random items
         storeItems.clear();
         for (int i = 0; i < 5; i++) {
             variety = random.nextInt(20) - 10;
@@ -188,20 +210,19 @@ public class Store {
             Item item = Item.createRandomItem(Team.getStrRarity(rarity));
             storeItems.add(item);
         }
-
-        
     }
 
     /**
      * This method generates a random basic store with rarity Bronze.
      * 
-     * @return  A random basic store.
+     * @return A random basic store.
      */
     public static Store createStore(int intRarity) {
     	Random random = new Random();
         int variety;
         int rarity;
 
+        // Initialise the store variables
     	Coach storeCoach;
         ArrayList<Player> storePlayers = new ArrayList<Player>();
         ArrayList<Item> storeItems = new ArrayList<Item>();
@@ -214,10 +235,12 @@ public class Store {
             storePlayers.add(teamPlayer);
         }
     
+        // Creates a random coach
         variety = random.nextInt(20) - 10; 
         rarity = intRarity + variety;
         storeCoach = Coach.createRandomCoach(Team.getStrRarity(rarity));
-            
+        
+        // Creates 5 random items
         for (int i = 0; i < 5; i++) {
             variety = random.nextInt(20) - 10; 
         	rarity = intRarity + variety;
@@ -225,6 +248,7 @@ public class Store {
             storeItems.add(item);
         }
 
+        // Returns the store
         return new Store(storePlayers, storeCoach, storeItems, null);
     }
 }

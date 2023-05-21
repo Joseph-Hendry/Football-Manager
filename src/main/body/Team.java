@@ -9,22 +9,38 @@ import java.util.Random;
  */
 public class Team {
 
+    // The formation of the team
     private final static int[] formation = {4, 3, 3, 1};
+
+    // The positions of the formation
     private final static AvailablePositions[] formationPostion = {AvailablePositions.DEFENCE, AvailablePositions.DEFENCE, AvailablePositions.DEFENCE, AvailablePositions.DEFENCE,
                                                                 AvailablePositions.MIDFIELD, AvailablePositions.MIDFIELD, AvailablePositions.MIDFIELD, 
                                                                 AvailablePositions.STRIKER, AvailablePositions.STRIKER, AvailablePositions.STRIKER, 
                                                                 AvailablePositions.GOALKEEPER};
+
+    // The names of the teams
     private final static String[] names = {"Arsenal", "Aston Villa", "Bournemouth", "Brighton", "Burnley"};
+
+    // The list of teams
     private static ArrayList<Team> teamList = new ArrayList<Team>();
+
+    // The name of the team
     private String name;
+
+    // Lists of team players, bench players and items
     private ArrayList<Player> onTeam;
     private ArrayList<Player> onBench;
     private ArrayList<Item> items;
+
+    // The coach of the team
     private Coach coach;
+
+    // The points of the team
     private int points;
 
     /**
      * This is the constructor for the Team class.
+     * 
      * @param name The name of the team.
      * @param onTeam The players on the team.
      * @param onBench The players on the bench.
@@ -33,18 +49,22 @@ public class Team {
      */
     public Team(String name, ArrayList<Player> onTeam, ArrayList<Player> onBench, ArrayList<Item> items, Coach coach, int points) {
 
+        // Initialise variables
         this.name = name;
         this.onTeam = onTeam;
         this.onBench = onBench;
         this.items = items;
         this.coach = coach;
         this.points = points;
+
+        // Add team to teamList
         teamList.add(this);
     }
 
     /**
      * This method is used to create a random team.
-     * @param rarity The difficulty of the team.
+     * 
+     * @param intRarity The difficulty of the team.
      * @return A random team.
      */
     public static void createNPCTeams(int intRarity) {
@@ -53,7 +73,13 @@ public class Team {
         }
     }
 
+    /**
+     * This method is used to reset the NPC teams to make them harder.
+     * 
+     * @param intRarity The difficulty of the team.
+     */
     public void resetNPCTeams(int intRarity) {
+        // Reset the NPC teams
         for (Team temp : teamList) {
             if (temp != this) {
                 Coach tempCoach = Coach.createRandomCoach(getStrRarity(intRarity));
@@ -83,7 +109,9 @@ public class Team {
 
     /**
      * This method is used to generate a random team based on difficulty.
-     * @param rarity The difficulty of the team.
+     * 
+     * @param intRarity The difficulty of the team.
+     * @param name The name of the team.
      * @return A random team.
      */
      public static Team createRandomTeam(int intRarity, String name) {
@@ -97,17 +125,17 @@ public class Team {
         
         Coach coach = Coach.createRandomCoach(getStrRarity(intRarity + coachVariety));
 
-
-        // Creates a onTeam of random players depending on the formation.
-        // Adds one player to the bench for each position.
         int i = 0;
         for (AvailablePositions position : AvailablePositions.values()) {
+            // Creates a onTeam of random players for number of players in the formation.
             for (int j = 0; j < formation[i]; j++) {
             	int playerVariety = random.nextInt(20) - 10; 
             	int playerRarity = intRarity + playerVariety;
                 Player teamPlayer = Player.createRandomPlayer(getStrRarity(playerRarity), position);
                 onTeam.add(teamPlayer);
             }
+
+            // Creates a onBench of random players for number of players in the formation.
             int benchVariety = random.nextInt(20) - 10; 
         	int benchRarity = intRarity + benchVariety;
             Player benchPlayer = Player.createRandomPlayer(getStrRarity(benchRarity), position);
@@ -121,8 +149,9 @@ public class Team {
      
  	/**
  	 * Converts a range of 0-100 into its rarity type.
+
  	 * @param intRarity	The int value of the rarity.
- 	 * @return	The string rarity.
+ 	 * @return The string rarity.
  	 */
  	public static String getStrRarity(int intRarity) {
  	if (intRarity <= 50) {
@@ -138,6 +167,7 @@ public class Team {
 
     /**
      * This method is used to get the name of the team.
+     * 
      * @return The name of the team.
      */
     public String getName() {
@@ -146,6 +176,7 @@ public class Team {
 
     /**
      * This method is used to set the name of the team.
+     * 
      * @param name The name of the team.
      */
     public void setName(String name) {
@@ -154,6 +185,7 @@ public class Team {
 
     /**
      * This method is used to get the players on the team.
+     * 
      * @return The players on the team.
      */
     public ArrayList<Player> getTeam() {
@@ -162,6 +194,7 @@ public class Team {
 
     /**
      * This method is used to set the players on the team.
+     * 
      * @param onTeam The players on the team.
      */
      public void setTeam(ArrayList<Player> onTeam) {
@@ -171,18 +204,24 @@ public class Team {
     /**
      * This method removes a player from the team.
      * 
-     * @param player	The player.
+     * @param player The player.
      */
     public void removePlayer(int playerNum) {
         this.onTeam.set(playerNum, null);
     }
 
+    /**
+     * This method is used to add a player to the team.
+     * 
+     * @param player The player.
+     */
     public void addPlayerToBench(Player player, int playerNum) {
         this.onBench.set(playerNum, player);
     }
 
     /**
      * This method is used to get the players on the bench.
+     * 
      * @return The players on the bench.
      */
     public ArrayList<Player> getBench() {
@@ -206,9 +245,12 @@ public class Team {
 
     /**
      * This method removes a player from the team.
-     * Throws an exception if the player does not exist.
+     * 
+     * @param manager The game manager.
+     * @param player The player.
+     * @throws IllegalArgumentException If the player does not exist.
      */
-    public void sellPlayer(GameManager manager, Player player) throws Exception {
+    public void sellPlayer(GameManager manager, Player player) throws IllegalArgumentException {
         if (player != null) {
             if (this.onTeam.contains(player)) {
                 int playerNum = this.onTeam.indexOf(player);
@@ -228,9 +270,10 @@ public class Team {
 
     /**
      * This method is used to sub two players.
-     * Throws an exception if one of the players does not exist or if the players do not have the same position.
+     * 
      * @param playerOnTeam This is the player on the team going onto bench.
      * @param playerOnBench This is the player on the bench going onto the team.
+     * @throws Exception If players cannot be swapped.
      */
     public void subPlayerSwap(Player teamPlayer, Player benchPlayer) throws Exception {
         if (this.onTeam.contains(teamPlayer) && this.onBench.contains(benchPlayer)) {
@@ -251,6 +294,13 @@ public class Team {
         }
     }
 
+    /**
+     * This method is used to sell and item.
+     * 
+     * @param manager The game manager.
+     * @param item The item.
+     * @throws IllegalArgumentException If the item does not exist.
+     */
     public void sellItem(GameManager manager, Item item) throws IllegalArgumentException {
         if (this.items.contains(item)) {
             manager.incMoney(item.getValue());
@@ -260,6 +310,13 @@ public class Team {
         }
     }
 
+    /**
+     * This method is used to buy an item.
+     * 
+     * @param manager The game manager.
+     * @param item The item being bought.
+     * @throws IllegalArgumentException
+     */
     public void buyItem(GameManager manager, Item item) throws IllegalArgumentException {
         if (this.items.size() >= 3) {
             throw new IllegalArgumentException("You can only have 3 items.");
@@ -274,10 +331,20 @@ public class Team {
             }
     }
 
+    /**
+     * This method is used to buy a player.
+     * 
+     * @param manager The game manager.
+     * @param player The player being bought.
+     * @param teamOrBench Whether the player is being added to the team or bench.
+     * @throws IllegalArgumentException If the player cannot be bought.
+     */
     public void buyPlayer(GameManager manager, Player player, int teamOrBench) throws IllegalArgumentException {
+        // If adding to team
         if (teamOrBench == 1) {
             if (manager.getStore().getStorePlayers().contains(player)) {
                 if (manager.getMoney() >= player.getValue()) {
+                    // Check for an empty spot on the team
                     for (int i = 0; i < this.onTeam.size(); i++) {
                         if (this.onTeam.get(i) == null) {
                             manager.decMoney(player.getValue());
@@ -293,9 +360,11 @@ public class Team {
             } else {
                 throw new IllegalArgumentException("Player does not exist.");
             }
+        // If adding to bench
         } else if (teamOrBench == 0) {
             if (manager.getStore().getStorePlayers().contains(player)) {
                 if (manager.getMoney() >= player.getValue()) {
+                    // Check for an empty spot on the bench
                     for (int i = 0; i < this.onBench.size(); i++) {
                         if (this.onBench.get(i) == null) {
                             manager.decMoney(player.getValue());
@@ -316,6 +385,13 @@ public class Team {
         }
     }
 
+    /**
+     * This method is used to buy a coach.
+     * 
+     * @param manager The game manager.
+     * @param coach The coach being bought.
+     * @throws IllegalArgumentException If the coach cannot be bought.
+     */
     public void buyCoach(GameManager manager, Coach coach) throws IllegalArgumentException {
         if (manager.getStore().getStoreCoach() == coach) {
             if (manager.getMoney() >= coach.getValue()) {
@@ -332,6 +408,7 @@ public class Team {
 
     /**
      * This method is used to get the teams items.
+     * 
      * @return The teams items.
      */
     public ArrayList<Item> getItems() {
@@ -340,6 +417,7 @@ public class Team {
 
     /**
      * This method is used to add an item to the team.
+     * 
      * @param item The added item.
      */
     public void addItem(Item item) throws Exception {
@@ -351,6 +429,7 @@ public class Team {
 
     /**
      * This method is used to remove an item from the team.
+     * 
      * @param item The removed item.
      */
     public void removeItem(Item item) {
@@ -359,6 +438,7 @@ public class Team {
 
     /**
      * This method is used to get the coach of the team.
+     * 
      * @return The coach of the team.
      */
     public Coach getCoach() {
@@ -367,6 +447,7 @@ public class Team {
 
     /**
      * This method is used to set the coach of the team.
+     * 
      * @param coach The coach of the team.
      */
     public void setCoach(Coach coach) {
@@ -375,6 +456,7 @@ public class Team {
 
     /** 
      * This method is used to get the points of the team.
+     * 
      * @return The points of the team.
      */
     public int getPoints() {
@@ -383,6 +465,7 @@ public class Team {
 
     /**
      * This method is used to set the rank of the team.
+     * 
      * @param rank The rank of the team.
      */
     public void setPoints(int points) {
@@ -391,23 +474,27 @@ public class Team {
     
     /**
      * Adds a player onto the bench.
-     * @param player	The player.
+     * 
+     * @param player The player.
+     * @throws IllegalArgumentException If the bench is full.
      */
-    public void addPlayerToBench(Player player) throws Exception {
+    public void addPlayerToBench(Player player) throws IllegalArgumentException {
         for (int i = 0; i < this.onBench.size(); i++) {
             if (this.onBench.get(i) == null) {
                 this.onBench.set(i, player);
                 return;
             }
         }
-        throw new Exception("Bench is full");
+        throw new IllegalArgumentException("Bench is full");
     }
     
     /**
      * Adds a player onto the bench.
-     * @param player	The player.
+     * 
+     * @param player The player.
+     * @throws IllegalArgumentException If the team is full.
      */
-    public void addPlayerToTeam(Player player) throws Exception {
+    public void addPlayerToTeam(Player player) throws IllegalArgumentException {
         AvailablePositions position = player.getPosition();
         int i = 0;
         for (AvailablePositions pos : AvailablePositions.values()) {
@@ -421,7 +508,7 @@ public class Team {
             }
             i++;
         }
-        throw new Exception("No room in team for this players position.");
+        throw new IllegalArgumentException("No room in team for this players position.");
     }
 
     /**
@@ -433,6 +520,7 @@ public class Team {
 
     /**
      * This method is used to get the teamList.
+     * 
      * @return The teamList.
      */
     public static ArrayList<Team> getTeamList() {
@@ -441,6 +529,7 @@ public class Team {
 
     /**
      * This method return the formation of the team.
+     * 
      * @return The formation of the team.
      */
     public static int[] getFormation() {

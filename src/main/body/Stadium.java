@@ -11,8 +11,14 @@ import java.util.Random;
  * From the stadium the player can also take a bye.
  */
 public class Stadium {
+
+    // The GameManager that is being used
     private GameManager manager;
+
+    // The team that the player is using
     private Team playerTeam;
+
+    // The possible matches
     private ArrayList<Match> possibleMatches = new ArrayList<Match>();
 
 
@@ -23,12 +29,16 @@ public class Stadium {
      * This method is used to initialize the stadium.
      * It generates the NPC teams and sets the possible matches.
      * 
-     * @param manager       The GameManager that is being used.
-     * @param playerTeam    The team that the player is using.
+     * @param manager The GameManager that is being used.
+     * @param playerTeam The team that the player is using.
      */
     public Stadium(GameManager manager, Team playerTeam) {
+
+        // Set the GameManager and playerTeam
         this.manager = manager;
         this.playerTeam = playerTeam;
+
+        // Generate the NPC teams and set the possible matches
         generateNPCTeams(manager);
         setPossibleMatches();
     }
@@ -37,7 +47,7 @@ public class Stadium {
      * This method is used to generate the NPC teams.
      * It uses the difficulty calculated in the GameManager.
      * 
-     * @param manager   The GameManager that is being used.
+     * @param manager The GameManager that is being used.
      */
     private void generateNPCTeams(GameManager manager) {
         Team.createNPCTeams(manager.getRarityInt());
@@ -129,18 +139,19 @@ public class Stadium {
     /**
      * This method is used to check if the player can play a match.
      * 
-     * @return  If the player can play a match.
+     * @return If the player can play a match.
+     * @throws IllegalArgumentException If the player cannot play a match.
      */
-    private void canPlayMatch(Match match) throws Exception {
+    private void canPlayMatch(Match match) throws IllegalArgumentException {
         // Check if any of the players are injured
         if (match != null) {
             for (Player player : playerTeam.getTeam()) {
                 if (player.isInjured() || player == null) {
-                    throw new Exception("You cannot play a match as one of your players is injured.");
+                    throw new IllegalArgumentException("You cannot play a match as one of your players is injured.");
                 }
             }
         } else {
-            throw new Exception("Please select a match.");
+            throw new IllegalArgumentException("Please select a match.");
         }
     }
 
@@ -148,7 +159,7 @@ public class Stadium {
      * This method is used to update the points of the other teams.
      * Gives a random amount of points to the other teams.
      * 
-     * @param playedMatch   The match that was played.
+     * @param playedMatch The match that was played.
      */
     public void updateMatchPoints(Match playedMatch) {
         for (Match match : possibleMatches) {
@@ -171,8 +182,14 @@ public class Stadium {
      * @param playerToTrain The player that is being trained.
      */
     public void takeBye(Player playerToTrain) {
+
+        // Train the player and increase the stamina of the players
         trainPlayer(playerToTrain);
+
+        // Increase all player stamina
         byeStamina();
+
+        // Update the points of the other teams
         updateByePoints();
     }
 
@@ -229,7 +246,7 @@ public class Stadium {
     /**
      * This method is used to generate a random event.
      * 
-     * @param manager   The GameManager that is being used.
+     * @param manager The GameManager that is being used.
      */
     public void randomEvent(GameManager manager) {
         Random random = new Random();
@@ -246,7 +263,7 @@ public class Stadium {
     /**
      * This method is used to increase the stats of a random player.
      * 
-     * @param manager   The GameManager that is being used.
+     * @param manager The GameManager that is being used.
      */
     private void randomPlayerStats(GameManager manager) {
 
@@ -271,7 +288,7 @@ public class Stadium {
     /**
      * This method is used to make a random player quit.
      * 
-     * @param manager   The GameManager that is being used.
+     * @param manager The GameManager that is being used.
      */
     private void randomPlayerQuit(GameManager manager) {
 
@@ -285,7 +302,7 @@ public class Stadium {
     /**
      * This method is used to add a random player to the team.
      * 
-     * @param manager   The GameManager that is being used.
+     * @param manager The GameManager that is being used.
      */
     private void randomNewPlayer(GameManager manager) {
 

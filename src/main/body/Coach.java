@@ -5,17 +5,20 @@ import java.util.Random;
 /**
  * This class implements a Coach.
  * This stores a name, rarity, value and stats.
+ * Extends the {@link Person} class.
  */
 public class Coach extends Person {
+
+	// The stats of the Coach
     private int[] stats = new int[3];
 
     /**
      * The constructor for the Coach object.
 	 * 
-     * @param name 		The name of the Coach.
-     * @param rarity 	The rarity of the Coach.
-     * @param value 	The value of the Coach.
-     * @param stats 	The statistics of the Coach of of 100 in order [passing, tackling, shooting].
+     * @param name The name of the Coach.
+     * @param rarity The rarity of the Coach.
+     * @param value The value of the Coach.
+     * @param stats The statistics of the Coach of of 100 in order [passing, tackling, shooting].
      */
     public Coach(String name, String rarity, int value, int[] stats) {
         super(name, rarity, value);
@@ -25,8 +28,8 @@ public class Coach extends Person {
     /**
 	 * Creates and returns a random coach with the given rarity.
 	 * 
-	 * @param rarity 	The rarity of the Coach.
-	 * @return 			The random Coach with the given rarity.
+	 * @param rarity The rarity of the Coach.
+	 * @return The random Coach with the given rarity.
 	 */
 	public static Coach createRandomCoach(String rarity) {
 
@@ -75,7 +78,7 @@ public class Coach extends Person {
     /**
 	 * Returns values of the Coach in a String format.
 	 * 
-	 * @return 	Coach values in string format.
+	 * @return Coach values in string format.
 	 */
 	public String toString() {
 		return String.format("%-10s %-2s %-2s %-5s %-4s", this.name, this.stats[0], this.stats[1], this.stats[2], this.value);
@@ -84,7 +87,7 @@ public class Coach extends Person {
     /**
      * This method is used to get the stats of the Coach.
 	 * 
-     * @return 	The stats of the Coach.
+     * @return The stats of the Coach.
      */
     public int[] getStats() {
         return this.stats;
