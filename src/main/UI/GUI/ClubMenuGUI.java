@@ -288,7 +288,9 @@ public class ClubMenuGUI extends Window{
 		frame.getContentPane().add(btnSellPlayer);
 		btnSellPlayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (selectedObject.getClass() == Player.class) {
+				if (selectedObject == null) {
+					JOptionPane.showMessageDialog(frame, "Please select something to sell.", "Sell", JOptionPane.ERROR_MESSAGE);
+				} else if (selectedObject.getClass() == Player.class) {
 					if (selectedObject != null) {
 						getManager().sellPlayer((Player) selectedObject);
 					}
@@ -296,8 +298,6 @@ public class ClubMenuGUI extends Window{
 					if (selectedObject != null) {
 						getManager().sellItem((Item) selectedObject);
 					}
-				} else {
-					JOptionPane.showMessageDialog(frame, "Please select a player or item to sell.", "Sell", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
