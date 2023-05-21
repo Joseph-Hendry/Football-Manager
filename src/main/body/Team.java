@@ -285,6 +285,7 @@ public class Team {
 
  	 * @param intRarity	The int value of the rarity.
  	 * @return The string rarity.
+ 	 * @throws IllegalArgumentException If the integer rarity value passed in is not within the accepted range.
  	 */
  	public static String getStrRarity(int intRarity) throws IllegalArgumentException {
  	if (intRarity < 0 || intRarity > 100) {
@@ -486,14 +487,17 @@ public class Team {
      * This method removes a player from the team.
      * 
      * @param player The player.
+     * @throws IllegalArgumentException if the player is not on the team.
      */
-    public void removePlayer(Player player) {
+    public void removePlayer(Player player) throws IllegalArgumentException {
         if (this.onTeam.contains(player)) {
             int playerNum = this.onTeam.indexOf(player);
             this.onTeam.set(playerNum, null);
         } else if (this.onBench.contains(player)) {
             int playerNum = this.onBench.indexOf(player);
             this.onBench.set(playerNum, null);
+        } else {
+        	throw new IllegalArgumentException("This player is not on the team.");
         }
     }
 
@@ -501,6 +505,7 @@ public class Team {
      * This method is used to add an item to the team.
      * 
      * @param item The added item.
+     * @throws IllegalArgumentException If the team already has 3 items.
      */
     public void addItem(Item item) throws IllegalArgumentException {
         if (this.items.size() >= 3) {
@@ -513,6 +518,7 @@ public class Team {
      * This method is used to remove an item from the team.
      * 
      * @param item The removed item.
+     * @throws IllegalArgumentException if the item is not in the teams inventory.
      */
     public void removeItem(Item item) throws IllegalArgumentException {
     	if (this.getItems().contains(item)) {

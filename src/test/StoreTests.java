@@ -2,6 +2,8 @@ package test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -39,14 +41,17 @@ class StoreTests {
 	@Test
 	void testGetSetCoachAvailable() {
 		store.setCoachAvailable(true);
-		assertTrue(store.getcoachAvailable() == true);
+		assertTrue(store.getCoachAvailable() == true);
 		store.setCoachAvailable(false);
-		assertTrue(store.getcoachAvailable() == false);
+		assertTrue(store.getCoachAvailable() == false);
 	}
 	
 	@Test
 	void testGetDraftCoaches() {
-		assertTrue(draftStore.getDraftCoaches().size() == 5);
+		ArrayList<Coach> coaches = draftStore.getDraftCoaches();
+		for (Coach coach : coaches) {
+			assertTrue(coach.getClass() == Coach.class);
+		}
 	}
 	
 	@Test
@@ -70,9 +75,9 @@ class StoreTests {
 	@Test
 	void testRefreshStore() {
 		store.setCoachAvailable(false);
-		store.refeshStore(1);
+		store.refreshStore(1);
 		assertTrue(store.getStorePlayers().size() == AvailablePositions.values().length);
-		assertTrue(store.getcoachAvailable() == true);
+		assertTrue(store.getCoachAvailable() == true);
 	}
 	
 

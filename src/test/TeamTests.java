@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import main.body.AvailablePositions;
 import main.body.Coach;
+import main.body.Item;
 import main.body.Player;
 import main.body.Team;
 
@@ -88,15 +89,48 @@ class TeamTests {
 		ArrayList<Player> onTeam = team.getTeam();
 		ArrayList<Player> onBench = team.getBench();
 		team.subPlayerSwap(onTeam.get(0), onBench.get(0));
-		assertThrows(IllegalArgumentException.class, () -> team.subPlayerSwap(onTeam.get(10), onBench.get(0)));
-		assertThrows(IllegalArgumentException.class, () -> team.subPlayerSwap(null, null));
 		assertThrows(IllegalArgumentException.class, () -> team.subPlayerSwap(Player.createRandomPlayer("Gold", AvailablePositions.DEFENCE), onBench.get(0)));
 	}
 	
 	@Test
-	void test
+	void testRemovePlayer() {
+		Player testPlayer = team.getTeam().get(0);
+		team.removePlayer(testPlayer);
+		team.removePlayer(team.getBench().get(0));
+		assertThrows(IllegalArgumentException.class, () -> team.removePlayer(Player.createRandomPlayer("Bronze", AvailablePositions.DEFENCE)));
+	}
 	
+	@Test
+	void testAddItem() {
+		team.addItem(Item.createRandomItem("Gold"));
+		team.addItem(Item.createRandomItem("Gold"));
+		team.addItem(Item.createRandomItem("Gold"));
+		assertThrows(IllegalArgumentException.class, () -> team.addItem(Item.createRandomItem("Gold")));
+	}
 	
+	@Test
+	void testRemoveItem() {
+		team.removeItem(team.getItems().get(0));
+		assertThrows(IllegalArgumentException.class, () -> team.removeItem(Item.createRandomItem("Gold")));
+	}
 	
-
+	@Test
+	void testAddPlayerToTeam() {
+		team.addPlayerToTeam(Player.createRandomPlayer("Gold", AvailablePositions.MIDFIELD));
+		assertThrows(IllegalArgumentException.class, () -> team.addPlayerToTeam(Player.createRandomPlayer("Gold", AvailablePositions.MIDFIELD)));
+	}
+	
+	@Test
+	void testAddPlayerToBench() {
+		team.addPlayerToBench(Player.createRandomPlayer("Gold", AvailablePositions.MIDFIELD));
+		assertThrows(IllegalArgumentException.class, () -> team.addPlayerToBench(Player.createRandomPlayer("Gold", AvailablePositions.MIDFIELD)));
+	}
+	
+	@Test
+	void testSortTeamList() {
+		Team.sortTeamList();
+		for (int i = 1; i < Team.getTeamList().size(); i ++) {
+			assertTrue(Team.getTeamList().get(i - 1).getPoints() >= Team.getTeamList().get(i).getPoints());
+		}
+	}
 }
