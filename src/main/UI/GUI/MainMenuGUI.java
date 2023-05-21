@@ -7,6 +7,7 @@ import java.awt.Font;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.SwingConstants;
 
 /**
@@ -73,6 +74,8 @@ public class MainMenuGUI extends Window {
 	 * @param frame The frame to add the buttons to.
 	 */
 	private void addButtons(JFrame frame) {
+
+		// Create the club button
 		btnClub = new JButton("Club");
 		btnClub.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnClub.setBounds(60, 75, 300, 60);
@@ -81,6 +84,7 @@ public class MainMenuGUI extends Window {
 			getManager().onMainMenuFinish(0);
 		});
 		
+		// Create the stadium button
 		btnStadium = new JButton("Stadium");
 		btnStadium.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnStadium.setBounds(60, 150, 300, 60);
@@ -89,6 +93,7 @@ public class MainMenuGUI extends Window {
 			getManager().onMainMenuFinish(1);
 		});
 		
+		// Create the store button
 		btnStore = new JButton("Store");
 		btnStore.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnStore.setBounds(60, 225, 300, 60);
@@ -97,12 +102,17 @@ public class MainMenuGUI extends Window {
 			getManager().onMainMenuFinish(2);
 		});
 
+		// Create the finish season button
 		btnFinish = new JButton("Finish Season");
 		btnFinish.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnFinish.setBounds(60, 300, 300, 60);
 		frame.getContentPane().add(btnFinish);
 		btnFinish.addActionListener(e -> {
-			getManager().onGameFinish();
+			// Check if the user wants to finish the season
+			int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to finish the season?", "Finish Season", JOptionPane.YES_NO_OPTION);
+			if (dialogResult == JOptionPane.YES_OPTION) {
+				getManager().onGameFinish();;
+			}
 		});
 	}
 }
