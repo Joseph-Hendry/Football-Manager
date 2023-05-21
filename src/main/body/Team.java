@@ -371,6 +371,16 @@ public class Team {
                             return;
                         }
                     }
+                    // Add player to bench then swap with player on team with same position
+                    addPlayerToBench(player);
+                    for (Player teamPlayer : this.onTeam) {
+                        if (teamPlayer != null) {
+                            if (teamPlayer.getPosition() == player.getPosition()) {
+                                subPlayerSwap(teamPlayer, player);
+                                return;
+                            }
+                        }
+                    }
                     throw new IllegalArgumentException("Team is full");
                 } else {
                     throw new IllegalArgumentException("You do not have enough money.");
@@ -486,9 +496,9 @@ public class Team {
      * 
      * @param item The added item.
      */
-    public void addItem(Item item) throws Exception {
+    public void addItem(Item item) throws IllegalArgumentException {
         if (this.items.size() >= 3) {
-            throw new Exception("You can only have 3 items.");
+            throw new IllegalArgumentException("You can only have 3 items.");
         }
         this.items.add(item);
     }
