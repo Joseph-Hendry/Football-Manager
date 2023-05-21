@@ -104,7 +104,7 @@ public class MainMenuGUI extends Window {
 		btnFinish.setBounds(60, 300, 300, 60);
 		frame.getContentPane().add(btnFinish);
 		btnFinish.addActionListener(e -> {
-			getManager().onEndGameFinish();
+			getManager().onGameFinish();
 		});
 	}
 }

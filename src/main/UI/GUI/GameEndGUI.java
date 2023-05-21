@@ -28,7 +28,7 @@ public class GameEndGUI extends Window {
 	 */
 	@Override
 	protected void initialise(JFrame frame) {
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(0, 0, 450, 300);
 
 		addLabels(frame);
 		addButtons(frame);

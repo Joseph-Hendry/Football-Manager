@@ -52,7 +52,7 @@ public class PlayMatchGUI extends Window {
 	 * @param frame The frame to add the contents to.
 	 */
 	protected void initialise(JFrame frame) {
-		frame.setBounds(100, 50, 560, 1000);
+		frame.setBounds(0, 0, 560, 1000);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 

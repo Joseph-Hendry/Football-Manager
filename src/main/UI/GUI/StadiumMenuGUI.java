@@ -45,7 +45,7 @@ public class StadiumMenuGUI extends Window {
 	 */
 	@Override
 	protected void initialise(JFrame frame) {
-		frame.setBounds(100, 100, 480, 270);
+		frame.setBounds(0, 0, 480, 270);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 
