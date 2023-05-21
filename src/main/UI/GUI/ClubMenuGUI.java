@@ -30,12 +30,13 @@ import javax.swing.JTextArea;
  */
 public class ClubMenuGUI extends Window{
 
-	// The selected player
-	private Player selectedPlayer;
+	// The selected object
+	private Object selectedObject;
 
 	// The JLists for the players and reserves
 	private JList<Player> listPlayers;
-	private JList<Player> listReserves;
+	private JList<Player> reservesJList;
+	private JList<Item> itemsJList;
 
 	/**
 	 * Create the application.
@@ -53,9 +54,9 @@ public class ClubMenuGUI extends Window{
 	 */
 	@Override
 	protected void initialise(JFrame frame) {
-		frame.getContentPane().setBackground(new Color(240, 240, 240));
-		frame.setBounds(100, 100, 750, 500);
+		frame.setBounds(0, 0, 750, 470);
 		frame.getContentPane().setLayout(null);
+		frame.setResizable(false);
 
 		addLabels(frame);
 		addLists(frame);
@@ -73,7 +74,7 @@ public class ClubMenuGUI extends Window{
 		JLabel lblTitle = new JLabel("Club Menu");
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTitle.setBounds(322, 11, 93, 28);
+		lblTitle.setBounds(0, 10, 750, 30);
 		frame.getContentPane().add(lblTitle);
 		
 		JLabel lblTeamNameDesc = new JLabel("Team Name");
@@ -82,13 +83,20 @@ public class ClubMenuGUI extends Window{
 		lblTeamNameDesc.setBounds(10, 56, 239, 17);
 		frame.getContentPane().add(lblTeamNameDesc);
 
-		JLabel lblPlayerList = new JLabel("Name             Stats                    Stamina     Position           Value");
-		lblPlayerList.setBounds(10, 157, 359, 14);
+		JLabel lblPlayerList = new JLabel("Name       ATK MID DEF STAM   Poistion     Value");
+		lblPlayerList.setBounds(10, 155, 360, 14);
+		lblPlayerList.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		frame.getContentPane().add(lblPlayerList);
 		
-		JLabel lblReserveList = new JLabel("Name             Stats                    Stamina     Position           Value");
-		lblReserveList.setBounds(371, 157, 359, 14);
+		JLabel lblReserveList = new JLabel("Name       ATK MID DEF STAM   Poistion     Value");
+		lblReserveList.setBounds(380, 155, 360, 15);
+		lblReserveList.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		frame.getContentPane().add(lblReserveList);
+
+		JLabel lblItemsList = new JLabel("Name       ATK MID DEF Value");
+		lblItemsList.setBounds(380, 285, 360, 15);
+		lblItemsList.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		frame.getContentPane().add(lblItemsList);
 
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
@@ -105,14 +113,20 @@ public class ClubMenuGUI extends Window{
 		JLabel lblTeamTitle = new JLabel("Team");
 		lblTeamTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTeamTitle.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTeamTitle.setBounds(161, 129, 46, 14);
+		lblTeamTitle.setBounds(10, 130, 360, 15);
 		frame.getContentPane().add(lblTeamTitle);
 		
 		JLabel lblReserveTitle = new JLabel("Reserves (5 Max)");
 		lblReserveTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblReserveTitle.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblReserveTitle.setBounds(517, 129, 67, 14);
+		lblReserveTitle.setBounds(380, 130, 360, 15);
 		frame.getContentPane().add(lblReserveTitle);
+
+		JLabel lblItemsTitle = new JLabel("Items (3 Max)");
+		lblItemsTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblItemsTitle.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblItemsTitle.setBounds(380, 270, 360, 15);
+		frame.getContentPane().add(lblItemsTitle);
 		
 		JLabel lblTeamMoneyDesc = new JLabel("Team Money");
 		lblTeamMoneyDesc.setHorizontalAlignment(SwingConstants.CENTER);
@@ -131,6 +145,13 @@ public class ClubMenuGUI extends Window{
 		lblTeamName.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblTeamName.setBounds(10, 76, 239, 17);
 		frame.getContentPane().add(lblTeamName);
+
+		int[] teamStats = getManager().getStadium().getPossibleMatches().get(0).getPlayerTeamStats();
+		JLabel lblTeamStats = new JLabel(String.format("ATK:%d  MID:%d  DEF:%d", teamStats[0], teamStats[1], teamStats[2]));
+		lblTeamStats.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTeamStats.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblTeamStats.setBounds(10, 93, 239, 17);
+		frame.getContentPane().add(lblTeamStats);
 		
 		JLabel lblTeamMoney = new JLabel("" + getManager().getMoney());
 		lblTeamMoney.setHorizontalAlignment(SwingConstants.CENTER);
@@ -181,31 +202,44 @@ public class ClubMenuGUI extends Window{
 		listPlayers.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		listPlayers.setToolTipText("");
 		listPlayers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listPlayers.setBounds(10, 173, 353, 200);
+		listPlayers.setBounds(10, 180, 360, 200);
 		frame.getContentPane().add(listPlayers);
 		listPlayers.addListSelectionListener(e -> {
 			if (listPlayers.getSelectedValue() != null) {
-				selectedPlayer = listPlayers.getSelectedValue();
+				selectedObject = listPlayers.getSelectedValue();
 			}
 		});
 
 		// Create the JList of reserves
-		listReserves = new JList<>(reservesList);
-		listReserves.setVisibleRowCount(11);
-		listReserves.setToolTipText("");
-		listReserves.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listReserves.setLayoutOrientation(JList.VERTICAL_WRAP);
-		listReserves.setFont(new Font("Monospaced", Font.PLAIN, 11));
-		listReserves.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		listReserves.setBounds(371, 173, 353, 200);
-		frame.getContentPane().add(listReserves);
-		listReserves.addListSelectionListener(e -> {
-			if (listReserves.getSelectedIndex() != -1) {
-				selectedPlayer = listReserves.getSelectedValue();
+		reservesJList = new JList<>(reservesList);
+		reservesJList.setVisibleRowCount(11);
+		reservesJList.setToolTipText("");
+		reservesJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		reservesJList.setLayoutOrientation(JList.VERTICAL_WRAP);
+		reservesJList.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		reservesJList.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		reservesJList.setBounds(380, 180, 360, 80);
+		frame.getContentPane().add(reservesJList);
+		reservesJList.addListSelectionListener(e -> {
+			if (reservesJList.getSelectedIndex() != -1) {
+				selectedObject = reservesJList.getSelectedValue();
 			}
 		});
 		
-		// TODO: Create the JList of items
+		itemsJList = new JList<>(itemsList);
+		itemsJList.setVisibleRowCount(11);
+		itemsJList.setToolTipText("");
+		itemsJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		itemsJList.setLayoutOrientation(JList.VERTICAL_WRAP);
+		itemsJList.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		itemsJList.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		itemsJList.setBounds(380, 300, 360, 80);
+		frame.getContentPane().add(itemsJList);
+		itemsJList.addListSelectionListener(e -> {
+			if (itemsJList.getSelectedIndex() != -1) {
+				selectedObject = itemsJList.getSelectedValue();
+			}
+		});
 	}
 
 	/**
@@ -216,46 +250,63 @@ public class ClubMenuGUI extends Window{
 	private void addButtons(JFrame frame) {
 
 		// Create the rename player button
-		JButton renamePlayerButton = new JButton("Rename Player");
-		renamePlayerButton.setBounds(10, 383, 152, 39);
+		JButton renamePlayerButton = new JButton("Rename");
+		renamePlayerButton.setBounds(195, 390, 175, 40);
 		frame.getContentPane().add(renamePlayerButton);
 		renamePlayerButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String newName = JOptionPane.showInputDialog(frame, "Enter the new name for the player:", "Rename Player", JOptionPane.PLAIN_MESSAGE);
-				if (newName != null) {
-					getManager().setNickname(selectedPlayer, newName);
+			if (selectedObject == null) {
+				JOptionPane.showMessageDialog(frame, "Please select something to rename.", "Rename", JOptionPane.ERROR_MESSAGE);
+			} else if (selectedObject.getClass() == Player.class) {
+					String newName = JOptionPane.showInputDialog(frame, "Enter the new name for the player:", "Rename Player", JOptionPane.PLAIN_MESSAGE);
+					if (newName != null) {
+						getManager().setNickname((Player) selectedObject, newName);
+					}
+				} else if (selectedObject.getClass() == Item.class) {
+					String newName = JOptionPane.showInputDialog(frame, "Enter the new name for the item:", "Rename Item", JOptionPane.PLAIN_MESSAGE);
+					if (newName != null) {
+						getManager().setItemName((Item) selectedObject, newName);
+					}
 				}
 			}
 		});
 			
 		// Create the substitue player button
 		JButton subPlayersButton = new JButton("Substitute Player");
-		subPlayersButton.setBounds(360, 383, 127, 44);
+		subPlayersButton.setBounds(10, 390, 175, 40);
 		frame.getContentPane().add(subPlayersButton);
 		subPlayersButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (listPlayers.getSelectedValue() != null && listReserves.getSelectedValue() != null) {
-					getManager().swapPlayers(listPlayers.getSelectedValue(), listReserves.getSelectedValue());
+				if (listPlayers.getSelectedValue() != null && reservesJList.getSelectedValue() != null) {
+					getManager().swapPlayers(listPlayers.getSelectedValue(), reservesJList.getSelectedValue());
 				}
 			}
 		});	
 
 		// Create the sell player button
-		JButton btnSellPlayer = new JButton("Sell Player");
-		btnSellPlayer.setBounds(221, 383, 107, 39);
+		JButton btnSellPlayer = new JButton("Sell");
+		btnSellPlayer.setBounds(380, 390, 175, 40);
 		frame.getContentPane().add(btnSellPlayer);
 		btnSellPlayer.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (selectedPlayer != null) {
-					getManager().sellPlayer(selectedPlayer);
+				if (selectedObject.getClass() == Player.class) {
+					if (selectedObject != null) {
+						getManager().sellPlayer((Player) selectedObject);
+					}
+				} else if (selectedObject.getClass() == Item.class) {
+					if (selectedObject != null) {
+						getManager().sellItem((Item) selectedObject);
+					}
+				} else {
+					JOptionPane.showMessageDialog(frame, "Please select a player or item to sell.", "Sell", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
 
 		// Create the back button
 		JButton backButton = new JButton("Back");
-		backButton.setBounds(36, 388, 152, 39);
+		backButton.setBounds(565, 390, 175, 40);
 		frame.getContentPane().add(backButton);
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {

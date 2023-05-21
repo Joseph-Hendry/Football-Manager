@@ -91,7 +91,7 @@ public class Item {
      * @return The string representation of the Item.
      */
     public String toString() {
-        return String.format("%-10s %-2s %-2s %-8s", this.name, this.stats[0], this.stats[1], this.stats[2], this.value);
+        return String.format("%-10s %-2s %-2s %-5s %-4s", this.name, this.stats[0], this.stats[1], this.stats[2], this.value);
     }
 
     /**
@@ -101,6 +101,15 @@ public class Item {
      */
     public String getName() {
         return this.name;
+    }
+
+    /**
+     * This method is used to set the name of the item.
+     * 
+     * @param name The name of the item.
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**

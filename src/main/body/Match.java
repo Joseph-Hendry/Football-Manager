@@ -144,6 +144,15 @@ public class Match {
     }
 
     /**
+     * Get home team stats
+     * 
+     * @return The home team stats.
+     */
+    public int[] getPlayerTeamStats() {
+        return playerTeamStats;
+    }
+
+    /**
      * This is the getter for the points to win.
      * 
      * @return The points to win.

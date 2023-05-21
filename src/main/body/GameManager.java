@@ -279,6 +279,22 @@ public class GameManager {
 	}
 
 	/**
+	 * This function is used to name an item.
+	 * 
+	 * @param item The item to name.
+	 * @param name The name to set.
+	 */
+	public void setItemName(Item item, String name) {
+		try {
+			item.setName(name);
+			UI.clubMenu();
+			UI.showMessage("Items name has been changed.");
+		} catch (IllegalArgumentException e) {
+			UI.showMessage("Item does not exist.");
+		}
+	}
+
+	/**
 	 * This function is used to sell a player
 	 * 
 	 * @param player The player to sell.
@@ -473,6 +489,13 @@ public class GameManager {
 
 	////////// End Game //////////
 
+
+	/**
+	 * This method is used to finish the game.
+	 */
+	public void onGameFinish() {
+		UI.endGame();
+	}
 
 	/**
 	 * This method is used when the end game menu is finished.
