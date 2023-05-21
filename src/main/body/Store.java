@@ -167,13 +167,8 @@ public class Store {
         // Creates 5 random coaches
         for (int j = 0; j < 5; j++) {
             variety = random.nextInt(30) - 15;
-<<<<<<< Updated upstream
-            coachRarity = intRarity + variety;
+            coachRarity = intRarity + variety >= 0 ? intRarity + variety : 0;
             draftCoaches.add(Coach.createRandomCoach(Team.getStrRarity(coachRarity)));
-=======
-            coahcrarity = intRarity + variety >= 0 ? intRarity + variety : 0;
-            draftCoaches.add(Coach.createRandomCoach(Team.getStrRarity(coahcrarity)));
->>>>>>> Stashed changes
         }
 
         // Returns the store
@@ -203,13 +198,8 @@ public class Store {
 
         // Creates a random coach
         variety = random.nextInt(20) - 10;
-<<<<<<< Updated upstream
-        int coachRarity= intRarity + variety;
+        int coachRarity = intRarity + variety >= 0 ? intRarity + variety : 0;
         storeCoach = Coach.createRandomCoach(Team.getStrRarity(coachRarity));
-=======
-        int coahcrarity = intRarity + variety >= 0 ? intRarity + variety : 0;
-        storeCoach = Coach.createRandomCoach(Team.getStrRarity(coahcrarity));
->>>>>>> Stashed changes
         this.coachAvailability = true;
 
         // Creates 5 random items
