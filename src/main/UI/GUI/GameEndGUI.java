@@ -2,9 +2,12 @@ package main.UI.GUI;
 
 import main.body.GameManager;
 
+import java.awt.Font;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 /**
  * The GUI for the game end screen.
@@ -28,7 +31,7 @@ public class GameEndGUI extends Window {
 	 */
 	@Override
 	protected void initialise(JFrame frame) {
-		frame.setBounds(0, 0, 450, 300);
+		frame.setBounds(0, 0, 300, 280);
 
 		addLabels(frame);
 		addButtons(frame);
@@ -40,24 +43,40 @@ public class GameEndGUI extends Window {
 	 * @param frame The frame to add the labels to.
 	 */
 	private void addLabels(JFrame frame) {
+
+		// Create the windows labels
+		JLabel lblTitle = new JLabel("End of Season Results");
+		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblTitle.setBounds(0, 10, 300, 40);
+		frame.getContentPane().add(lblTitle);
+
 		JLabel lblTeamName = new JLabel("Team Name: " + getManager().getPlayerTeam().getName());
-		lblTeamName.setBounds(10, 11, 414, 14);
+		lblTeamName.setBounds(10, 75, 180, 15);
 		frame.getContentPane().add(lblTeamName);
 
 		JLabel lblSeasonLength = new JLabel("Season Length: " + getManager().getSeasonLength());
-		lblSeasonLength.setBounds(10, 36, 414, 14);
+		lblSeasonLength.setBounds(10, 100, 180, 15);
 		frame.getContentPane().add(lblSeasonLength);
 
 		JLabel lblMoney = new JLabel("Money: " + getManager().getMoney());
-		lblMoney.setBounds(10, 61, 414, 14);
+		lblMoney.setBounds(10, 125, 180, 15);
 		frame.getContentPane().add(lblMoney);
 
 		JLabel lblPoints = new JLabel("Points: " + getManager().getPlayerTeam().getPoints());
-		lblPoints.setBounds(10, 86, 414, 14);
+		lblPoints.setBounds(10, 150, 180, 15);
 		frame.getContentPane().add(lblPoints);
 
-		JLabel lblDifficulty = new JLabel("Difficulty: " + getManager().getDifficulty());
-		lblDifficulty.setBounds(10, 111, 414, 14);
+		// Find the difficulty
+		String difficulty = "";
+		if (getManager().getDifficulty() == 0) {
+			difficulty = "Easy";
+		} else if (getManager().getDifficulty() == 1) {
+			difficulty = "Hard";
+		}
+
+		JLabel lblDifficulty = new JLabel("Difficulty: " + difficulty);
+		lblDifficulty.setBounds(10, 175, 180, 15);
 		frame.getContentPane().add(lblDifficulty);
 	}
 
@@ -70,7 +89,7 @@ public class GameEndGUI extends Window {
 
 		// Create the finish button
 		JButton finishButton = new JButton("Finish");
-		finishButton.setBounds(10, 136, 414, 14);
+		finishButton.setBounds(10, 200, 280, 40);
 		frame.getContentPane().add(finishButton);
 		finishButton.addActionListener(e -> {
 			getManager().onEndGameFinish();
