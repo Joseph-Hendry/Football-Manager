@@ -61,7 +61,6 @@ public class StartupMenuGUI extends Window {
 	protected void initialise(JFrame frame) {
 		frame.setResizable(false);
 		frame.setBounds(100, 100, 640, 360);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 
 		addLabels(frame);
