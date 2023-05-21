@@ -374,6 +374,7 @@ public class GameManager {
 	public void takeBye(Player playerToTrain) {
 		this.stadium.takeBye(playerToTrain);
 		UI.showMessage("You have taken a bye.");
+		onMatchFinish();
 	}
 
 
