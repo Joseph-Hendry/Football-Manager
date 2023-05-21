@@ -46,8 +46,6 @@ public class StoreMenuGUI extends Window {
 	@Override
 	protected void initialise(JFrame frame) {
 		frame.setBounds(0, 0, 380, 462);
-		frame.getContentPane().setLayout(null);
-		frame.setResizable(false);
 
 		addLabels(frame);
 		addLists(frame);

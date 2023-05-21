@@ -39,8 +39,6 @@ public class MainMenuGUI extends Window {
 	@Override
 	protected void initialise(JFrame frame) {
 		frame.setBounds(0, 0, 420, 420);
-		frame.getContentPane().setLayout(null);
-		frame.setResizable(false);
 
 		addLabels(frame);
 		addButtons(frame);

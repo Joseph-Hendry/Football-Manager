@@ -38,6 +38,8 @@ public abstract class Window {
     private void initialise(final String title) {
         frame = new JFrame();
         frame.setTitle(title);
+        frame.getContentPane().setLayout(null);
+        frame.setResizable(false);
         frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         frame.addWindowListener(new WindowAdapter() {
             @Override

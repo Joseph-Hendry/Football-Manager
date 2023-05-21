@@ -59,9 +59,7 @@ public class StartupMenuGUI extends Window {
 	 */
 	@Override
 	protected void initialise(JFrame frame) {
-		frame.setResizable(false);
 		frame.setBounds(0, 0, 640, 360);
-		frame.getContentPane().setLayout(null);
 
 		addLabels(frame);
 		addInfoBoxes(frame);

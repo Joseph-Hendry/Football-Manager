@@ -26,6 +26,9 @@ public class PlayMatchGUI extends Window {
 	// Setup JButton
 	private JButton btnContinue;
 
+	// Set match Jlabel
+	private JLabel lblMatch;
+
 	// Setup JList
 	private JList<String> commentaryJList;
 
@@ -43,6 +46,7 @@ public class PlayMatchGUI extends Window {
 	public PlayMatchGUI(GameManager manager, Match match) {
 		super("Play Match", manager);
 		this.match = match;
+		lblMatch.setText("Match: " + getManager().getPlayerTeam().getName() + " vs " + match.getOpposingTeam().getName());
 		startTimer();
 	}
 
@@ -52,9 +56,7 @@ public class PlayMatchGUI extends Window {
 	 * @param frame The frame to add the contents to.
 	 */
 	protected void initialise(JFrame frame) {
-		frame.setBounds(0, 0, 560, 1000);
-		frame.getContentPane().setLayout(null);
-		frame.setResizable(false);
+		frame.setBounds(0, 0, 470, 583);
 
 		addLabels(frame);
 		addLists(frame);
@@ -69,14 +71,14 @@ public class PlayMatchGUI extends Window {
 	private void addLabels(JFrame frame) {
 
 		// Create the windows labels
-		JLabel lblMatch = new JLabel("Match: ");
+		lblMatch = new JLabel("Match");
 		lblMatch.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMatch.setFont(new Font("Dialog", Font.PLAIN, 18));
-		lblMatch.setBounds(38, 10, 287, 43);
+		lblMatch.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		lblMatch.setBounds(0, 10, 470, 40);
 		frame.getContentPane().add(lblMatch);
 		
 		JLabel lblCommentary = new JLabel("Live Commentary:");
-		lblCommentary.setBounds(38, 77, 132, 15);
+		lblCommentary.setBounds(10, 75, 150, 15);
 		frame.getContentPane().add(lblCommentary);
 	}
 
@@ -90,8 +92,7 @@ public class PlayMatchGUI extends Window {
 		// Create the commentart JList
 		DefaultListModel<String> activeList = new DefaultListModel<String>();
 		commentaryJList = new JList<>(activeList);
-		commentaryJList.setFont(new Font("Monospaced", Font.PLAIN, 11));
-		commentaryJList.setBounds(38, 122, 483, 550);
+		commentaryJList.setBounds(10, 100, 450, 355);
         frame.getContentPane().add(commentaryJList);
 	}
 
@@ -106,7 +107,7 @@ public class PlayMatchGUI extends Window {
 		btnContinue = new JButton("Continue");
 		btnContinue.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnContinue.setEnabled(false);
-		btnContinue.setBounds(38, 700, 483, 80);
+		btnContinue.setBounds(10, 465, 450, 80);
 		frame.getContentPane().add(btnContinue);
 		btnContinue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -121,7 +122,6 @@ public class PlayMatchGUI extends Window {
 	 */
     private void startTimer() {
         Timer timer = new Timer(1, new ActionListener() {
-
 			ArrayList<String> commentaryList = match.getCommentaryList();
 			DefaultListModel<String> activeList = new DefaultListModel<String>();
 

@@ -59,7 +59,6 @@ public class DraftMenuGUI extends Window {
     @Override
 	protected void initialise(JFrame frame) {
 		frame.setBounds(0, 0, 570, 450);
-		frame.getContentPane().setLayout(null);
 
         addLabels(frame);
 		addLists(frame);
