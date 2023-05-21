@@ -169,8 +169,6 @@ public class Store {
             variety = random.nextInt(30) - 15;
             coachRarity = intRarity + variety >= 0 ? intRarity + variety : 0;
             draftCoaches.add(Coach.createRandomCoach(Team.getStrRarity(coachRarity)));
-            coachRarity = intRarity + variety >= 0 ? intRarity + variety : 0;
-            draftCoaches.add(Coach.createRandomCoach(Team.getStrRarity(coachRarity)));
         }
 
         // Returns the store
@@ -201,8 +199,6 @@ public class Store {
         // Creates a random coach
         variety = random.nextInt(20) - 10;
         int coachRarity = intRarity + variety >= 0 ? intRarity + variety : 0;
-        storeCoach = Coach.createRandomCoach(Team.getStrRarity(coachRarity));
-        coachRarity = intRarity + variety >= 0 ? intRarity + variety : 0;
         storeCoach = Coach.createRandomCoach(Team.getStrRarity(coachRarity));
         this.coachAvailability = true;
 
