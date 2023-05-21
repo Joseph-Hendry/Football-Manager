@@ -225,7 +225,7 @@ public class Match {
         teamStats.add(playerTeamStats);
         teamStats.add(NPCTeamStats);
 
-        // Possetion team ball position (0 = Shooting, 1 = Attacking, 2 = Midfeild, 4 = Defense)
+        // Possession team ball position (0 = Shooting, 1 = Attacking, 2 = Midfield, 4 = Defense)
         int ballPosition = 1;
 
         // Random team starts with the ball
@@ -335,13 +335,13 @@ public class Match {
 
         // Update the points and money of the teams
         if (score[0] > score[1]) {
-            //manager.UI.showMessage("Congratulations, " + teams[0].getName() + " has won the match.\n+ " + pointsToWin + " points and $" + moneyToWin + " has been added to your account.");
+            manager.UI.showMessage("Congratulations, " + teams[0].getName() + " has won the match.\n+ " + pointsToWin + " points and $" + moneyToWin + " has been added to your account.");
             teams[0].setPoints(teams[0].getPoints() + pointsToWin);
             manager.money = (manager.money + moneyToWin);
         } else if (score[0] < score[1]) {
-            //manager.UI.showMessage("Unfortunitly " +teams[1].getName() + " has won the match.");
+            manager.UI.showMessage("Unfortunately " +teams[1].getName() + " has won the match.");
         } else {
-            //manager.UI.showMessage("The match has ended in a draw.");
+            manager.UI.showMessage("The match has ended in a draw.");
             teams[1].setPoints(teams[0].getPoints() + (pointsToWin/2));
         }
     }

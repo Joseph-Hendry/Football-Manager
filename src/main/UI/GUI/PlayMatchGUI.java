@@ -26,7 +26,7 @@ public class PlayMatchGUI extends Window {
 	// Setup JButton
 	private JButton btnContinue;
 
-	// Set match Jlabel
+	// Set match JLabel
 	private JLabel lblMatch;
 
 	// Setup JList
@@ -89,7 +89,7 @@ public class PlayMatchGUI extends Window {
 	 */
 	private void addLists(JFrame frame) {
 
-		// Create the commentart JList
+		// Create the commentary JList
 		DefaultListModel<String> activeList = new DefaultListModel<String>();
 		commentaryJList = new JList<>(activeList);
 		commentaryJList.setBounds(10, 100, 450, 355);

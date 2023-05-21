@@ -79,7 +79,7 @@ public class Store {
      * 
      * @return Bool of whether the coach can be bought.
      */
-    public boolean getcoachAvailable() {
+    public boolean getCoachAvailable() {
     	return this.coachAvailability;
     }
 
@@ -146,9 +146,9 @@ public class Store {
         Random random = new Random();
         int variety;
         int rarity;
-        int coahcrarity;
+        int coachRarity;
 
-        // Creates epmty lists
+        // Creates empty lists
         ArrayList<Player> storePlayers = new ArrayList<Player>();
         ArrayList<Coach> draftCoaches = new ArrayList<Coach>();
 
@@ -167,8 +167,8 @@ public class Store {
         // Creates 5 random coaches
         for (int j = 0; j < 5; j++) {
             variety = random.nextInt(30) - 15;
-            coahcrarity = intRarity + variety;
-            draftCoaches.add(Coach.createRandomCoach(Team.getStrRarity(coahcrarity)));
+            coachRarity = intRarity + variety;
+            draftCoaches.add(Coach.createRandomCoach(Team.getStrRarity(coachRarity)));
         }
 
         // Returns the store
@@ -180,7 +180,7 @@ public class Store {
      * 
      * @param intRarity The rarity of the items in the store.
      */
-    public void refeshStore(int intRarity) {
+    public void refreshStore(int intRarity) {
         Random random = new Random();
         int variety;
         int rarity;
@@ -198,8 +198,8 @@ public class Store {
 
         // Creates a random coach
         variety = random.nextInt(20) - 10;
-        int coahcrarity = intRarity + variety;
-        storeCoach = Coach.createRandomCoach(Team.getStrRarity(coahcrarity));
+        int coachRarity= intRarity + variety;
+        storeCoach = Coach.createRandomCoach(Team.getStrRarity(coachRarity));
         this.coachAvailability = true;
 
         // Creates 5 random items

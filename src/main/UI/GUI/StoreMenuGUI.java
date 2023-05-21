@@ -78,7 +78,7 @@ public class StoreMenuGUI extends Window {
 		lblItemsForSale.setBounds(10, 255, 150, 15);
 		frame.getContentPane().add(lblItemsForSale);
 
-		JLabel lblPlayerList = new JLabel("Name       ATK MID DEF STAM   Poistion     Value");
+		JLabel lblPlayerList = new JLabel("Name       ATK MID DEF STAM   Position     Value");
 		lblPlayerList.setBounds(10, 100, 360, 14);
 		lblPlayerList.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		frame.getContentPane().add(lblPlayerList);
@@ -112,7 +112,7 @@ public class StoreMenuGUI extends Window {
 		for (Player player : getManager().getStore().getStorePlayers()) {
 			Players.addElement(player);
 		}
-		if (getManager().getStore().getcoachAvailable()) {
+		if (getManager().getStore().getCoachAvailable()) {
 			Coaches.addElement(getManager().getStore().getStoreCoach());
 		}
 		for (Item item : getManager().getStore().getStoreItems()) {

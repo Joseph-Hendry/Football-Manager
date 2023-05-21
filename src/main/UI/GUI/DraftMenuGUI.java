@@ -28,7 +28,7 @@ import javax.swing.JButton;
  */
 public class DraftMenuGUI extends Window {
 
-    // Setup varlables
+    // Setup variables
     private int initialMoney;
     private int money;
     private JList<Player> playerJList;
@@ -92,7 +92,7 @@ public class DraftMenuGUI extends Window {
 		lblPickPlayers.setBounds(10, 55, 300, 20);
 		frame.getContentPane().add(lblPickPlayers);
 
-        JLabel lblPlayerList = new JLabel("Name       ATK MID DEF STAM   Poistion     Value");
+        JLabel lblPlayerList = new JLabel("Name       ATK MID DEF STAM   Position     Value");
 		lblPlayerList.setBounds(10, 85, 340, 15);
         lblPlayerList.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		frame.getContentPane().add(lblPlayerList);
@@ -166,7 +166,7 @@ public class DraftMenuGUI extends Window {
             }
         });
 
-        // Create the quit buttin
+        // Create the quit button
         btnQuit = new JButton("Quit");
 		btnQuit.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnQuit.setBounds(360, 350, 200, 60);
@@ -203,7 +203,7 @@ public class DraftMenuGUI extends Window {
         // Check if the players are in the correct positions
         for (int i = 0; i < selectedPlayers.size(); i++) {
             Player player = selectedPlayers.get(i);
-            if (player.getPosition() != Team.getFormationPostion()[i]) {
+            if (player.getPosition() != Team.getFormationPosition()[i]) {
                 playersValid = false;
                 btnStartGame.setEnabled(false);
                 return;

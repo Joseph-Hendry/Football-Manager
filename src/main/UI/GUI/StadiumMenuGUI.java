@@ -90,7 +90,7 @@ public class StadiumMenuGUI extends Window {
 			matchList.addElement(match);
 		}
 
-		// Create the match Jlist
+		// Create the match JList
 		matchJList = new JList<>(matchList);
 		matchJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		matchJList.setBounds(10, 100, 350, 80);

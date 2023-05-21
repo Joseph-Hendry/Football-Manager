@@ -270,7 +270,7 @@ public class ClubMenuGUI extends Window{
 			}
 		});
 			
-		// Create the substitue player button
+		// Create the substitute player button
 		JButton subPlayersButton = new JButton("Substitute Player");
 		subPlayersButton.setBounds(10, 390, 175, 40);
 		frame.getContentPane().add(subPlayersButton);

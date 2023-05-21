@@ -25,7 +25,7 @@ public class GameManager {
 	protected Team playersTeam;
 
 	// The games draft store
-	protected Store drafStore;
+	protected Store draftStore;
 
 	// The games store
 	protected Store store;
@@ -94,18 +94,18 @@ public class GameManager {
 	}
 
 	/**
-	 * This method is used for incriment the money of the game.
+	 * This method is used for increment the money of the game.
 	 * 
-	 * @param amount The amount of money to incriment by.
+	 * @param amount The amount of money to increment by.
 	 */
 	public void incMoney (int amount) {
 		this.money += amount;
 	}
 
 	/**
-	 * This method is used for decriment the money of the game.
+	 * This method is used for decrement the money of the game.
 	 * 
-	 * @param amount The amount of money to decriment by.
+	 * @param amount The amount of money to decrement by.
 	 */
 	public void decMoney (int amount) {
 		this.money -= amount;
@@ -135,7 +135,7 @@ public class GameManager {
 	 * @return The draft store.
 	 */
 	public Store getDraftStore() {
-		return this.drafStore;
+		return this.draftStore;
 	}
 
 	/**
@@ -198,7 +198,7 @@ public class GameManager {
 		}
 
 		// Create the draft store
-		this.drafStore = Store.createDraftStore(getRarityInt());
+		this.draftStore = Store.createDraftStore(getRarityInt());
 
 		// Create the store
 		this.store = Store.createStore(getRarityInt());
@@ -217,7 +217,7 @@ public class GameManager {
 		// Set money
 		this.money = money;
 
-		// Creat Empty Bench and Items
+		// Create Empty Bench and Items
 		ArrayList<Player> onBench = new ArrayList<Player>(5);
 		ArrayList<Item> items = new ArrayList<Item>();
 		for (int i = 0; i < 5; i++) {
@@ -396,7 +396,7 @@ public class GameManager {
 		int rarity = getRarityInt();
 
 		// Update shop with slightly better items
-		this.store.refeshStore(rarity);
+		this.store.refreshStore(rarity);
 
 		// Update other players teams with slightly better players
 		 this.playersTeam.resetNPCTeams(rarity);

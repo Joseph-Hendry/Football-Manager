@@ -13,7 +13,7 @@ public class Team {
     private final static int[] formation = {4, 3, 3, 1};
 
     // The positions of the formation
-    private final static AvailablePositions[] formationPostion = {AvailablePositions.DEFENCE, AvailablePositions.DEFENCE, AvailablePositions.DEFENCE, AvailablePositions.DEFENCE,
+    private final static AvailablePositions[] formationPosition = {AvailablePositions.DEFENCE, AvailablePositions.DEFENCE, AvailablePositions.DEFENCE, AvailablePositions.DEFENCE,
                                                                 AvailablePositions.MIDFIELD, AvailablePositions.MIDFIELD, AvailablePositions.MIDFIELD, 
                                                                 AvailablePositions.STRIKER, AvailablePositions.STRIKER, AvailablePositions.STRIKER, 
                                                                 AvailablePositions.GOALKEEPER};
@@ -185,8 +185,8 @@ public class Team {
     /**
      * Get the player position.
      */
-    public static AvailablePositions[] getFormationPostion() {
-        return formationPostion;
+    public static AvailablePositions[] getFormationPosition() {
+        return formationPosition;
     }
 
 
@@ -364,7 +364,7 @@ public class Team {
                 if (manager.getMoney() >= player.getValue()) {
                     // Check for an empty spot on the team
                     for (int i = 0; i < this.onTeam.size(); i++) {
-                        if (this.onTeam.get(i) == null && player.getPosition() == formationPostion[i]) {
+                        if (this.onTeam.get(i) == null && player.getPosition() == formationPosition[i]) {
                             manager.decMoney(player.getValue());
                             manager.getStore().removePlayer(player);
                             this.onTeam.set(i, player);
@@ -567,7 +567,7 @@ public class Team {
     }
 
     /**
-     * This method is used to sort the teamList based on ponits.
+     * This method is used to sort the teamList based on points.
      */
     public static void sortTeamList() {
         teamList.sort((team1, team2) -> team2.getPoints() - team1.getPoints());

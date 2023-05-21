@@ -292,7 +292,7 @@ public class Stadium {
      */
     private void randomPlayerQuit(GameManager manager) {
 
-        // Find a random player number based on how many tims the player has been injured
+        // Find a random player number based on how many times the player has been injured
         ArrayList<Player> quitPlayerPool = new ArrayList<Player>();
 
         for (Player player : playerTeam.getTeam()) {
@@ -311,7 +311,7 @@ public class Stadium {
             }
         }
 
-        // Remove a random player from the team useing the random player number
+        // Remove a random player from the team using the random player number
         Random random = new Random();
         playerTeam.removePlayer(quitPlayerPool.get(random.nextInt(quitPlayerPool.size() - 1)));
 

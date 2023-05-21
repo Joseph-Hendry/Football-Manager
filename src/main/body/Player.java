@@ -186,7 +186,7 @@ public class Player extends Person {
 	}
 
 	/**
-	 * Incriments the stamina of the player by the given amount.
+	 * Increments the stamina of the player by the given amount.
 	 * 
 	 * @param amount the amount of stamina to add.
 	 */
@@ -195,7 +195,7 @@ public class Player extends Person {
 	}
 
 	/**
-	 * Decriments the stamina of the player by the given amount.
+	 * Decrements the stamina of the player by the given amount.
 	 * 
 	 * @param amount the amount of stamina to remove.
 	 */
@@ -225,7 +225,7 @@ public class Player extends Person {
 	}
 	
 	/**
-	 * Returns whether the playter is injured or not.
+	 * Returns whether the player is injured or not.
 	 * 
 	 * @return Bool the injury status.
 	 */

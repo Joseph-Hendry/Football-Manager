@@ -14,6 +14,11 @@ public class GUI implements GameManagerUI {
 	// The window to display.
 	Window window;
 
+	/**
+	 * Sets up the game manager.
+	 * 
+	 * @param manager The {@link GameManager} instance.
+	 */
 	@Override
 	public void setup(GameManager manager) {
 		this.manager = manager;
@@ -21,6 +26,9 @@ public class GUI implements GameManagerUI {
 		window.show();
 	}
 
+	/**
+	 * Shows the draft menu.
+	 */
 	@Override
 	public void draftMenu() {
 		window.quit();
@@ -28,6 +36,9 @@ public class GUI implements GameManagerUI {
 		window.show();;
 	}
 	
+	/**
+	 * Shows the main menu.
+	 */
 	@Override
 	public void mainMenu() {
 		window.quit();
@@ -35,6 +46,9 @@ public class GUI implements GameManagerUI {
 		window.show();
 	}
 
+	/**
+	 * Shows the club menu.
+	 */
 	@Override
 	public void clubMenu() {
 		window.quit();
@@ -42,6 +56,9 @@ public class GUI implements GameManagerUI {
 		window.show();
 	}
 
+	/**
+	 * Shows the stadium menu.
+	 */
 	@Override
 	public void stadiumMenu() {
 		window.quit();
@@ -49,6 +66,9 @@ public class GUI implements GameManagerUI {
 		window.show();
 	}
 
+	/**
+	 * Shows the play match menu.
+	 */
 	@Override
 	public void playMatch(Match match) {
 		window.quit();
@@ -57,6 +77,9 @@ public class GUI implements GameManagerUI {
 		
 	}
 
+	/**
+	 * Shows the store menu.
+	 */
 	@Override
 	public void storeMenu() {
 		window.quit();
@@ -65,11 +88,17 @@ public class GUI implements GameManagerUI {
 		
 	}
 
+	/**
+	 * Shows the game end menu.
+	 */
 	@Override
 	public void showMessage(String message) {
 		ShowMessage.showMessage(message);
 	}
 
+	/**
+	 * Shows the game end menu.
+	 */
 	@Override
 	public void endGame() {
 		window.quit();
@@ -77,11 +106,17 @@ public class GUI implements GameManagerUI {
 		window.show();
 	}
 
+	/**
+	 * Shows the game end menu.
+	 */
     @Override
     public boolean confirmQuit() {
         return window.confirmQuit();
     }
 
+	/**
+	 * Quits the game.
+	 */
     @Override
     public void quit() {
         window.quit();

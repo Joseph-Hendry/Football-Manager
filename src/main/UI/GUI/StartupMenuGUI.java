@@ -97,7 +97,7 @@ public class StartupMenuGUI extends Window {
 	}
 
 	/**
-	 * Adds the text feild and combo box and spinner to the frame.
+	 * Adds the text field and combo box and spinner to the frame.
 	 * 
 	 * @param frame The frame to add the items to.
 	 */
