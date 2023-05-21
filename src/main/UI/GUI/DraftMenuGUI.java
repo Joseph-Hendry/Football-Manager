@@ -80,8 +80,7 @@ public class DraftMenuGUI extends Window {
 		frame.getContentPane().add(lblDraftYourTeam);
 		
 		JLabel lblPickCoach = new JLabel("Pick a Coach:");
-		lblPickCoach.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblPickCoach.setBounds(360, 65, 200, 30);
+		lblPickCoach.setBounds(360, 55, 200, 30);
 		frame.getContentPane().add(lblPickCoach);
 
         JLabel lblCoachList = new JLabel("Name       ATK MID DEF Value");
@@ -90,8 +89,7 @@ public class DraftMenuGUI extends Window {
 		frame.getContentPane().add(lblCoachList);
 		
 		JLabel lblPickPlayers = new JLabel("Pick Players (4-3-3-1): (Hold ctrl)");
-		lblPickPlayers.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblPickPlayers.setBounds(10, 65, 300, 20);
+		lblPickPlayers.setBounds(10, 55, 300, 20);
 		frame.getContentPane().add(lblPickPlayers);
 
         JLabel lblPlayerList = new JLabel("Name       ATK MID DEF STAM   Poistion     Value");
@@ -101,8 +99,10 @@ public class DraftMenuGUI extends Window {
 
         lblMoney = new JLabel();
         lblMoney.setText("Money: " + getManager().getMoney());
-		lblMoney.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblMoney.setBounds(360, 207, 161, 29);
+        lblMoney.setHorizontalAlignment(SwingConstants.CENTER);
+        lblMoney.setVerticalAlignment(SwingConstants.CENTER);
+		lblMoney.setFont(new Font("Tahoma", Font.BOLD, 14));
+		lblMoney.setBounds(360, 180, 200, 100);
 		frame.getContentPane().add(lblMoney);
     }
 
