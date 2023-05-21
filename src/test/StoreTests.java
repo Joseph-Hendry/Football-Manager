@@ -39,9 +39,9 @@ class StoreTests {
 	@Test
 	void testGetSetCoachAvailable() {
 		store.setCoachAvailable(true);
-		assertTrue(store.getcoachAvailable() == true);
+		assertTrue(store.getCoachAvailable() == true);
 		store.setCoachAvailable(false);
-		assertTrue(store.getcoachAvailable() == false);
+		assertTrue(store.getCoachAvailable() == false);
 	}
 	
 	@Test
@@ -70,9 +70,9 @@ class StoreTests {
 	@Test
 	void testRefreshStore() {
 		store.setCoachAvailable(false);
-		store.refeshStore(1);
+		store.refreshStore(1);
 		assertTrue(store.getStorePlayers().size() == AvailablePositions.values().length);
-		assertTrue(store.getcoachAvailable() == true);
+		assertTrue(store.getCoachAvailable() == true);
 	}
 	
 
