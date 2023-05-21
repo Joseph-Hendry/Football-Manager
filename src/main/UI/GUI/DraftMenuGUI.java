@@ -34,6 +34,7 @@ public class DraftMenuGUI extends Window {
     private JList<Player> playerJList;
     private JList<Coach> coachJList;
     private JButton btnStartGame;
+    private JButton btnQuit;
     private ArrayList<Player> selectedPlayers = new ArrayList<>();
     private Coach selectedCoach;
     private boolean playersValid = false;
@@ -57,7 +58,7 @@ public class DraftMenuGUI extends Window {
 	 */
     @Override
 	protected void initialise(JFrame frame) {
-		frame.setBounds(100, 100, 640, 360);
+		frame.setBounds(100, 100, 570, 450);
 		frame.getContentPane().setLayout(null);
 
         addLabels(frame);
@@ -76,23 +77,33 @@ public class DraftMenuGUI extends Window {
         JLabel lblDraftYourTeam = new JLabel("Draft Your Team");
 		lblDraftYourTeam.setHorizontalAlignment(SwingConstants.CENTER);
 		lblDraftYourTeam.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblDraftYourTeam.setBounds(179, 10, 287, 43);
+		lblDraftYourTeam.setBounds(185, 10, 200, 50);
 		frame.getContentPane().add(lblDraftYourTeam);
 		
-		JLabel lblPick = new JLabel("Pick a Coach:");
-		lblPick.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblPick.setBounds(335, 63, 161, 29);
-		frame.getContentPane().add(lblPick);
+		JLabel lblPickCoach = new JLabel("Pick a Coach:");
+		lblPickCoach.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblPickCoach.setBounds(360, 65, 200, 30);
+		frame.getContentPane().add(lblPickCoach);
+
+        JLabel lblCoachList = new JLabel("Name       ATK MID DEF Value");
+		lblCoachList.setBounds(360, 85, 200, 15);
+        lblCoachList.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		frame.getContentPane().add(lblCoachList);
 		
-		JLabel lblPickStrikers = new JLabel("Pick Players");
-		lblPickStrikers.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblPickStrikers.setBounds(10, 63, 161, 29);
-		frame.getContentPane().add(lblPickStrikers);
+		JLabel lblPickPlayers = new JLabel("Pick Players (4-3-3-1): (Hold ctrl)");
+		lblPickPlayers.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		lblPickPlayers.setBounds(10, 65, 300, 20);
+		frame.getContentPane().add(lblPickPlayers);
+
+        JLabel lblPlayerList = new JLabel("Name       ATK MID DEF STAM   Poistion     Value");
+		lblPlayerList.setBounds(10, 85, 340, 15);
+        lblPlayerList.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		frame.getContentPane().add(lblPlayerList);
 
         lblMoney = new JLabel();
         lblMoney.setText("Money: " + getManager().getMoney());
 		lblMoney.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblMoney.setBounds(335, 207, 161, 29);
+		lblMoney.setBounds(360, 207, 161, 29);
 		frame.getContentPane().add(lblMoney);
     }
 
@@ -116,7 +127,7 @@ public class DraftMenuGUI extends Window {
         // Create the players JList
         playerJList = new JList<>(playerList);
         playerJList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-		playerJList.setBounds(10, 102, 340, 310);
+		playerJList.setBounds(10, 100, 340, 310);
         playerJList.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		frame.getContentPane().add(playerJList);
         playerJList.addListSelectionListener(new ListSelectionListener() {
@@ -128,7 +139,7 @@ public class DraftMenuGUI extends Window {
         // Create the coaches JList
 		coachJList = new JList<>(coachList);
         coachJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		coachJList.setBounds(350, 102, 200, 80);
+		coachJList.setBounds(360, 100, 200, 80);
         coachJList.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		frame.getContentPane().add(coachJList);
         coachJList.addListSelectionListener(new ListSelectionListener() {
@@ -147,12 +158,23 @@ public class DraftMenuGUI extends Window {
         // Create the back button
         btnStartGame = new JButton("Start Game");
 		btnStartGame.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnStartGame.setBounds(335, 358, 287, 63);
+		btnStartGame.setBounds(360, 280, 200, 60);
         btnStartGame.setEnabled(false);
 		frame.getContentPane().add(btnStartGame);
         btnStartGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 getManager().onDraftMenuFinish(selectedPlayers, selectedCoach, money);
+            }
+        });
+
+        // Create the quit buttin
+        btnQuit = new JButton("Quit");
+		btnQuit.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		btnQuit.setBounds(360, 350, 200, 60);
+		frame.getContentPane().add(btnQuit);
+        btnQuit.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                getManager().quit();;
             }
         });
     }
