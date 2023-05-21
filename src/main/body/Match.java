@@ -186,7 +186,7 @@ public class Match {
      */
     public String toString() {
         int[] stats = getNPCTeamStats();
-        return "Team: " + this.getOpposingTeam().getName() + " Stats: " + stats[0] + " " + stats[1] + " " + stats[2] + " " + stats[3] + " Points: " + this.getPoints() + " Money: " + this.getMoney();
+        return String.format("%-15s %-4s %-4s %-6s %-7s %-1s", teams[1].getName(), stats[0], stats[1], stats[2], pointsToWin, moneyToWin);
     }
 
 

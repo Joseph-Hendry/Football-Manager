@@ -45,7 +45,7 @@ public class StoreMenuGUI extends Window {
 	 */
 	@Override
 	protected void initialise(JFrame frame) {
-		frame.setBounds(0, 0, 380, 460);
+		frame.setBounds(0, 0, 380, 462);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 
@@ -168,7 +168,6 @@ public class StoreMenuGUI extends Window {
 
 		// Create the buy player button
 		JButton buyPlayerButton = new JButton("Buy");
-		buyPlayerButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		buyPlayerButton.setBounds(10, 385, 175, 40);
 		frame.getContentPane().add(buyPlayerButton);
 		buyPlayerButton.addActionListener(new ActionListener() {
@@ -189,7 +188,6 @@ public class StoreMenuGUI extends Window {
 
 		// Create the back button
 		JButton btnBack = new JButton("Back");
-		btnBack.setFont(new Font("Dialog", Font.PLAIN, 14));
 		btnBack.setBounds(195, 385, 175, 40);
 		frame.getContentPane().add(btnBack);
 		btnBack.addActionListener(new ActionListener() {

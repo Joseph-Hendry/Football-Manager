@@ -45,7 +45,7 @@ public class StadiumMenuGUI extends Window {
 	 */
 	@Override
 	protected void initialise(JFrame frame) {
-		frame.setBounds(0, 0, 480, 270);
+		frame.setBounds(0, 0, 370, 252);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 
@@ -62,15 +62,21 @@ public class StadiumMenuGUI extends Window {
 	private void addLabels(JFrame frame) {
 
 		// Create the windows labels
-		JLabel lblMatchesToPlay = new JLabel("Matches to play:");
-		lblMatchesToPlay.setBounds(51, 40, 126, 15);
-		frame.getContentPane().add(lblMatchesToPlay);
-
 		JLabel lblWelcomeMessage = new JLabel("Stadium Menu");
 		lblWelcomeMessage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWelcomeMessage.setFont(new Font("Dialog", Font.PLAIN, 18));
-		lblWelcomeMessage.setBounds(63, 12, 287, 43);
+		lblWelcomeMessage.setBounds(0, 10, 370, 40);
 		frame.getContentPane().add(lblWelcomeMessage);
+
+		JLabel lblMatchesToPlay = new JLabel("Matches to play:");
+		lblMatchesToPlay.setBounds(10, 60, 150, 15);
+		frame.getContentPane().add(lblMatchesToPlay);
+
+		JLabel lblMatchesInfo = new JLabel(String.format("%-15s %-4s %-4s %-6s %-7s %-1s", "Team Name", "ATK", "MID", "DEF", "Points", "Reward($)"));
+		lblMatchesInfo.setBounds(10, 85, 350, 15);
+		lblMatchesInfo.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		frame.getContentPane().add(lblMatchesInfo);
+		
 	}
 
 	/**
@@ -89,7 +95,7 @@ public class StadiumMenuGUI extends Window {
 		// Create the match Jlist
 		matchJList = new JList<>(matchList);
 		matchJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		matchJList.setBounds(51, 59, 371, 115);
+		matchJList.setBounds(10, 100, 350, 80);
 		matchJList.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		frame.getContentPane().add(matchJList);
 	}
@@ -103,7 +109,8 @@ public class StadiumMenuGUI extends Window {
 
 		// Create the play match button
 		btnPlayMatch = new JButton("Play Match");
-		btnPlayMatch.setBounds(51, 184, 117, 25);
+		btnPlayMatch.setBounds(10, 190, 110, 25);
+		btnPlayMatch.setFont(new Font("Dialog", Font.BOLD, 11));
 		frame.getContentPane().add(btnPlayMatch);
 		btnPlayMatch.addActionListener(e -> {
 			getManager().playMatch(matchJList.getSelectedValue());
@@ -111,7 +118,8 @@ public class StadiumMenuGUI extends Window {
 		
 		// Create the take bye button
 		btnTakeBye = new JButton("Take Bye");
-		btnTakeBye.setBounds(178, 184, 117, 25);
+		btnTakeBye.setBounds(130, 190, 110, 25);
+		btnTakeBye.setFont(new Font("Dialog", Font.BOLD, 11));
 		frame.getContentPane().add(btnTakeBye);
 		btnTakeBye.addActionListener(e -> {
 			// Ask the user what player they would like to train
@@ -127,7 +135,8 @@ public class StadiumMenuGUI extends Window {
 
 		// Create the back button
 		btnBack = new JButton("Back");
-		btnBack.setBounds(305, 184, 117, 25);
+		btnBack.setBounds(250, 190, 110, 25);
+		btnBack.setFont(new Font("Dialog", Font.BOLD, 11));
 		frame.getContentPane().add(btnBack);
 		btnBack.addActionListener(e -> {
 			getManager().onStadiumMenuBack();
