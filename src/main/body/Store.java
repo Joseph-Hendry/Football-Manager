@@ -34,6 +34,7 @@ public class Store {
      * @param storePlayers The players in the store.
      * @param storeCoach The coach in the store.
      * @param storeItems The items in the store.
+     * @param draftCoaches The coaches in the draft store
      */
     public Store(ArrayList<Player> storePlayers, Coach storeCoach, ArrayList<Item> storeItems, ArrayList<Coach> draftCoaches) {
         this.storePlayers = storePlayers;
@@ -141,6 +142,7 @@ public class Store {
      * This method is used to create a random draft store.
      * 
      * @param intRarity The rarity of the items in the store.
+     * @return The draftStore.
      */
     public static Store createDraftStore(int intRarity) {
         Random random = new Random();
@@ -215,6 +217,7 @@ public class Store {
     /**
      * This method generates a random basic store with rarity Bronze.
      * 
+     * @param intRarity The rarity of the store.
      * @return A random basic store.
      */
     public static Store createStore(int intRarity) {

@@ -7,9 +7,24 @@ import java.util.Random;
  */
 public enum AvailablePositions {
 	/**
-	 * An enumeration of the positions that a Player can play in.
+	 * The defensive position.
 	 */
-	DEFENCE, MIDFIELD, STRIKER, GOALKEEPER;
+	DEFENCE,
+	
+	/**
+	 * The midfield position.
+	 */
+	MIDFIELD,
+	
+	/**
+	 * The striker position.
+	 */
+	STRIKER,
+	
+	/**
+	 * The goalkeeper position.
+	 */
+	GOALKEEPER;
 
 	/**
 	 * Returns the position in a String format.

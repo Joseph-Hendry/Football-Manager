@@ -18,9 +18,9 @@ public class Person {
 	/**
 	 * Constructor for the Person object.
 	 * 
-	 * @param theName The name of the Person.
-	 * @param theRarity	The rarity of the Person.
-	 * @param theValue The value of the Person.
+	 * @param name The name of the Person.
+	 * @param rarity	The rarity of the Person.
+	 * @param value The value of the Person.
 	 */
 	public Person(String name, String rarity, int value) {
 		this.name = name;

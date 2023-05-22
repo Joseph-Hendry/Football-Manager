@@ -38,6 +38,8 @@ public interface GameManagerUI {
 	
 	/**
 	 * Shows the events of playing a match.
+	 * 
+	 * @param match The match being played
 	 */
 	public void playMatch(Match match);
 	
@@ -48,6 +50,8 @@ public interface GameManagerUI {
 
 	/**
 	 * Shows message to the user.
+	 * 
+	 * @param message The message shown to the user.
 	 */
 	public void showMessage(String message);
 
@@ -58,6 +62,8 @@ public interface GameManagerUI {
 
 	/**
 	 * Confirms if the user wants to quit the game.
+	 * 
+	 * @return If the user wants to quit the game.
 	 */
 	public boolean confirmQuit();
 

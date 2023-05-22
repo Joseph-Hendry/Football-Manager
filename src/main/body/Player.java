@@ -48,7 +48,9 @@ public class Player extends Person {
 
 	/**
 	 * Creates and returns a random Player with the given rarity.
+	 * 
 	 * @param rarity The rarity of the Player.
+	 * @param position The position of the random player.
 	 * @return The random Player with the given rarity.
 	 */
 	public static Player createRandomPlayer(String rarity, AvailablePositions position) {

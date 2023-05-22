@@ -42,6 +42,7 @@ public class PlayMatchGUI extends Window {
 	 * Create the application.
 	 * 
 	 * @param manager The {@link GameManager} instance.
+	 * @param match The match being played.
 	 */
 	public PlayMatchGUI(GameManager manager, Match match) {
 		super("Play Match", manager);

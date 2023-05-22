@@ -44,8 +44,9 @@ public class Team {
      * @param name The name of the team.
      * @param onTeam The players on the team.
      * @param onBench The players on the bench.
+     * @param items The items the team has.
      * @param coach The coach of the team.
-     * @param rank The rank of the team.
+     * @param points The points the team has.
      */
     public Team(String name, ArrayList<Player> onTeam, ArrayList<Player> onBench, ArrayList<Item> items, Coach coach, int points) {
 
@@ -157,7 +158,7 @@ public class Team {
     /**
      * This method is used to set the rank of the team.
      * 
-     * @param rank The rank of the team.
+     * @param points The points of the team.
      */
     public void setPoints(int points) {
         this.points = points;
@@ -184,6 +185,8 @@ public class Team {
 
     /**
      * Get the player position.
+     * 
+     * @return The formation of the players.
      */
     public static AvailablePositions[] getFormationPosition() {
         return formationPosition;
@@ -198,7 +201,6 @@ public class Team {
      * This method is used to create a random team.
      * 
      * @param intRarity The difficulty of the team.
-     * @return A random team.
      */
     public static void createNPCTeams(int intRarity) {
         for (int i = 0; i < names.length; i++) {
@@ -305,8 +307,8 @@ public class Team {
     /**
      * This method is used to sub two players.
      * 
-     * @param playerOnTeam This is the player on the team going onto bench.
-     * @param playerOnBench This is the player on the bench going onto the team.
+     * @param teamPlayer This is the player on the team going onto bench.
+     * @param benchPlayer This is the player on the bench going onto the team.
      * @throws IllegalArgumentException If players cannot be swapped.
      */
     public void subPlayerSwap(Player teamPlayer, Player benchPlayer) throws IllegalArgumentException {
@@ -439,7 +441,7 @@ public class Team {
      * 
      * @param manager The game manager.
      * @param item The item being bought.
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException If the item cannot be bought.
      */
     public void buyItem(GameManager manager, Item item) throws IllegalArgumentException {
         if (this.items.size() >= 3) {
@@ -566,6 +568,7 @@ public class Team {
      * This method is used to add a player to the team.
      * 
      * @param player The player.
+     * @param playerNum The number of bench to add them too.
      */
     public void addPlayerToBench(Player player, int playerNum) {
         this.onBench.set(playerNum, player);

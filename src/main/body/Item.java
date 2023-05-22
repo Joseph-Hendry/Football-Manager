@@ -24,7 +24,7 @@ public class Item {
      * This is the constructor for the Item class.
      * 
      * @param name The name of the item.
-     * @param price The price of the item.
+     * @param value The price of the item.
      * @param stats The bonuses of the item.
      * @param rarity The rarity of the item. 
      */

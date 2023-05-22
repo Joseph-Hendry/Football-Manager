@@ -122,6 +122,11 @@ public class GUI implements GameManagerUI {
         window.quit();
     }
 
+    /**
+     * For testing the GUI
+     * 
+     * @param args The arguments passed.
+     */
 	public static void main(String[] args) {
 		GUI ui = new GUI();
 		GameManager manager = new GameManager(ui);

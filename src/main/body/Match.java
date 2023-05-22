@@ -4,10 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * This class is used to play a match.
+ */
 public class Match {
+	
+	// Setup the variables
     private int[] score = {0, 0};
     private Team[] teams = new Team[2];
-    public int[] playerTeamStats = new int[4];
+    private int[] playerTeamStats = new int[4];
     private int[] NPCTeamStats = new int[4];
     private ArrayList<String> commentaryList = new ArrayList<String>();
     private int pointsToWin;

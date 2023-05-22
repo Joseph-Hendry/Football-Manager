@@ -218,6 +218,7 @@ public class GameManager {
 	 * 
 	 * @param onTeam The players on the team.
 	 * @param coach	The coach.
+	 * @param money The new money
 	 */
 	public void onDraftMenuFinish(ArrayList<Player> onTeam, Coach coach, int money) {
 		// Set money
