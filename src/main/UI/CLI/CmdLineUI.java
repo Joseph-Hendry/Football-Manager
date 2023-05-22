@@ -5,7 +5,13 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 import main.UI.GameManagerUI;
-import main.body.*;
+import main.body.Coach;
+import main.body.GameManager;
+import main.body.Item;
+import main.body.Match;
+import main.body.Player;
+import main.body.Store;
+import main.body.Team;
 
 public class CmdLineUI implements GameManagerUI {
 
@@ -120,6 +126,10 @@ public class CmdLineUI implements GameManagerUI {
 	}
 
 	/**
+	 * This 
+	 */
+
+	/**
 	 * This function represents the club menu. It displays the players team information.
 	 */
 	@Override
@@ -128,15 +138,63 @@ public class CmdLineUI implements GameManagerUI {
 		
 		while (true) {
 			String redirect = scanner.nextLine();
-			try {
-				manager.onClubMenuFinish(redirect);
-			} catch (Exception e) {
-				System.out.println(e);
+			
+			if (redirect.equals("back")) {
+				manager.onClubMenuBack();
+				return;
+			} else if (redirect.matches("sell [0-9]+")) {
+				int playerNumber = Integer.parseInt(redirect.split(" ")[1]);
+				// Figure out if the user wants to sell a player or a item
+				if (playerNumber > (manager.getPlayerTeam().getTeam().size() + manager.getPlayerTeam().getBench().size())) {
+					int itemNumber = playerNumber - (manager.getPlayerTeam().getTeam().size() + manager.getPlayerTeam().getBench().size());
+					try {
+						Item item = manager.getPlayerTeam().getItems().get(itemNumber - 1);
+						manager.sellItem(item);
+						return;
+					} catch (Exception e) {
+						System.out.println("Please enter a valid input");
+					}
+					Item item = manager.getPlayerTeam().getItems().get(itemNumber - 1);
+				} else {
+					try {
+						Player player = manager.getPlayerTeam().getTeam().get(playerNumber - 1);
+						manager.sellPlayer(player);
+						return;
+					} catch (Exception e) {
+						System.out.println("Please enter a valid input");
+					}
+				}
+			} else if (redirect.matches("swap [0-9]+ [0-9]+")) {
+				int teamPlayerNumber = Integer.parseInt(redirect.split(" ")[1]);
+				int benchPlayerNumber = Integer.parseInt(redirect.split(" ")[2]);
+				Player teamPlayer = manager.getPlayerTeam().getTeam().get(teamPlayerNumber - 1);
+				Player benchPlayer = manager.getPlayerTeam().getBench().get(benchPlayerNumber - 1);
+				manager.swapPlayers(teamPlayer, benchPlayer);
+				return;
+			} else if (redirect.matches("[0-9]+ [a-zA-Z0-9]+")) {
+				int playerNumber = Integer.parseInt(redirect.split(" ")[0]);
+				if (playerNumber > (manager.getPlayerTeam().getTeam().size() + manager.getPlayerTeam().getBench().size())) {
+					System.out.println("Please enter a valid input");
+				} else {
+					String name = redirect.split(" ")[1];
+					try {
+						Player player = manager.getPlayerTeam().getTeam().get(playerNumber - 1);
+						manager.setNickname(player, name);
+						return;
+					} catch (Exception e) {
+						System.out.println("Please enter a valid input");
+					}
+				}
+			} else {
+				System.out.println("Please enter a valid input");
 			}
 		}
 	}
 
-	public void showClub() {
+	/**
+	 * This function displays the club menu.
+	 */
+	private void showClub() {
 		System.out.println("\n\n########## Club Menu ##########");
 		System.out.println("Team Name: " + manager.getPlayerTeam().getName());
 		System.out.println("Team Money: " + manager.getMoney());
@@ -249,7 +307,7 @@ public class CmdLineUI implements GameManagerUI {
 			counter += 1;
 		}
 		// Prints the coach available for sale.
-		if (store.getcoachAvailable()) {
+		if (store.getCoachAvailable()) {
 			Coach coach = store.getStoreCoach();
 			int[] coachStats = coach.getStats();
 			System.out.println("\nCoach for sale:");
@@ -264,7 +322,7 @@ public class CmdLineUI implements GameManagerUI {
 		for (int i = 0; i < store.getStorePlayers().size(); i++) {
 			validInputs.add(Integer.toString(i));
 		}
-		if (store.getcoachAvailable()) {
+		if (store.getCoachAvailable()) {
 			System.out.println(store.getStorePlayers().size());
 			validInputs.add(Integer.toString(store.getStorePlayers().size()));
 		}
