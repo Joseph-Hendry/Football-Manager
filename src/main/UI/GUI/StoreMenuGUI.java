@@ -60,42 +60,42 @@ public class StoreMenuGUI extends Window {
 	private void addLabels(JFrame frame) {
 
 		// Create the windows labels
-		JLabel lblWelcomeMessage = new JLabel("Store Menu");
-		lblWelcomeMessage.setHorizontalAlignment(SwingConstants.CENTER);
-		lblWelcomeMessage.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblWelcomeMessage.setBounds(0, 10, 380, 40);
-		frame.getContentPane().add(lblWelcomeMessage);
+		JLabel titleLabel = new JLabel("Store Menu");
+		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		titleLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		titleLabel.setBounds(0, 10, 380, 40);
+		frame.getContentPane().add(titleLabel);
 
-		JLabel lblPlayersForSale = new JLabel("Players for sale:");
-		lblPlayersForSale.setBounds(10, 75, 150, 15);
-		frame.getContentPane().add(lblPlayersForSale);
+		JLabel playersLabel = new JLabel("Players for sale:");
+		playersLabel.setBounds(10, 75, 150, 15);
+		frame.getContentPane().add(playersLabel);
 		
-		JLabel lblCoachForSale = new JLabel("Coach for sale:");
-		lblCoachForSale.setBounds(10, 190, 150, 15);
-		frame.getContentPane().add(lblCoachForSale);
+		JLabel coachLabel = new JLabel("Coach for sale:");
+		coachLabel.setBounds(10, 190, 150, 15);
+		frame.getContentPane().add(coachLabel);
 		
-		JLabel lblItemsForSale = new JLabel("Items for sale:");
-		lblItemsForSale.setBounds(10, 255, 150, 15);
-		frame.getContentPane().add(lblItemsForSale);
+		JLabel itemsLabel = new JLabel("Items for sale:");
+		itemsLabel.setBounds(10, 255, 150, 15);
+		frame.getContentPane().add(itemsLabel);
 
-		JLabel lblPlayerList = new JLabel("Name       ATK MID DEF STAM   Position     Value");
-		lblPlayerList.setBounds(10, 100, 360, 14);
-		lblPlayerList.setFont(new Font("Monospaced", Font.PLAIN, 11));
-		frame.getContentPane().add(lblPlayerList);
+		JLabel playerStatsLabel = new JLabel("Name       ATK MID DEF STAM   Position     Value");
+		playerStatsLabel.setBounds(10, 100, 360, 14);
+		playerStatsLabel.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		frame.getContentPane().add(playerStatsLabel);
 
-		JLabel lblCoachList = new JLabel("Name       ATK MID DEF Value");
-		lblCoachList.setBounds(10, 215, 360, 15);
-		lblCoachList.setFont(new Font("Monospaced", Font.PLAIN, 11));
-		frame.getContentPane().add(lblCoachList);
+		JLabel coachStatsLabel = new JLabel("Name       ATK MID DEF Value");
+		coachStatsLabel.setBounds(10, 215, 360, 15);
+		coachStatsLabel.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		frame.getContentPane().add(coachStatsLabel);
 
-		JLabel lblItemsList = new JLabel("Name       ATK MID DEF Value");
-		lblItemsList.setBounds(10, 280, 360, 15);
-		lblItemsList.setFont(new Font("Monospaced", Font.PLAIN, 11));
-		frame.getContentPane().add(lblItemsList);
+		JLabel itemsStatsLabel = new JLabel("Name       ATK MID DEF Value");
+		itemsStatsLabel.setBounds(10, 280, 360, 15);
+		itemsStatsLabel.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		frame.getContentPane().add(itemsStatsLabel);
 		
-		JLabel lblNewLabel = new JLabel("Money: " + getManager().getMoney());
-		lblNewLabel.setBounds(10, 10, 150, 15);
-		frame.getContentPane().add(lblNewLabel);
+		JLabel moneyLabel = new JLabel("Money: " + getManager().getMoney());
+		moneyLabel.setBounds(10, 10, 150, 15);
+		frame.getContentPane().add(moneyLabel);
 	}
 
 	/**

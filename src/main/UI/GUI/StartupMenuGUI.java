@@ -24,17 +24,17 @@ import java.awt.event.ActionEvent;
 public class StartupMenuGUI extends Window {
 
 	// Setup JTextFields
-	private JTextField txtTeamName;
+	private JTextField teamNameTextField;
 
 	// Setup JSpinners
-	private JSpinner spnrSeasonLength;
+	private JSpinner seasonLengthSpinner;
 
 	// Setup JComboBox
-	private JComboBox<String> comboDifficulty;
+	private JComboBox<String> difficultyComboBox;
 
 	// Setup JButtons
-    private JButton btnContinue;
-	private JButton btnQuit;
+    private JButton continueButton;
+	private JButton quitButton;
 
 	/**
 	 * Create the application.
@@ -49,7 +49,7 @@ public class StartupMenuGUI extends Window {
 	 * Completes the setup of {@link GameManager}.
 	 */
 	private void setupComplete() {
-		getManager().onSetupFinish(txtTeamName.getText(), comboDifficulty.getSelectedIndex(), (int) spnrSeasonLength.getValue());
+		getManager().onSetupFinish(teamNameTextField.getText(), difficultyComboBox.getSelectedIndex(), (int) seasonLengthSpinner.getValue());
 	}
 	
 	/**
@@ -74,26 +74,26 @@ public class StartupMenuGUI extends Window {
 	private void addLabels(JFrame frame) {
 
 		// Create the windows labels
-		JLabel lblWelcomeMessage = new JLabel("Welcome To Football Manager!");
-		lblWelcomeMessage.setHorizontalAlignment(SwingConstants.CENTER);
-		lblWelcomeMessage.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblWelcomeMessage.setBounds(168, 11, 287, 43);
-		frame.getContentPane().add(lblWelcomeMessage);
+		JLabel titleLabel = new JLabel("Welcome To Football Manager!");
+		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		titleLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		titleLabel.setBounds(168, 11, 287, 43);
+		frame.getContentPane().add(titleLabel);
 		
-		JLabel lblChooseName = new JLabel("Please choose a team name (3-15 characters):");
-		lblChooseName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblChooseName.setBounds(10, 81, 347, 29);
-		frame.getContentPane().add(lblChooseName);
+		JLabel nameLabel = new JLabel("Please choose a team name (3-15 characters):");
+		nameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		nameLabel.setBounds(10, 81, 347, 29);
+		frame.getContentPane().add(nameLabel);
 		
-		JLabel lblSeasonLength = new JLabel("Choose a season length (5-15 weeks):");
-		lblSeasonLength.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblSeasonLength.setBounds(10, 134, 347, 29);
-		frame.getContentPane().add(lblSeasonLength);
+		JLabel seasonLengthLabel = new JLabel("Choose a season length (5-15 weeks):");
+		seasonLengthLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		seasonLengthLabel.setBounds(10, 134, 347, 29);
+		frame.getContentPane().add(seasonLengthLabel);
 		
-		JLabel lblChooseDifficulty = new JLabel("Choose your difficulty setting:");
-		lblChooseDifficulty.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblChooseDifficulty.setBounds(10, 190, 218, 18);
-		frame.getContentPane().add(lblChooseDifficulty);
+		JLabel difficultyLabel = new JLabel("Choose your difficulty setting:");
+		difficultyLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		difficultyLabel.setBounds(10, 190, 218, 18);
+		frame.getContentPane().add(difficultyLabel);
 	}
 
 	/**
@@ -104,25 +104,25 @@ public class StartupMenuGUI extends Window {
 	private void addInfoBoxes(JFrame frame) {
 
 		// Create the team name text field
-		txtTeamName = new JTextField();
-		txtTeamName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		txtTeamName.setText("\r\n");
-		txtTeamName.setBounds(378, 81, 218, 29);
-		frame.getContentPane().add(txtTeamName);
-		txtTeamName.setColumns(10);
+		teamNameTextField = new JTextField();
+		teamNameTextField.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		teamNameTextField.setText("\r\n");
+		teamNameTextField.setBounds(378, 81, 218, 29);
+		frame.getContentPane().add(teamNameTextField);
+		teamNameTextField.setColumns(10);
 
 		// Create the season length spinner
-		spnrSeasonLength = new JSpinner();
-		spnrSeasonLength.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		spnrSeasonLength.setModel(new SpinnerNumberModel(5, 5, 15, 1));
-		spnrSeasonLength.setBounds(378, 136, 218, 26);
-		frame.getContentPane().add(spnrSeasonLength);
+		seasonLengthSpinner = new JSpinner();
+		seasonLengthSpinner.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		seasonLengthSpinner.setModel(new SpinnerNumberModel(5, 5, 15, 1));
+		seasonLengthSpinner.setBounds(378, 136, 218, 26);
+		frame.getContentPane().add(seasonLengthSpinner);
 		
 		// Create the difficulty combo box
-		comboDifficulty = new JComboBox<String>();
-		comboDifficulty.setModel(new DefaultComboBoxModel<String>(new String[] {"Easy", "Hard"}));
-		comboDifficulty.setBounds(378, 187, 218, 29);
-		frame.getContentPane().add(comboDifficulty);
+		difficultyComboBox = new JComboBox<String>();
+		difficultyComboBox.setModel(new DefaultComboBoxModel<String>(new String[] {"Easy", "Hard"}));
+		difficultyComboBox.setBounds(378, 187, 218, 29);
+		frame.getContentPane().add(difficultyComboBox);
 	}
 
 	/**
@@ -133,22 +133,22 @@ public class StartupMenuGUI extends Window {
 	private void addButtons(JFrame frame) {
 
 		// Create the continue button
-		btnContinue = new JButton("Continue");
-		btnContinue.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnContinue.setBounds(10, 247, 294, 63);
-		frame.getContentPane().add(btnContinue);
-		btnContinue.addActionListener(new ActionListener() {
+		continueButton = new JButton("Continue");
+		continueButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		continueButton.setBounds(10, 247, 294, 63);
+		frame.getContentPane().add(continueButton);
+		continueButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setupComplete();
 			}
 		});
 		
 		// Create the quit button
-		btnQuit = new JButton("Quit\r\n");
-		btnQuit.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		btnQuit.setBounds(314, 247, 300, 63);
-		frame.getContentPane().add(btnQuit);
-		btnQuit.addActionListener(new ActionListener() {
+		quitButton = new JButton("Quit\r\n");
+		quitButton.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		quitButton.setBounds(314, 247, 300, 63);
+		frame.getContentPane().add(quitButton);
+		quitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getManager().quit();
 			}
