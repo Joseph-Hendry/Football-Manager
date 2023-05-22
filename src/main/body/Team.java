@@ -421,9 +421,7 @@ public class Team {
     public void sellPlayer(GameManager manager, Player player) throws IllegalArgumentException {
         if (player != null) {
             if (this.onTeam.contains(player)) {
-                int playerNum = this.onTeam.indexOf(player);
-                this.onTeam.set(playerNum, null);
-                manager.incMoney(player.getValue());
+                throw new IllegalArgumentException("Cannot sell player on team. Sub them out first.");
             } else if (this.onBench.contains(player)) {
                 int playerNum = this.onBench.indexOf(player);
                 this.onBench.set(playerNum, null);

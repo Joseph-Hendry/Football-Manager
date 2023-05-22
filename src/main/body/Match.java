@@ -57,13 +57,13 @@ public class Match {
                     AvailablePositions position = player.getPosition();
                     switch (position) {
                         case DEFENCE:
-                            teamStats[0] += (playerStats[0] * 0.2 + playerStats[1] * 0.2 + playerStats[2] * 0.6);
+                            teamStats[2] += (playerStats[0] * 0.2 + playerStats[1] * 0.2 + playerStats[2] * 0.6);
                             break;
                         case MIDFIELD:
                             teamStats[1] += (playerStats[0] * 0.2 + playerStats[1] * 0.6 + playerStats[2] * 0.2);
                             break;
                         case STRIKER:
-                            teamStats[2] += (playerStats[0] * 0.6 + playerStats[1] * 0.2 + playerStats[2] * 0.2);
+                            teamStats[0] += (playerStats[0] * 0.6 + playerStats[1] * 0.2 + playerStats[2] * 0.2);
                             break;
                         case GOALKEEPER:
                             teamStats[3] += (playerStats[0] * 0.3 + playerStats[1] * 0.3 + playerStats[2] * 0.4);
@@ -87,9 +87,10 @@ public class Match {
         }
 
         // Divide the stats by the number of players in each position + 1 for the coach and items (excluding goalkeeper)
-        for (int i = 0; i < 3; i++) {
-            teamStats[i] /= (formation[i] + teamItems.size() + 1);
-        }
+        teamStats[0] /= (formation[2] + teamItems.size() + 1);
+        teamStats[1] /= (formation[1] + teamItems.size() + 1);
+        teamStats[2] /= (formation[0] + teamItems.size() + 1);
+        teamStats[3] /= (formation[3] + teamItems.size() + 1);
 
         return teamStats;
     }
