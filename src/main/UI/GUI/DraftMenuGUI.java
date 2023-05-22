@@ -39,7 +39,7 @@ public class DraftMenuGUI extends Window {
     private Coach selectedCoach;
     private boolean playersValid = false;
     private boolean coachValid = false;
-    private JLabel lblMoney;
+    private JLabel moneyLabel;
     private int previousCoachValue = 0;
 
 	/**
@@ -73,37 +73,37 @@ public class DraftMenuGUI extends Window {
     private void addLabels(JFrame frame) {
 
         // Create the windows labels
-        JLabel lblDraftYourTeam = new JLabel("Draft Your Team");
-		lblDraftYourTeam.setHorizontalAlignment(SwingConstants.CENTER);
-		lblDraftYourTeam.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblDraftYourTeam.setBounds(185, 10, 200, 50);
-		frame.getContentPane().add(lblDraftYourTeam);
+        JLabel draftTeamLabel = new JLabel("Draft Your Team");
+		draftTeamLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		draftTeamLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		draftTeamLabel.setBounds(185, 10, 200, 50);
+		frame.getContentPane().add(draftTeamLabel);
 		
-		JLabel lblPickCoach = new JLabel("Pick a Coach:");
-		lblPickCoach.setBounds(360, 55, 200, 30);
-		frame.getContentPane().add(lblPickCoach);
+		JLabel coachLabel = new JLabel("Pick a Coach:");
+		coachLabel.setBounds(360, 55, 200, 30);
+		frame.getContentPane().add(coachLabel);
 
-        JLabel lblCoachList = new JLabel("Name       ATK MID DEF Value");
-		lblCoachList.setBounds(360, 85, 200, 15);
-        lblCoachList.setFont(new Font("Monospaced", Font.PLAIN, 11));
-		frame.getContentPane().add(lblCoachList);
+        JLabel coachStatsLabel = new JLabel("Name       ATK MID DEF Value");
+		coachStatsLabel.setBounds(360, 85, 200, 15);
+        coachStatsLabel.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		frame.getContentPane().add(coachStatsLabel);
 		
-		JLabel lblPickPlayers = new JLabel("Pick Players (4-3-3-1): (Hold ctrl)");
-		lblPickPlayers.setBounds(10, 55, 300, 20);
-		frame.getContentPane().add(lblPickPlayers);
+		JLabel playersLabel = new JLabel("Pick Players (4-3-3-1): (Hold ctrl)");
+		playersLabel.setBounds(10, 55, 300, 20);
+		frame.getContentPane().add(playersLabel);
 
-        JLabel lblPlayerList = new JLabel("Name       ATK MID DEF STAM   Position     Value");
-		lblPlayerList.setBounds(10, 85, 340, 15);
-        lblPlayerList.setFont(new Font("Monospaced", Font.PLAIN, 11));
-		frame.getContentPane().add(lblPlayerList);
+        JLabel playersStatsLabel = new JLabel("Name       ATK MID DEF STAM   Position     Value");
+		playersStatsLabel.setBounds(10, 85, 340, 15);
+        playersStatsLabel.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		frame.getContentPane().add(playersStatsLabel);
 
-        lblMoney = new JLabel();
-        lblMoney.setText("Money: " + getManager().getMoney());
-        lblMoney.setHorizontalAlignment(SwingConstants.CENTER);
-        lblMoney.setVerticalAlignment(SwingConstants.CENTER);
-		lblMoney.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblMoney.setBounds(360, 185, 200, 100);
-		frame.getContentPane().add(lblMoney);
+        moneyLabel = new JLabel();
+        moneyLabel.setText("Money: " + getManager().getMoney());
+        moneyLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        moneyLabel.setVerticalAlignment(SwingConstants.CENTER);
+		moneyLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		moneyLabel.setBounds(360, 185, 200, 100);
+		frame.getContentPane().add(moneyLabel);
     }
 
     /**
@@ -198,7 +198,7 @@ public class DraftMenuGUI extends Window {
         }
 
         // Update the money label
-        lblMoney.setText("Money: " + money);
+        moneyLabel.setText("Money: " + money);
 
         // Check if the players are in the correct positions
         for (int i = 0; i < selectedPlayers.size(); i++) {
@@ -231,13 +231,13 @@ public class DraftMenuGUI extends Window {
             selectedCoach = coachJList.getSelectedValue();
             previousCoachValue = selectedCoach.getValue();
             money -= selectedCoach.getValue();
-            lblMoney.setText("Money: " + money);
+            moneyLabel.setText("Money: " + money);
             coachValid = true;
             checkValid();
         } else {
             money += previousCoachValue;
             previousCoachValue = 0;
-            lblMoney.setText("Money: " + money);
+            moneyLabel.setText("Money: " + money);
             coachValid = false;
             btnStartGame.setEnabled(false);
         }

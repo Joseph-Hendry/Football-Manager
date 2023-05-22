@@ -175,7 +175,7 @@ public class GameManager {
 		// Check the difficulty is valid
 		if (difficulty == 0 || difficulty == 1) {
 			this.difficulty = difficulty;
-			this.money = 75000 - this.difficulty * 25000;
+			this.money = 8000 - this.difficulty * 1000;
 			validityChecks += 1;
 		}
 		else {
