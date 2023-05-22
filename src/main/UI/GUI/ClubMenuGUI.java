@@ -258,12 +258,12 @@ public class ClubMenuGUI extends Window{
 				JOptionPane.showMessageDialog(frame, "Please select something to rename.", "Rename", JOptionPane.ERROR_MESSAGE);
 			} else if (selectedObject.getClass() == Player.class) {
 					String newName = JOptionPane.showInputDialog(frame, "Enter the new name for the player:", "Rename Player", JOptionPane.PLAIN_MESSAGE);
-					if (newName != null) {
+					if (newName != null && newName.strip() != "") {
 						getManager().setNickname((Player) selectedObject, newName);
 					}
 				} else if (selectedObject.getClass() == Item.class) {
 					String newName = JOptionPane.showInputDialog(frame, "Enter the new name for the item:", "Rename Item", JOptionPane.PLAIN_MESSAGE);
-					if (newName != null) {
+					if (newName != null && newName.strip() != "") {
 						getManager().setItemName((Item) selectedObject, newName);
 					}
 				}

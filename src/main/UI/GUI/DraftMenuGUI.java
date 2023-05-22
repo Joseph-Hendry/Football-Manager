@@ -102,7 +102,7 @@ public class DraftMenuGUI extends Window {
         lblMoney.setHorizontalAlignment(SwingConstants.CENTER);
         lblMoney.setVerticalAlignment(SwingConstants.CENTER);
 		lblMoney.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblMoney.setBounds(360, 180, 200, 100);
+		lblMoney.setBounds(360, 185, 200, 100);
 		frame.getContentPane().add(lblMoney);
     }
 
@@ -138,7 +138,7 @@ public class DraftMenuGUI extends Window {
         // Create the coaches JList
 		coachJList = new JList<>(coachList);
         coachJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		coachJList.setBounds(360, 100, 200, 80);
+		coachJList.setBounds(360, 100, 200, 90);
         coachJList.setFont(new Font("Monospaced", Font.PLAIN, 11));
 		frame.getContentPane().add(coachJList);
         coachJList.addListSelectionListener(new ListSelectionListener() {

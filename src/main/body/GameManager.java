@@ -170,11 +170,13 @@ public class GameManager {
 	public void onSetupFinish(String teamName, int difficulty, int seasonLength) {
 		// Set up the game variables
 		this.week = 1;
+		int validityChecks = 0;
 
 		// Check the difficulty is valid
 		if (difficulty == 0 || difficulty == 1) {
 			this.difficulty = difficulty;
 			this.money = 75000 - this.difficulty * 25000;
+			validityChecks += 1;
 		}
 		else {
 			UI.showMessage("Please enter a valid difficulty.");
@@ -183,6 +185,7 @@ public class GameManager {
 		// Check the season length is valid
 		if (seasonLength >= 5 && seasonLength <= 15) {
 			this.seasonLength = seasonLength;
+			validityChecks += 1;
 		} else {
 			UI.showMessage("Please enter a season length between 5 and 15.");
 		}
@@ -191,6 +194,7 @@ public class GameManager {
 		if (teamName.strip().matches("[a-zA-Z0-9]+")) {
 			if (teamName.length() >= 3 && teamName.length() <= 15) {
 				this.teamName = teamName;
+				validityChecks += 1;
 			}
 		}
 		else {
@@ -204,7 +208,9 @@ public class GameManager {
 		this.store = Store.createStore(getRarityInt());
 
 		// Redirect to the main menu
-		UI.draftMenu();
+		if (validityChecks == 3) {
+			UI.draftMenu();
+		}
 	}
 
 	/**
