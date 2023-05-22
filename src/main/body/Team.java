@@ -285,12 +285,9 @@ public class Team {
 
  	 * @param intRarity	The int value of the rarity.
  	 * @return The string rarity.
- 	 * @throws IllegalArgumentException If the integer rarity value passed in is not within the accepted range.
  	 */
- 	public static String getStrRarity(int intRarity) throws IllegalArgumentException {
- 	if (intRarity < 0 || intRarity > 100) {
- 		throw new IllegalArgumentException("The integer rarity value must be between 0 and 100 (inclusive).");
- 	} else if (intRarity <= 50) {
+ 	public static String getStrRarity(int intRarity) {
+ 	if (intRarity <= 50) {
  		return "Bronze";
  	} else if (intRarity <= 80) {
  		return "Silver";

@@ -111,7 +111,6 @@ public class PlayMatchGUI extends Window {
 		frame.getContentPane().add(btnContinue);
 		btnContinue.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.dispose();
 				getManager().onMatchFinish();
 			}
 		});
