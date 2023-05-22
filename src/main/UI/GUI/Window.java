@@ -13,6 +13,7 @@ import java.awt.event.WindowEvent;
  * Abstract class for all the menu windows.
  */
 public abstract class Window {
+    // This code is based off the GUI tutorial example.
 
     // The frame for this window
     private JFrame frame;
