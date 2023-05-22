@@ -24,10 +24,10 @@ import main.body.Match;
 public class PlayMatchGUI extends Window {
 
 	// Setup JButton
-	private JButton btnContinue;
+	private JButton continueButton;
 
 	// Set match JLabel
-	private JLabel lblMatch;
+	private JLabel titleLabel;
 
 	// Setup JList
 	private JList<String> commentaryJList;
@@ -46,7 +46,7 @@ public class PlayMatchGUI extends Window {
 	public PlayMatchGUI(GameManager manager, Match match) {
 		super("Play Match", manager);
 		this.match = match;
-		lblMatch.setText("Match: " + getManager().getPlayerTeam().getName() + " vs " + match.getOpposingTeam().getName());
+		titleLabel.setText("Match: " + getManager().getPlayerTeam().getName() + " vs " + match.getOpposingTeam().getName());
 		startTimer();
 	}
 
@@ -71,15 +71,15 @@ public class PlayMatchGUI extends Window {
 	private void addLabels(JFrame frame) {
 
 		// Create the windows labels
-		lblMatch = new JLabel("Match");
-		lblMatch.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMatch.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblMatch.setBounds(0, 10, 470, 40);
-		frame.getContentPane().add(lblMatch);
+		titleLabel = new JLabel("Match");
+		titleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		titleLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		titleLabel.setBounds(0, 10, 470, 40);
+		frame.getContentPane().add(titleLabel);
 		
-		JLabel lblCommentary = new JLabel("Live Commentary:");
-		lblCommentary.setBounds(10, 75, 150, 15);
-		frame.getContentPane().add(lblCommentary);
+		JLabel commentaryLabel = new JLabel("Live Commentary:");
+		commentaryLabel.setBounds(10, 75, 150, 15);
+		frame.getContentPane().add(commentaryLabel);
 	}
 
 	/**
@@ -104,12 +104,12 @@ public class PlayMatchGUI extends Window {
 	private void addButtons(JFrame frame) {
 
 		// Add the continue button
-		btnContinue = new JButton("Continue");
-		btnContinue.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		btnContinue.setEnabled(false);
-		btnContinue.setBounds(10, 465, 450, 80);
-		frame.getContentPane().add(btnContinue);
-		btnContinue.addActionListener(new ActionListener() {
+		continueButton = new JButton("Continue");
+		continueButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		continueButton.setEnabled(false);
+		continueButton.setBounds(10, 465, 450, 80);
+		frame.getContentPane().add(continueButton);
+		continueButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				getManager().onMatchFinish();
 			}
@@ -131,7 +131,7 @@ public class PlayMatchGUI extends Window {
                 	commentaryJList.setModel(activeList);
                     currentIndex++;
                 } else {
-                	btnContinue.setEnabled(true);
+                	continueButton.setEnabled(true);
                     ((Timer)e.getSource()).stop();
                 }
             }

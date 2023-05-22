@@ -146,8 +146,10 @@ public class Stadium {
         // Check if any of the players are injured
         if (match != null) {
             for (Player player : playerTeam.getTeam()) {
-                if (player.isInjured() || player == null) {
-                    throw new IllegalArgumentException("You cannot play a match as one of your players is injured.");
+                if (player == null) {
+                    throw new IllegalArgumentException("You cannot play a match since your team is not full.");
+                } else if (player.isInjured()) {
+                    throw new IllegalArgumentException("You cannot play a match with an injured player.");
                 }
             }
         } else {
