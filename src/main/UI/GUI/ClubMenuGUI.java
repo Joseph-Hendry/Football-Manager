@@ -34,7 +34,7 @@ public class ClubMenuGUI extends Window{
 	private Object selectedObject;
 
 	// The JLists for the players and reserves
-	private JList<Player> listPlayers;
+	private JList<Player> playersJList;
 	private JList<Player> reservesJList;
 	private JList<Item> itemsJList;
 
@@ -69,32 +69,32 @@ public class ClubMenuGUI extends Window{
 	private void addLabels(JFrame frame) {
 
 		// Create the windows labels
-		JLabel lblTitle = new JLabel("Club Menu");
-		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblTitle.setBounds(0, 10, 750, 30);
-		frame.getContentPane().add(lblTitle);
+		JLabel TitleLabel = new JLabel("Club Menu");
+		TitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		TitleLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		TitleLabel.setBounds(0, 10, 750, 30);
+		frame.getContentPane().add(TitleLabel);
 		
-		JLabel lblTeamNameDesc = new JLabel("Team Name");
-		lblTeamNameDesc.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTeamNameDesc.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblTeamNameDesc.setBounds(10, 56, 239, 17);
-		frame.getContentPane().add(lblTeamNameDesc);
+		JLabel teamNameTitleLabel = new JLabel("Team Name");
+		teamNameTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		teamNameTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		teamNameTitleLabel.setBounds(10, 56, 239, 17);
+		frame.getContentPane().add(teamNameTitleLabel);
 
-		JLabel lblPlayerList = new JLabel("Name       ATK MID DEF STAM   Poistion     Value");
-		lblPlayerList.setBounds(10, 155, 360, 14);
-		lblPlayerList.setFont(new Font("Monospaced", Font.PLAIN, 11));
-		frame.getContentPane().add(lblPlayerList);
+		JLabel playerListLabel = new JLabel("Name       ATK MID DEF STAM   Poistion     Value");
+		playerListLabel.setBounds(10, 155, 360, 14);
+		playerListLabel.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		frame.getContentPane().add(playerListLabel);
 		
-		JLabel lblReserveList = new JLabel("Name       ATK MID DEF STAM   Poistion     Value");
-		lblReserveList.setBounds(380, 155, 360, 15);
-		lblReserveList.setFont(new Font("Monospaced", Font.PLAIN, 11));
-		frame.getContentPane().add(lblReserveList);
+		JLabel reserveListLabel = new JLabel("Name       ATK MID DEF STAM   Poistion     Value");
+		reserveListLabel.setBounds(380, 155, 360, 15);
+		reserveListLabel.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		frame.getContentPane().add(reserveListLabel);
 
-		JLabel lblItemsList = new JLabel("Name       ATK MID DEF Value");
-		lblItemsList.setBounds(380, 285, 360, 15);
-		lblItemsList.setFont(new Font("Monospaced", Font.PLAIN, 11));
-		frame.getContentPane().add(lblItemsList);
+		JLabel itemListLabel = new JLabel("Name       ATK MID DEF Value");
+		itemListLabel.setBounds(380, 285, 360, 15);
+		itemListLabel.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		frame.getContentPane().add(itemListLabel);
 
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
@@ -108,67 +108,67 @@ public class ClubMenuGUI extends Window{
 		separator_1.setBounds(485, 56, 1, 62);
 		frame.getContentPane().add(separator_1);
 		
-		JLabel lblTeamTitle = new JLabel("Team");
-		lblTeamTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTeamTitle.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTeamTitle.setBounds(10, 130, 360, 15);
-		frame.getContentPane().add(lblTeamTitle);
+		JLabel teamTitleLabel = new JLabel("Team");
+		teamTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		teamTitleLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		teamTitleLabel.setBounds(10, 130, 360, 15);
+		frame.getContentPane().add(teamTitleLabel);
 		
-		JLabel lblReserveTitle = new JLabel("Reserves (5 Max)");
-		lblReserveTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblReserveTitle.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblReserveTitle.setBounds(380, 130, 360, 15);
-		frame.getContentPane().add(lblReserveTitle);
+		JLabel reserveTitleLabel = new JLabel("Reserves (5 Max)");
+		reserveTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		reserveTitleLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		reserveTitleLabel.setBounds(380, 130, 360, 15);
+		frame.getContentPane().add(reserveTitleLabel);
 
-		JLabel lblItemsTitle = new JLabel("Items (3 Max)");
-		lblItemsTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblItemsTitle.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblItemsTitle.setBounds(380, 270, 360, 15);
-		frame.getContentPane().add(lblItemsTitle);
+		JLabel itemTitleLabel = new JLabel("Items (3 Max)");
+		itemTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		itemTitleLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		itemTitleLabel.setBounds(380, 270, 360, 15);
+		frame.getContentPane().add(itemTitleLabel);
 		
-		JLabel lblTeamMoneyDesc = new JLabel("Team Money");
-		lblTeamMoneyDesc.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTeamMoneyDesc.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblTeamMoneyDesc.setBounds(248, 56, 239, 17);
-		frame.getContentPane().add(lblTeamMoneyDesc);
+		JLabel teamMoneyTitleLabel = new JLabel("Team Money");
+		teamMoneyTitleLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		teamMoneyTitleLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		teamMoneyTitleLabel.setBounds(248, 56, 239, 17);
+		frame.getContentPane().add(teamMoneyTitleLabel);
 		
-		JLabel lblCoachDesc = new JLabel("Coach");
-		lblCoachDesc.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCoachDesc.setFont(new Font("Tahoma", Font.BOLD, 14));
-		lblCoachDesc.setBounds(485, 56, 239, 17);
-		frame.getContentPane().add(lblCoachDesc);
+		JLabel coachLabel = new JLabel("Coach");
+		coachLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		coachLabel.setFont(new Font("Tahoma", Font.BOLD, 14));
+		coachLabel.setBounds(485, 56, 239, 17);
+		frame.getContentPane().add(coachLabel);
 		
-		JLabel lblTeamName = new JLabel(getManager().getPlayerTeam().getName());
-		lblTeamName.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTeamName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTeamName.setBounds(10, 76, 239, 17);
-		frame.getContentPane().add(lblTeamName);
+		JLabel teamNameLabel = new JLabel(getManager().getPlayerTeam().getName());
+		teamNameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		teamNameLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		teamNameLabel.setBounds(10, 76, 239, 17);
+		frame.getContentPane().add(teamNameLabel);
 
 		int[] teamStats = getManager().getStadium().getPossibleMatches().get(0).getPlayerTeamStats();
-		JLabel lblTeamStats = new JLabel(String.format("ATK:%d  MID:%d  DEF:%d", teamStats[0], teamStats[1], teamStats[2]));
-		lblTeamStats.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTeamStats.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTeamStats.setBounds(10, 93, 239, 17);
-		frame.getContentPane().add(lblTeamStats);
+		JLabel teamStatsLabel = new JLabel(String.format("ATK:%d  MID:%d  DEF:%d", teamStats[0], teamStats[1], teamStats[2]));
+		teamStatsLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		teamStatsLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		teamStatsLabel.setBounds(10, 93, 239, 17);
+		frame.getContentPane().add(teamStatsLabel);
 		
-		JLabel lblTeamMoney = new JLabel("" + getManager().getMoney());
-		lblTeamMoney.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTeamMoney.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		lblTeamMoney.setBounds(248, 79, 239, 17);
-		frame.getContentPane().add(lblTeamMoney);
+		JLabel teamMoneyLabel = new JLabel("" + getManager().getMoney());
+		teamMoneyLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		teamMoneyLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		teamMoneyLabel.setBounds(248, 79, 239, 17);
+		frame.getContentPane().add(teamMoneyLabel);
 
 		// Create the coach text area
-		JTextArea textAreaCoach = new JTextArea();
+		JTextArea coachStatsLabel = new JTextArea();
 		Coach coach = getManager().getPlayerTeam().getCoach();
 		int[] coachStats = coach.getStats();
-		textAreaCoach.setBackground(UIManager.getColor("Button.background"));
-		textAreaCoach.setEditable(false);
-		textAreaCoach.setWrapStyleWord(true);
-		textAreaCoach.setLineWrap(true);
-		textAreaCoach.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		textAreaCoach.setText(String.format("Name: %s Stats: [%d %d %d] Rarity: %s Value: %s", coach.getName(), coachStats[0], coachStats[1], coachStats[2], coach.getRarity(), coach.getValue()));
-		textAreaCoach.setBounds(495, 74, 229, 44);
-		frame.getContentPane().add(textAreaCoach);
+		coachStatsLabel.setBackground(UIManager.getColor("Button.background"));
+		coachStatsLabel.setEditable(false);
+		coachStatsLabel.setWrapStyleWord(true);
+		coachStatsLabel.setLineWrap(true);
+		coachStatsLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		coachStatsLabel.setText(String.format("Name: %s Stats: [%d %d %d] Rarity: %s Value: %s", coach.getName(), coachStats[0], coachStats[1], coachStats[2], coach.getRarity(), coach.getValue()));
+		coachStatsLabel.setBounds(495, 74, 229, 44);
+		frame.getContentPane().add(coachStatsLabel);
 	}
 
 	/**
@@ -193,18 +193,18 @@ public class ClubMenuGUI extends Window{
 		}
 		
 		// Create the JList of players
-		listPlayers = new JList<>(playerList);
-		listPlayers.setLayoutOrientation(JList.VERTICAL_WRAP);
-		listPlayers.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
-		listPlayers.setVisibleRowCount(11);
-		listPlayers.setFont(new Font("Monospaced", Font.PLAIN, 11));
-		listPlayers.setToolTipText("");
-		listPlayers.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		listPlayers.setBounds(10, 180, 360, 200);
-		frame.getContentPane().add(listPlayers);
-		listPlayers.addListSelectionListener(e -> {
-			if (listPlayers.getSelectedValue() != null) {
-				selectedObject = listPlayers.getSelectedValue();
+		playersJList = new JList<>(playerList);
+		playersJList.setLayoutOrientation(JList.VERTICAL_WRAP);
+		playersJList.setBorder(new LineBorder(new Color(0, 0, 0), 1, true));
+		playersJList.setVisibleRowCount(11);
+		playersJList.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		playersJList.setToolTipText("");
+		playersJList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		playersJList.setBounds(10, 180, 360, 200);
+		frame.getContentPane().add(playersJList);
+		playersJList.addListSelectionListener(e -> {
+			if (playersJList.getSelectedValue() != null) {
+				selectedObject = playersJList.getSelectedValue();
 			}
 		});
 
@@ -276,8 +276,8 @@ public class ClubMenuGUI extends Window{
 		frame.getContentPane().add(subPlayersButton);
 		subPlayersButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (listPlayers.getSelectedValue() != null && reservesJList.getSelectedValue() != null) {
-					getManager().swapPlayers(listPlayers.getSelectedValue(), reservesJList.getSelectedValue());
+				if (playersJList.getSelectedValue() != null && reservesJList.getSelectedValue() != null) {
+					getManager().swapPlayers(playersJList.getSelectedValue(), reservesJList.getSelectedValue());
 				}
 			}
 		});	
