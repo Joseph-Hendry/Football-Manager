@@ -21,12 +21,8 @@ public class Main {
 	 * @param args The command line arguments.
 	 */
 	public static void main(String[] args) {
-		if (args.length == 0) {
-			ui = new GUI();
-			GameManager manager = new GameManager(ui);
-			manager.start();
-		} else {
-			System.out.println("Invalid arguments");
-		}
+		ui = new GUI();
+		GameManager manager = new GameManager(ui);
+		manager.start();
 	}
 }

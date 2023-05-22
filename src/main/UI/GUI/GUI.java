@@ -4,7 +4,7 @@ import main.body.GameManager;
 import main.body.Match;
 
 /**
- *  The GUI interface for th {@link GameManager}.
+ *  The GUI interface for the {@link GameManager}.
  */
 public class GUI implements GameManagerUI {
 
@@ -121,15 +121,4 @@ public class GUI implements GameManagerUI {
     public void quit() {
         window.quit();
     }
-
-    /**
-     * For testing the GUI
-     * 
-     * @param args The arguments passed.
-     */
-	public static void main(String[] args) {
-		GUI ui = new GUI();
-		GameManager manager = new GameManager(ui);
-		ui.setup(manager);
-	}
 }
