@@ -8,8 +8,6 @@ import main.body.GameManager;
 /**
  * 
  * Class where the application is executed.
- * If "cmd" is passed as a program argument the application will run on the command line,
- * otherwise the GUI is used.
  *
  */
 public class Main {
