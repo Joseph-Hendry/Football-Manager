@@ -14,14 +14,14 @@ import main.body.GameManager;
  *
  */
 public class Main {
-
+	// This code is based off the GUI tutorial example.
+	
 	/**
 	 * Main method, runs the application.
 	 * 
 	 * @param args The command line arguments. Only supports "cmd" to make it run in
 	 * the command line. Otherwise uses GUI.
 	 */
-	
 	static GameManagerUI ui;
 	
 	public static void main(String[] args) {

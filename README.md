@@ -1,4 +1,4 @@
-To build and run Football Manager from the command line:
+To build and run Football Manager from the command line (Based off of the GUI example):
 -----------------------------------------------------
 
 1. Ensure you are in the root project directory. This directory contains this README, the src and doc directories.

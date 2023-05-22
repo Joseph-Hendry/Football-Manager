@@ -9,8 +9,6 @@ import main.body.GameManager;
 import main.body.Match;
 import main.body.Team;
 
-import java.util.ArrayList; 
-
 class MatchTests {
 	static Match match;
 	static GameManager manager;
