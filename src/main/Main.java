@@ -15,13 +15,13 @@ import main.body.GameManager;
 public class Main {
 	// This code is based off the GUI tutorial example.
 	
+	static GameManagerUI ui;
+
 	/**
 	 * Main method, runs the application.
 	 * 
 	 * @param args The command line arguments.
 	 */
-	static GameManagerUI ui;
-	
 	public static void main(String[] args) {
 		if (args.length == 0) {
 			ui = new GUI();
