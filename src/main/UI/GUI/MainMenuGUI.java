@@ -64,7 +64,7 @@ public class MainMenuGUI extends Window {
 		frame.getContentPane().add(moneyLabel);
 		
 		JLabel weekLabel = new JLabel("Week: " + getManager().getWeek() + "/" + getManager().getSeasonLength());
-		weekLabel.setBounds(59, 60, 70, 15);
+		weekLabel.setBounds(59, 60, 100, 15);
 		frame.getContentPane().add(weekLabel);
 	}
 
