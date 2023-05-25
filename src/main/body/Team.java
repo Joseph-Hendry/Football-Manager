@@ -312,7 +312,17 @@ public class Team {
      * @throws IllegalArgumentException If players cannot be swapped.
      */
     public void subPlayerSwap(Player teamPlayer, Player benchPlayer) throws IllegalArgumentException {
-        if (this.onTeam.contains(teamPlayer) && this.onBench.contains(benchPlayer)) {
+        if (teamPlayer == null && benchPlayer != null) {
+            for (int i = 0; i < this.onTeam.size(); i++) {
+                if (this.onTeam.get(i) == null && benchPlayer.getPosition() == formationPosition[i]) {
+                    this.onTeam.set(i, benchPlayer);
+                    this.onBench.remove(benchPlayer);
+                    return;
+                }
+            }
+            throw new IllegalArgumentException("No empty position on team.");
+        }
+        else if (this.onTeam.contains(teamPlayer) && this.onBench.contains(benchPlayer)) {
             if (teamPlayer != null && benchPlayer != null) {
                 if (teamPlayer.getPosition() == benchPlayer.getPosition()) {
                     int teamPlayerNum = this.onTeam.indexOf(teamPlayer);

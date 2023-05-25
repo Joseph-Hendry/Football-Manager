@@ -276,8 +276,10 @@ public class ClubMenuGUI extends Window{
 		frame.getContentPane().add(subPlayersButton);
 		subPlayersButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (playersJList.getSelectedValue() != null && reservesJList.getSelectedValue() != null) {
+				if (reservesJList.getSelectedValue() != null) {
 					getManager().swapPlayers(playersJList.getSelectedValue(), reservesJList.getSelectedValue());
+				} else {
+					JOptionPane.showMessageDialog(frame, "Please select a player to substitute.", "Substitute Player", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});	
