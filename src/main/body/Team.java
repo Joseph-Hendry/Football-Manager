@@ -377,11 +377,12 @@ public class Team {
                         if (teamPlayer != null) {
                             if (teamPlayer.getPosition() == player.getPosition()) {
                                 subPlayerSwap(teamPlayer, player);
+                                manager.decMoney(player.getValue());
+                                manager.getStore().removePlayer(player);
                                 return;
                             }
                         }
                     }
-                    throw new IllegalArgumentException("Team is full");
                 } else {
                     throw new IllegalArgumentException("You do not have enough money.");
                 }
